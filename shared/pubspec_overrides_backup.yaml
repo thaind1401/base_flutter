@@ -1,0 +1,9 @@
+# me  analyzer: 6.2.0
+  dart_style: 3.1.0
+  async: 2.13.0_managed_dependency_overrides: nals_lints,analyzer,dart_style,async
+dependency_overrides:
+  nals_lints:
+    path: ../nals_lints
+  analyzer: 6.2.0
+  dart_style: 2.3.6
+  async: 2.13.0

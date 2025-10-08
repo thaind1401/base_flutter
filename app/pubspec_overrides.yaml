@@ -1,0 +1,24 @@
+# melos_managed_dependency_overrides: analyzer
+# melos_managed
+dependency_overrides:
+  async: ^2.13.0
+  dart_style: 2.3.6
+  build_runner: 2.4.14
+  injectable_generator: 2.4.1
+  injectable: 2.5.2
+  data:
+    path: ../data
+  domain:
+    path: ../domain
+  initializer:
+    path: ../initializer
+  intl: ^0.20.2
+  js: ^0.7.0
+  nals_lints:
+    path: ../nals_lints
+  resources:
+    path: ../resources
+  shared:
+    path: ../shared
+  win32: 5.5.4
+  analyzer: 6.2.0
