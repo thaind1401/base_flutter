@@ -129,8 +129,8 @@ class AppNavigatorImpl extends AppNavigator with LogMixin {
     }
 
     return useRootNavigator
-        ? _appRouter.pop<T>(result)
-        : _currentTabRouterOrRootRouter.pop<T>(result);
+        ? _appRouter.maybePop<T>(result)
+        : _currentTabRouterOrRootRouter.maybePop<T>(result);
   }
 
   @override

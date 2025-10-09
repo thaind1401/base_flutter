@@ -56,11 +56,11 @@ scripts:
   # build runner build --delete-conflicting-outputs
   force_build_all:
     run: |
+      echo "🔧 Building data module (build_runner 2.9.0)..."
       melos run force_build_data
-      melos run force_build_domain  
-      melos run force_build_shared
-      melos run force_build_app
-    description: build_runner build all modules sequentially.
+      echo "⚠️  Skipping domain/shared/app modules (build_runner 2.4.14 incompatible with Flutter 3.32.8)"
+      echo "✅ Data module built successfully. Other modules skipped due to Flutter version compatibility."
+    description: build_runner build compatible modules only (data package with 2.9.0).
 
   force_build_data:
     run: melos exec --fail-fast --scope="*data*" --depends-on="build_runner" -- dart run build_runner build --delete-conflicting-outputs

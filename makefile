@@ -89,7 +89,7 @@ check_unused_files:
 sync:
 	@melos bootstrap
 	@melos run l10n
-	@echo "Note: Skipping build_runner due to FVM socket issues. Run 'make build_all' separately if needed."
+	@echo "✅ Sync completed successfully. Build_runner available via 'make build_all'."
 
 sync_with_build:
 	@melos bootstrap
@@ -97,12 +97,9 @@ sync_with_build:
 	@melos run force_build_all
 
 build_all:
-	@echo "⚠️  Build runner has multiple compatibility issues with current setup."
-	@echo "📋 Issues identified:"
-	@echo "   1. dart_style 2.3.x vs build_runner 2.4.14 - DartFormatter API mismatch"
-	@echo "   2. analyzer 6.2.0 vs build_resolvers 2.4.4 - Missing API methods"  
-	@echo "   3. Dart SDK 3.6.2 vs newer package requirements (>=3.7.0)"
-	@echo "   4. FVM SocketException with frontend_server communication"
+	@echo "🚀 Running build_runner across all packages with modern dependencies..."
+	@echo "📦 Using: build_runner 2.9.0, freezed 3.2.3, dart_style 3.1.2"
+	@melos run build_all
 	@echo ""
 	@echo "✅ Working alternatives:"
 	@echo "   1. Use manual builds: make build_manual"

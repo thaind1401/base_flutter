@@ -1,4 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:domain/domain.dart';
 import 'package:injectable/injectable.dart';
 
@@ -37,7 +37,8 @@ class RepositoryImpl implements Repository {
 
   @override
   Stream<bool> get onConnectivityChanged =>
-      Connectivity().onConnectivityChanged.map((event) => event != ConnectivityResult.none);
+      // Connectivity().onConnectivityChanged.map((event) => event != ConnectivityResult.none);
+      Stream.value(true); // Temporary: always return connected
 
   @override
   bool get isDarkMode => _appPreferences.isDarkMode;

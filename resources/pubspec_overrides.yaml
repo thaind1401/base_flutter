@@ -1,5 +1,0 @@
-# melos_managed_dependency_overrides: analyzer
-# melos_managed
-dependency_overrides:
-  dart_style: 2.3.6
-  analyzer: 6.2.0

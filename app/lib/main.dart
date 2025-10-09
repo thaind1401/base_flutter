@@ -16,6 +16,7 @@ Future<void> _runMyApp() async {
   // await Firebase.initializeApp();
   await AppInitializer(AppConfig.getInstance()).init();
   final initialResource = await _loadInitialResource();
+  
   runApp(MyApp(initialResource: initialResource));
 }
 

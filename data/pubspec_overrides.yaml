@@ -1,19 +1,12 @@
-# melos_managed_dependency_overrides: analyzer
-# melos_managed
+# melos_managed_dependency_overrides: domain,resources,shared,js,connectivity_plus,async,build
 dependency_overrides:
-  shared:
-    path: ../shared
-  resources:
-    path: ../resources
   domain:
     path: ../domain
-  nals_lints:
-    path: ../nals_lints
-  dart_style: 2.3.6
+  resources:
+    path: ../resources
+  shared:
+    path: ../shared
   js: ^0.7.0
   connectivity_plus: ^6.1.5
   async: 2.13.0
-  build_runner: 2.4.14
-  injectable_generator: 2.4.1
-  injectable: 2.5.2
-  analyzer: 6.2.0
+  build: ^4.0.0
