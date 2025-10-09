@@ -129,7 +129,7 @@ build_data:
 build_shared:
 	@echo "🔨 Building shared module..."
 	@melos run force_build_shared || echo "❌ Build failed - try 'cd shared && dart run build_runner build'"
-# Force build all - may fail with FVM
+# Force build all modules with updated compatible versions
 force_build_all:
 	@melos run force_build_all
 
