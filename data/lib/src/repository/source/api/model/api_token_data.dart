@@ -4,7 +4,9 @@ part 'api_token_data.freezed.dart';
 part 'api_token_data.g.dart';
 
 @freezed
-class ApiTokenData with _$ApiTokenData {
+abstract class ApiTokenData with _$ApiTokenData {
+  const ApiTokenData._();
+
   const factory ApiTokenData({
     @JsonKey(name: 'access_token') String? accessToken,
     @JsonKey(name: 'refresh_token') String? refreshToken,

@@ -22,14 +22,14 @@ class LoadInitialResourceUseCase
 }
 
 @freezed
-class LoadInitialResourceInput extends BaseInput with _$LoadInitialResourceInput {
+abstract class LoadInitialResourceInput extends BaseInput with _$LoadInitialResourceInput {
   const LoadInitialResourceInput._();
 
   const factory LoadInitialResourceInput() = _LoadInitialResourceInput;
 }
 
 @freezed
-class LoadInitialResourceOutput extends BaseOutput with _$LoadInitialResourceOutput {
+abstract class LoadInitialResourceOutput extends BaseOutput with _$LoadInitialResourceOutput {
   const LoadInitialResourceOutput._();
 
   const factory LoadInitialResourceOutput({

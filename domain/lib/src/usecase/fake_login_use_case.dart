@@ -32,14 +32,14 @@ class FakeLoginUseCase extends BaseFutureUseCase<FakeLoginInput, FakeLoginOutput
 }
 
 @freezed
-class FakeLoginInput extends BaseInput with _$FakeLoginInput {
+abstract class FakeLoginInput extends BaseInput with _$FakeLoginInput {
   const FakeLoginInput._();
 
   const factory FakeLoginInput() = _FakeLoginInput;
 }
 
 @freezed
-class FakeLoginOutput extends BaseOutput with _$FakeLoginOutput {
+abstract class FakeLoginOutput extends BaseOutput with _$FakeLoginOutput {
   const FakeLoginOutput._();
 
   const factory FakeLoginOutput() = _FakeLoginOutput;

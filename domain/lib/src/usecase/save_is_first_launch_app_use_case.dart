@@ -22,7 +22,7 @@ class SaveIsFirstLaunchAppUseCase
 }
 
 @freezed
-class SaveIsFirstLaunchAppInput extends BaseInput with _$SaveIsFirstLaunchAppInput {
+abstract class SaveIsFirstLaunchAppInput extends BaseInput with _$SaveIsFirstLaunchAppInput {
   const SaveIsFirstLaunchAppInput._();
 
   const factory SaveIsFirstLaunchAppInput({
@@ -31,7 +31,7 @@ class SaveIsFirstLaunchAppInput extends BaseInput with _$SaveIsFirstLaunchAppInp
 }
 
 @freezed
-class SaveIsFirstLaunchAppOutput extends BaseOutput with _$SaveIsFirstLaunchAppOutput {
+abstract class SaveIsFirstLaunchAppOutput extends BaseOutput with _$SaveIsFirstLaunchAppOutput {
   const SaveIsFirstLaunchAppOutput._();
 
   const factory SaveIsFirstLaunchAppOutput() = _SaveIsFirstLaunchAppOutput;

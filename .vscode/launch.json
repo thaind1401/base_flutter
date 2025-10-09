@@ -96,12 +96,6 @@
             "flutterMode": "release"
         },
         {
-            "name": "nals_lints",
-            "cwd": "nals_lints",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
             "name": "resources",
             "cwd": "resources",
             "request": "launch",

@@ -5,7 +5,9 @@ part 'data_response.freezed.dart';
 part 'data_response.g.dart';
 
 @Freezed(genericArgumentFactories: true)
-class DataResponse<T> with _$DataResponse<T> {
+abstract class DataResponse<T> with _$DataResponse<T> {
+  const DataResponse._();
+  
   const factory DataResponse({
     @JsonKey(name: 'data') T? data,
     @JsonKey(name: 'meta') Meta? meta,
@@ -16,7 +18,9 @@ class DataResponse<T> with _$DataResponse<T> {
 }
 
 @Freezed(genericArgumentFactories: true)
-class DataListResponse<T> with _$DataListResponse<T> {
+abstract class DataListResponse<T> with _$DataListResponse<T> {
+  const DataListResponse._();
+  
   const factory DataListResponse({
     @JsonKey(name: 'data') List<T>? data,
     @JsonKey(name: 'meta') Meta? meta,
@@ -27,8 +31,10 @@ class DataListResponse<T> with _$DataListResponse<T> {
 }
 
 @freezed
-class Meta with _$Meta {
-  factory Meta({
+abstract class Meta with _$Meta {
+  const Meta._();
+  
+  const factory Meta({
     @JsonKey(name: 'pagy_info') PageInfo? pageInfo,
   }) = _Meta;
 
@@ -36,8 +42,10 @@ class Meta with _$Meta {
 }
 
 @freezed
-class PageInfo with _$PageInfo {
-  factory PageInfo({
+abstract class PageInfo with _$PageInfo {
+  const PageInfo._();
+  
+  const factory PageInfo({
     @JsonKey(name: 'next') int? next,
   }) = _PageInfo;
 

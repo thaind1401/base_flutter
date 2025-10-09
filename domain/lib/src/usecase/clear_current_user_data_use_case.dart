@@ -24,14 +24,14 @@ class ClearCurrentUserDataUseCase
 }
 
 @freezed
-class ClearCurrentUserDataInput extends BaseInput with _$ClearCurrentUserDataInput {
+abstract class ClearCurrentUserDataInput extends BaseInput with _$ClearCurrentUserDataInput {
   const ClearCurrentUserDataInput._();
 
   const factory ClearCurrentUserDataInput() = _ClearCurrentUserDataInput;
 }
 
 @freezed
-class ClearCurrentUserDataOutput extends BaseOutput with _$ClearCurrentUserDataOutput {
+abstract class ClearCurrentUserDataOutput extends BaseOutput with _$ClearCurrentUserDataOutput {
   const ClearCurrentUserDataOutput._();
 
   const factory ClearCurrentUserDataOutput() = _ClearCurrentUserDataOutput;

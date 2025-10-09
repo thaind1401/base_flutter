@@ -1,0 +1,1 @@
+/Users/thai.nguyen/GTS/Projects/base_flutter/app/android/app/build/intermediates/cxx/Debug/4p2z6h19/obj/x86

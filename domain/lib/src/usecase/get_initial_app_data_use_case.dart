@@ -24,14 +24,14 @@ class GetInitialAppDataUseCase
 }
 
 @freezed
-class GetInitialAppDataInput extends BaseInput with _$GetInitialAppDataInput {
+abstract class GetInitialAppDataInput extends BaseInput with _$GetInitialAppDataInput {
   const GetInitialAppDataInput._();
 
   const factory GetInitialAppDataInput() = _GetInitialAppDataInput;
 }
 
 @freezed
-class GetInitialAppDataOutput extends BaseOutput with _$GetInitialAppDataOutput {
+abstract class GetInitialAppDataOutput extends BaseOutput with _$GetInitialAppDataOutput {
   const GetInitialAppDataOutput._();
 
   const factory GetInitialAppDataOutput({

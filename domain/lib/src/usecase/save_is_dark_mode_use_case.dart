@@ -21,7 +21,7 @@ class SaveIsDarkModeUseCase extends BaseFutureUseCase<SaveIsDarkModeInput, SaveI
 }
 
 @freezed
-class SaveIsDarkModeInput extends BaseInput with _$SaveIsDarkModeInput {
+abstract class SaveIsDarkModeInput extends BaseInput with _$SaveIsDarkModeInput {
   const SaveIsDarkModeInput._();
 
   const factory SaveIsDarkModeInput({
@@ -30,7 +30,7 @@ class SaveIsDarkModeInput extends BaseInput with _$SaveIsDarkModeInput {
 }
 
 @freezed
-class SaveIsDarkModeOutput extends BaseOutput with _$SaveIsDarkModeOutput {
+abstract class SaveIsDarkModeOutput extends BaseOutput with _$SaveIsDarkModeOutput {
   const SaveIsDarkModeOutput._();
 
   const factory SaveIsDarkModeOutput() = _SaveIsDarkModeOutput;
