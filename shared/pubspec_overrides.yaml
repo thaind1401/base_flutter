@@ -1,3 +1,0 @@
-# melos_managed_dependency_overrides: async
-dependency_overrides:
-  async: 2.13.0

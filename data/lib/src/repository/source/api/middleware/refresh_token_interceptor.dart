@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared/shared.dart';
-import 'package:tuple/tuple.dart';
 
 import '../../../../../data.dart';
 
@@ -21,7 +20,7 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   final NoneAuthAppServerApiClient _noneAuthAppServerApiClient;
 
   var _isRefreshing = false;
-  final _queue = Queue<Tuple2<RequestOptions, ErrorInterceptorHandler>>();
+  final _queue = Queue<(RequestOptions, ErrorInterceptorHandler)>();
 
   @override
   int get priority => BaseInterceptor.refreshTokenPriority;
@@ -48,7 +47,7 @@ class RefreshTokenInterceptor extends BaseInterceptor {
     required RequestOptions options,
     required ErrorInterceptorHandler handler,
   }) async {
-    _queue.addLast(Tuple2(options, handler));
+    _queue.addLast((options, handler));
     if (!_isRefreshing) {
       _isRefreshing = true;
       try {
@@ -81,8 +80,8 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   Future<void> _onRefreshTokenSuccess(String newToken) async {
     await Future.wait(_queue.map(
       (requestInfo) => _requestWithNewToken(
-        options: requestInfo.item1,
-        handler: requestInfo.item2,
+        options: requestInfo.$1,
+        handler: requestInfo.$2,
         newAccessToken: newToken,
       ),
     ));
@@ -90,8 +89,8 @@ class RefreshTokenInterceptor extends BaseInterceptor {
 
   void _onRefreshTokenError(Object? error) {
     _queue.forEach((element) {
-      final options = element.item1;
-      final handler = element.item2;
+      final options = element.$1;
+      final handler = element.$2;
       handler.next(DioException(requestOptions: options, error: error));
     });
   }

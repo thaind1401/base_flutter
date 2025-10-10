@@ -4,6 +4,7 @@ dependency_overrides:
   analyzer: ^8.0.0
   data:
     path: ../data
+  device_info_plus: ^10.1.0
   domain:
     path: ../domain
   initializer:
@@ -14,4 +15,3 @@ dependency_overrides:
   shared:
     path: ../shared
   win32: ^5.8.0
-  device_info_plus: ^10.1.0

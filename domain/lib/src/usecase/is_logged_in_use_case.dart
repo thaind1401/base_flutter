@@ -6,15 +6,16 @@ import '../../domain.dart';
 part 'is_logged_in_use_case.freezed.dart';
 
 @Injectable()
-class IsLoggedInUseCase extends BaseSyncUseCase<IsLoggedInInput, IsLoggedInOutput> {
+class IsLoggedInUseCase extends BaseFutureUseCase<IsLoggedInInput, IsLoggedInOutput> {
   const IsLoggedInUseCase(this._authRepository);
 
   final AuthRepository _authRepository;
 
   @protected
   @override
-  IsLoggedInOutput buildUseCase(IsLoggedInInput input) {
-    return IsLoggedInOutput(isLoggedIn: _authRepository.isLoggedIn);
+  Future<IsLoggedInOutput> buildUseCase(IsLoggedInInput input) async {
+    final isLoggedIn = await _authRepository.isLoggedIn;
+    return IsLoggedInOutput(isLoggedIn: isLoggedIn);
   }
 }
 

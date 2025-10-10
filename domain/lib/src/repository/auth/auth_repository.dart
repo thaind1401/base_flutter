@@ -3,7 +3,7 @@ import '../base/base_repository.dart';
 
 abstract class AuthRepository extends BaseRepository {
   /// Returns true if user has valid authentication token
-  bool get isLoggedIn;
+  Future<bool> get isLoggedIn;
   
   /// Returns true if this is user's first login
   bool get isFirstLogin;

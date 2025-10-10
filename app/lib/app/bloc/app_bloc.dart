@@ -63,7 +63,7 @@ class AppBloc extends BaseBloc<AppEvent, AppState> {
   Future<void> _onAppInitiated(AppInitiated event, Emitter<AppState> emit) async {
     await runBlocCatching(
       action: () async {
-        final output = _getInitialAppDataUseCase.execute(const GetInitialAppDataInput());
+        final output = await _getInitialAppDataUseCase.execute(const GetInitialAppDataInput());
         _updateThemeSetting(output.isDarkMode);
         emit(state.copyWith(
           isDarkTheme: output.isDarkMode,

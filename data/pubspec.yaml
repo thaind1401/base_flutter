@@ -16,24 +16,20 @@ dependency_overrides:
   build: ^4.0.0
   pointycastle: ^3.9.1
 dependencies:
-  async: 2.13.0
   dartx: 1.2.0
   dio: 5.9.0
-  dio_cookie_manager: 3.3.0
   domain:
     path: ../domain
-  encrypted_shared_preferences: 3.0.1
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^9.2.2
   get_it: 8.2.0
-  gql_link: 0.5.1
+  shared_preferences: ^2.3.4
   injectable: ^2.4.0
   json_annotation: 4.9.0
-  path_provider: 2.1.5
   rxdart: 0.28.0
   shared:
     path: ../shared
-  tuple: 2.0.2
 
 
 

@@ -7,7 +7,7 @@ part 'get_initial_app_data_use_case.freezed.dart';
 
 @Injectable()
 class GetInitialAppDataUseCase
-    extends BaseSyncUseCase<GetInitialAppDataInput, GetInitialAppDataOutput> {
+    extends BaseFutureUseCase<GetInitialAppDataInput, GetInitialAppDataOutput> {
   const GetInitialAppDataUseCase(this._authRepository, this._settingsRepository);
 
   final AuthRepository _authRepository;
@@ -15,10 +15,11 @@ class GetInitialAppDataUseCase
 
   @protected
   @override
-  GetInitialAppDataOutput buildUseCase(GetInitialAppDataInput input) {
+  Future<GetInitialAppDataOutput> buildUseCase(GetInitialAppDataInput input) async {
+    final isLoggedIn = await _authRepository.isLoggedIn;
     return GetInitialAppDataOutput(
       isDarkMode: _settingsRepository.isDarkMode,
-      isLoggedIn: _authRepository.isLoggedIn,
+      isLoggedIn: isLoggedIn,
       languageCode: _settingsRepository.languageCode,
     );
   }

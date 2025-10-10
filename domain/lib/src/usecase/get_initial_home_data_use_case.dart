@@ -16,7 +16,7 @@ class GetInitialHomeDataUseCase
   @protected
   @override
   Future<GetInitialHomeDataOutput> buildUseCase(GetInitialHomeDataInput input) async {
-    final isLoggedIn = _authRepository.isLoggedIn;
+    final isLoggedIn = await _authRepository.isLoggedIn;
     final isFirstLaunchApp = _settingsRepository.isFirstLaunchApp;
 
     return GetInitialHomeDataOutput(

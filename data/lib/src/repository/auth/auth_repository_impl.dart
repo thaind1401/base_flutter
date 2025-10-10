@@ -37,7 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   // AuthRepository specific implementations
   @override
-  bool get isLoggedIn => _appPreferences.isLoggedIn;
+  Future<bool> get isLoggedIn => _appPreferences.isLoggedIn;
 
   @override
   bool get isFirstLogin => _appPreferences.isFirstLogin;

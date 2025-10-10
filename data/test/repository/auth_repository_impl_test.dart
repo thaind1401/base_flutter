@@ -31,18 +31,18 @@ void main() {
     group('test `isLoggedIn` function', () {
       test('should return true when `_appPreferences.isLoggedIn` is true', () async {
         // arrange
-        when(() => _mockAppPreferences.isLoggedIn).thenReturn(true);
+        when(() => _mockAppPreferences.isLoggedIn).thenAnswer((_) async => true);
         // act
-        final result = authRepository.isLoggedIn;
+        final result = await authRepository.isLoggedIn;
         // assert
         expect(result, true);
       });
       
       test('should return false when `_appPreferences.isLoggedIn` is false', () async {
         // arrange
-        when(() => _mockAppPreferences.isLoggedIn).thenReturn(false);
+        when(() => _mockAppPreferences.isLoggedIn).thenAnswer((_) async => false);
         // act
-        final result = authRepository.isLoggedIn;
+        final result = await authRepository.isLoggedIn;
         // assert
         expect(result, false);
       });

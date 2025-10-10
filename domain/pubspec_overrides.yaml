@@ -1,7 +1,6 @@
-# melos_managed_dependency_overrides: resources,shared,async
+# melos_managed_dependency_overrides: resources,shared
 dependency_overrides:
   resources:
     path: ../resources
   shared:
     path: ../shared
-  async: 2.13.0
