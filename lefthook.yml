@@ -1,19 +1,10 @@
-#pre-push:
-#  parallel: true
-#  commands:
-#    static_code_analysis:
-#      run: make lint
-
 pre-commit:
   parallel: true
-  scripts:
-    "pre-commit.sh":
-      runner: bash
-#  commands:
-#    format:
-#      run: make format
+  commands:
+    syntax-check:
+      run: bash ./pre-commit.sh
 
 commit-msg:
-  scripts:
-    "commit-msg.sh":
-      runner: bash
+  commands:
+    message-check:
+      run: bash ./commit-msg.sh {1}

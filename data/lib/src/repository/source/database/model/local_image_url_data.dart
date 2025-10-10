@@ -1,6 +1,3 @@
-import 'package:objectbox/objectbox.dart';
-
-@Entity()
 class LocalImageUrlData {
   LocalImageUrlData({
     this.origin,
@@ -9,8 +6,7 @@ class LocalImageUrlData {
     this.lg,
   });
 
-  @Id()
-  int? id;
+  int id = 0;
   String? origin;
   String? sm;
   String? md;

@@ -1,7 +1,7 @@
 #!/bin/zsh
 declare -A version_maps
 echo "${ZSH_VERSION}"
-parent_path=$( cd "$(dirname "${(%):-%N}")" ; pwd -P ) # nals_flutter_project_template/tools
+parent_path=$( cd "$(dirname "${(%):-%N}")" ; pwd -P ) # base_flutter_project/tools
 root_project_path=$(dirname $parent_path)
 
 # echo $root_project_path

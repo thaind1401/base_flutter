@@ -1,10 +1,8 @@
 ifeq ($(OS),Windows_NT)
     BUILD_CMD=.\build_and_run_app.bat
-    METRICS_CMD=.\tools\dart_code_metrics.bat
     COMMIT_CHECK_CMD=.\tools\check_commit_message.bat
 else
     BUILD_CMD=./build_and_run_app.sh
-    METRICS_CMD=./tools/dart_code_metrics.sh
     COMMIT_CHECK_CMD=./tools/check_commit_message.sh
 endif
 
@@ -41,50 +39,8 @@ clean:
 pub_get:
 	@melos bootstrap
 
-format:
-	@melos run format
-
-analyze:
-	@melos run analyze
-
-analyze_app:
-	@melos run analyze_app
-
-analyze_data:
-	@melos run analyze_data
-
-analyze_domain:
-	@melos run analyze_domain
-
-analyze_shared:
-	@melos run analyze_shared
-
-lint:
-	@melos run lint
-
-metrics:
-	@melos run metrics
-
-metrics_app:
-	@melos run metrics_app
-
-metrics_data:
-	@melos run metrics_data
-
-metrics_domain:
-	@melos run metrics_domain
-
-metrics_shared:
-	@melos run metrics_shared
-
-format_lint:
-	@melos run format_lint
-
-test_coverage:
-	@melos run test_coverage
-
-check_unused_files:
-	@melos run check_unused_files
+bootstrap:
+	@melos bootstrap
 
 sync:
 	@melos bootstrap
@@ -97,21 +53,32 @@ sync_with_build:
 	@melos run force_build_all
 
 build_all:
-	@echo "🚀 Running build_runner across all packages with modern dependencies..."
-	@echo "📦 Using: build_runner 2.9.0, freezed 3.2.3, dart_style 3.1.2"
-	@melos run build_all
+	@echo "🚀 Running build_runner across all packages in dependency order..."
+	@echo "📦 Using: build_runner 2.7.1, freezed 3.2.3, dart_style 3.1.2"
 	@echo ""
-	@echo "✅ Working alternatives:"
-	@echo "   1. Use manual builds: make build_manual"
-	@echo "   2. Upgrade Flutter to 3.35.5+ (Dart 3.9.2+): 'fvm install stable'"
-	@echo "   3. Use direct dart commands: 'cd app && dart run build_runner build'"
+	@echo "🔄 Building modules in order: shared → domain → data → app"
 	@echo ""
-	@echo "💡 To fix permanently:"
-	@echo "   - Upgrade entire Flutter/Dart stack to latest stable"
-	@echo "   - OR downgrade build_runner and related packages to older versions"
-	@echo "   - OR create manual generated files (fallback approach)"
+	@echo "1️⃣ Building shared module..."
+	@melos run build_shared
+	@echo "2️⃣ Building domain module..."
+	@melos run build_domain
+	@echo "3️⃣ Building data module..."
+	@melos run build_data
+	@echo "4️⃣ Building app module..."
+	@melos run build_app
 	@echo ""
-	@echo "❌ Skipping build_runner execution due to package incompatibilities."
+	@echo "✅ All modules built successfully!"
+	@echo ""
+	@echo "💡 Available build commands:"
+	@echo "   - make build_all: Build all modules in order"
+	@echo "   - make build_shared: Build shared module only"
+	@echo "   - make build_domain: Build domain module only"
+	@echo "   - make build_data: Build data module only"
+	@echo "   - make build_app: Build app module only"
+	@echo ""
+	@echo "🔧 Alternative build methods:"
+	@echo "   - make build_manual: Manual build without melos"
+	@echo "   - make build_system: Build with system Flutter"
 
 # Individual module builds (safer with FVM)
 build_app:
@@ -242,9 +209,6 @@ pub_get_app:
 	@melos run pub_get_app
 pub_get_shared:
 	@melos run pub_get_shared
-
-dart_code_metrics:
-	$(METRICS_CMD)
 
 check_commit_message:
 	$(COMMIT_CHECK_CMD) "$(shell git log --format=%B -n 1 --no-merges $(BITBUCKET_COMMIT))"

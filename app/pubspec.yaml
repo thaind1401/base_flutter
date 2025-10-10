@@ -7,7 +7,8 @@ environment:
 
 dependency_overrides:
   js: ^0.7.0
-  win32: 5.5.4
+  win32: ^5.8.0
+  device_info_plus: ^10.1.0
 dependencies:
   async: 2.13.0
   auto_route: ^10.1.2

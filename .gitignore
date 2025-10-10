@@ -45,6 +45,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Android NDK build artifacts
+app/android/app/.cxx
+
 # Web related
 lib/generated_plugin_registrant.dart
 

@@ -1,4 +1,4 @@
-# melos_managed_dependency_overrides: domain,resources,shared,js,connectivity_plus,async,build
+# melos_managed_dependency_overrides: domain,resources,shared,js,connectivity_plus,async,build,pointycastle
 dependency_overrides:
   domain:
     path: ../domain
@@ -10,3 +10,4 @@ dependency_overrides:
   connectivity_plus: ^6.1.5
   async: 2.13.0
   build: ^4.0.0
+  pointycastle: ^3.9.1

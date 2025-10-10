@@ -1,6 +1,5 @@
 /// *****
-/// Link description and example:
-/// https://bitbucket.org/nal-solutions/nmtb-nals-mobile-team-brain/pull-requests/13
+/// Custom paging scroll physics for common use cases.
 /// *****
 import 'dart:math';
 

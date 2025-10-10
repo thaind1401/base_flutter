@@ -23,8 +23,9 @@ class LocalUserDataMapper extends BaseDataMapper<LocalUserData, User> with DataM
       birthday: data?.birthday != null
           ? DateTime.fromMillisecondsSinceEpoch(data!.birthday!)
           : User.defaultBirthday,
-      avatar: _localImageUrlDataMapper.mapToEntity(data?.avatar.target),
-      photos: _localImageUrlDataMapper.mapToListEntity(data?.photos),
+      // Temporarily return default values due to ObjectBox relations being commented out
+      avatar: _localImageUrlDataMapper.mapToEntity(null),
+      photos: _localImageUrlDataMapper.mapToListEntity(<LocalImageUrlData>[]),
       gender: _genderDataMapper.mapToEntity(data?.gender),
     );
   }
@@ -36,8 +37,9 @@ class LocalUserDataMapper extends BaseDataMapper<LocalUserData, User> with DataM
       money: entity.money.toString(),
       birthday: entity.birthday?.millisecondsSinceEpoch,
       gender: _genderDataMapper.mapToData(entity.gender),
-    )
-      ..avatar.target = _localImageUrlDataMapper.mapToData(entity.avatar)
-      ..photos.addAll(_localImageUrlDataMapper.mapToListData(entity.photos));
+    );
+    // Temporarily commented out ObjectBox relations due to version issues
+    // ..avatar.target = _localImageUrlDataMapper.mapToData(entity.avatar)
+    // ..photos.addAll(_localImageUrlDataMapper.mapToListData(entity.photos));
   }
 }

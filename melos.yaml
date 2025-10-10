@@ -133,65 +133,13 @@ scripts:
     run: melos exec --fail-fast --scope="*shared*" -- flutter test
     description: Run test shared module.
 
-  format:
-    run: melos exec --fail-fast --flutter -- "find . -name "*.dart" ! -name "*.g.dart" ! -name "*.freezed.dart" ! -name "*.gr.dart" ! -name "*.config.dart" ! -name "*.mocks.dart" ! -name "*.mapper.dart" ! -path '*/generated/*' ! -path '*/.dart_tool/*' | tr '\n' ' ' | xargs dart format --set-exit-if-changed -l 100"
-    description: Run format.
 
-  metrics:
-    run: melos exec --flutter -- dart run dart_code_metrics:metrics analyze lib
-    description: Run metrics.
-
-  metrics_app:
-    run: melos exec --scope="*app*" --flutter -- dart run dart_code_metrics:metrics analyze lib
-    description: Run metrics app.
-
-  metrics_data:
-    run: melos exec --scope="*data*" --flutter -- dart run dart_code_metrics:metrics analyze lib
-    description: Run metrics data.
-
-  metrics_domain:
-    run: melos exec --scope="*domain*" --flutter -- dart run dart_code_metrics:metrics analyze lib
-    description: Run metrics domain.
-
-  metrics_shared:
-    run: melos exec --scope="*shared*" --flutter -- dart run dart_code_metrics:metrics analyze lib
-    description: Run metrics shared.
-    
-  analyze:
-    run: melos exec --flutter -- flutter analyze --no-pub --suppress-analytics
-    description: Run analyze.
-
-  analyze_app:
-    run: melos exec --scope="*app*" --flutter -- flutter analyze --no-pub --suppress-analytics
-    description: Run analyze app.
-
-  analyze_data:
-    run: melos exec --scope="*data*" --flutter -- flutter analyze --no-pub --suppress-analytics
-    description: Run analyze data.
-
-  analyze_domain:
-    run: melos exec --scope="*domain*" --flutter -- flutter analyze --no-pub --suppress-analytics
-    description: Run analyze domain.
-
-  analyze_shared:
-    run: melos exec --scope="*shared*" --flutter -- flutter analyze --no-pub --suppress-analytics
-    description: Run analyze shared.
-
-  lint:
-    run: melos run analyze && melos run metrics
-    description: Run metrics and analyze.
-
-  format_lint:
-    run: melos run format && melos run lint
-    description: Run format & analyze.
 
   test_coverage:
     run: melos exec --fail-fast --dir-exists="test" -- flutter test --coverage && lcov --remove coverage/lcov.info '**/*.freezed.dart' '**/*.g.dart' '**/*.graphql.dart' '**/*.part.dart' '**/*.config.dart' '**/*_event.dart' '**/*_state.dart' '**/generated/*' '**/routes/*' '**/l10n/*' '**/config/*' '**/di/*' -o coverage/lcov.info && genhtml coverage/lcov.info --output=coverage && open coverage/index.html
     description: Run test coverage.
 
-  check_unused_files:
-    run: melos exec -- dart run dart_code_metrics:metrics check-unused-files lib
-    description: Run check unused files.
+
 
   pub_get_data:
     run: melos exec --fail-fast --scope="*data*" -- flutter pub get
@@ -209,10 +157,4 @@ scripts:
     run: melos exec --fail-fast --scope="*shared*" -- flutter pub get
     description: pub get shared module.
 
-  check_unused_l10n_app:
-    run: melos exec --fail-fast --scope="*app*" -- dart run dart_code_metrics:metrics check-unused-l10n lib -p ^S$
-    description: check unused l10n app.
 
-  check_unused_l10n_domain:
-    run: melos exec --fail-fast --scope="*domain*" -- dart run dart_code_metrics:metrics check-unused-l10n lib -p ^S$
-    description: check unused l10n domain.

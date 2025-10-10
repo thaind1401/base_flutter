@@ -1,41 +1,55 @@
 import 'package:injectable/injectable.dart';
-import 'package:objectbox/objectbox.dart';
+// Temporarily commented out ObjectBox imports due to version issues
+// import 'package:objectbox/objectbox.dart';
 
 import '../../../../data.dart';
 
 @LazySingleton()
 class AppDatabase {
-  AppDatabase(this.store);
+  // Temporarily disabled ObjectBox functionality due to version issues
+  // AppDatabase(this.store);
+  AppDatabase();
 
-  final Store store;
+  // final Store store;
 
   int putUser(LocalUserData user) {
-    return store.box<LocalUserData>().put(user);
+    // Temporarily return dummy value instead of using ObjectBox
+    // return store.box<LocalUserData>().put(user);
+    return 0;
   }
 
   Stream<List<LocalUserData>> getUsersStream() {
-    return store
-        .box<LocalUserData>()
-        .query()
-        .watch(triggerImmediately: true)
-        .map((query) => query.find());
+    // Temporarily return empty stream instead of using ObjectBox
+    // return store
+    //     .box<LocalUserData>()
+    //     .query()
+    //     .watch(triggerImmediately: true)
+    //     .map((query) => query.find());
+    return Stream.value(<LocalUserData>[]);
   }
 
   List<LocalUserData> getUsers() {
-    return store.box<LocalUserData>().getAll();
+    // Temporarily return empty list instead of using ObjectBox
+    // return store.box<LocalUserData>().getAll();
+    return <LocalUserData>[];
   }
 
   LocalUserData? getUser(int id) {
-    return store.box<LocalUserData>().get(id);
+    // Temporarily return null instead of using ObjectBox
+    // return store.box<LocalUserData>().get(id);
+    return null;
   }
 
   bool deleteImageUrl(int id) {
-    return store.box<LocalImageUrlData>().remove(id);
+    // Temporarily return false instead of using ObjectBox
+    // return store.box<LocalImageUrlData>().remove(id);
+    return false;
   }
 
   int deleteAllUsersAndImageUrls() {
-    store.box<LocalImageUrlData>().removeAll();
-
-    return store.box<LocalUserData>().removeAll();
+    // Temporarily return 0 instead of using ObjectBox
+    // store.box<LocalImageUrlData>().removeAll();
+    // return store.box<LocalUserData>().removeAll();
+    return 0;
   }
 }

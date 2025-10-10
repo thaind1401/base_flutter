@@ -1,4 +1,4 @@
-# melos_managed_dependency_overrides: data,domain,initializer,resources,shared,js,win32
+# melos_managed_dependency_overrides: data,domain,initializer,resources,shared,js,win32,device_info_plus
 dependency_overrides:
   # Override analyzer version to make custom_lint_builder compatible
   analyzer: ^8.0.0
@@ -13,4 +13,5 @@ dependency_overrides:
     path: ../resources
   shared:
     path: ../shared
-  win32: 5.5.4
+  win32: ^5.8.0
+  device_info_plus: ^10.1.0

@@ -20,13 +20,13 @@ class UrlConstants {
   static String get appApiBaseUrl {
     switch (EnvConstants.flavor) {
       case Flavor.develop:
-        return 'http://api.dev.nals.vn/api';
+        return 'https://api.dev.example.com/api';
       case Flavor.qa:
-        return 'http://api.dev.nals.vn/api';
+        return 'https://api.qa.example.com/api';
       case Flavor.staging:
-        return 'http://api.dev.nals.vn/api';
+        return 'https://api.staging.example.com/api';
       case Flavor.production:
-        return 'http://api.dev.nals.vn/api';
+        return 'https://api.example.com/api';
     }
   }
 }

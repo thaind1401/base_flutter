@@ -140,6 +140,74 @@
             "cwd": "tools/gen_env",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "App (Develop)",
+            "cwd": "app",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "develop",
+                "--dart-define=FLAVOR=develop"
+            ]
+        },
+        {
+            "name": "App (QA)",
+            "cwd": "app",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "qa",
+                "--dart-define=FLAVOR=qa"
+            ]
+        },
+        {
+            "name": "App (Staging)",
+            "cwd": "app",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "staging",
+                "--dart-define=FLAVOR=staging"
+            ]
+        },
+        {
+            "name": "App (Production)",
+            "cwd": "app",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "production",
+                "--dart-define=FLAVOR=production"
+            ]
+        },
+        {
+            "name": "App (Develop - Profile)",
+            "cwd": "app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--flavor",
+                "develop",
+                "--dart-define=FLAVOR=develop"
+            ]
+        },
+        {
+            "name": "App (Develop - Release)",
+            "cwd": "app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "develop",
+                "--dart-define=FLAVOR=develop"
+            ]
         }
     ]
 }
