@@ -8,14 +8,14 @@ part 'save_is_first_launch_app_use_case.freezed.dart';
 @Injectable()
 class SaveIsFirstLaunchAppUseCase
     extends BaseFutureUseCase<SaveIsFirstLaunchAppInput, SaveIsFirstLaunchAppOutput> {
-  SaveIsFirstLaunchAppUseCase(this._repository);
+  SaveIsFirstLaunchAppUseCase(this._settingsRepository);
 
-  final Repository _repository;
+  final SettingsRepository _settingsRepository;
 
   @protected
   @override
   Future<SaveIsFirstLaunchAppOutput> buildUseCase(SaveIsFirstLaunchAppInput input) async {
-    await _repository.saveIsFirstLaunchApp(input.isFirstLaunchApp);
+    await _settingsRepository.saveIsFirstLaunchApp(input.isFirstLaunchApp);
 
     return const SaveIsFirstLaunchAppOutput();
   }

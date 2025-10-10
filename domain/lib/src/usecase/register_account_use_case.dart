@@ -8,14 +8,14 @@ part 'register_account_use_case.freezed.dart';
 @Injectable()
 class RegisterAccountUseCase
     extends BaseFutureUseCase<RegisterAccountInput, RegisterAccountOutput> {
-  const RegisterAccountUseCase(this._repository);
+  const RegisterAccountUseCase(this._authRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
   Future<RegisterAccountOutput> buildUseCase(RegisterAccountInput input) async {
-    await _repository.register(
+    await _authRepository.register(
       email: input.email,
       username: input.username,
       password: input.password,

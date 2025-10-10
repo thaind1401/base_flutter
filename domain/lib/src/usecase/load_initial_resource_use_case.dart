@@ -8,14 +8,14 @@ part 'load_initial_resource_use_case.freezed.dart';
 @Injectable()
 class LoadInitialResourceUseCase
     extends BaseSyncUseCase<LoadInitialResourceInput, LoadInitialResourceOutput> {
-  const LoadInitialResourceUseCase(this._repository);
+  const LoadInitialResourceUseCase(this._authRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
   LoadInitialResourceOutput buildUseCase(LoadInitialResourceInput input) {
-    final initialRoutes = [_repository.isLoggedIn ? InitialAppRoute.main : InitialAppRoute.login];
+    final initialRoutes = [_authRepository.isLoggedIn ? InitialAppRoute.main : InitialAppRoute.login];
 
     return LoadInitialResourceOutput(initialRoutes: initialRoutes);
   }

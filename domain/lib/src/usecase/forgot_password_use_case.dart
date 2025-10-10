@@ -8,9 +8,9 @@ part 'forgot_password_use_case.freezed.dart';
 
 @Injectable()
 class ForgotPasswordUseCase extends BaseFutureUseCase<ForgotPasswordInput, ForgotPasswordOutput> {
-  const ForgotPasswordUseCase(this._repository);
+  const ForgotPasswordUseCase(this._authRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
@@ -21,7 +21,7 @@ class ForgotPasswordUseCase extends BaseFutureUseCase<ForgotPasswordInput, Forgo
     if (!ValidationUtils.isValidEmail(input.email)) {
       throw const ValidationException(ValidationExceptionKind.invalidEmail);
     }
-    await _repository.forgotPassword(input.email);
+    await _authRepository.forgotPassword(input.email);
 
     return const ForgotPasswordOutput();
   }

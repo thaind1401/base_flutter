@@ -8,16 +8,16 @@ part 'clear_current_user_data_use_case.freezed.dart';
 @Injectable()
 class ClearCurrentUserDataUseCase
     extends BaseFutureUseCase<ClearCurrentUserDataInput, ClearCurrentUserDataOutput> {
-  const ClearCurrentUserDataUseCase(this._repository);
+  const ClearCurrentUserDataUseCase(this._authRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
   Future<ClearCurrentUserDataOutput> buildUseCase(
     ClearCurrentUserDataInput input,
   ) async {
-    await _repository.clearCurrentUserData();
+    await _authRepository.clearCurrentUserData();
 
     return const ClearCurrentUserDataOutput();
   }

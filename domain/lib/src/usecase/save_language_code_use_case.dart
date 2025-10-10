@@ -8,14 +8,14 @@ part 'save_language_code_use_case.freezed.dart';
 @Injectable()
 class SaveLanguageCodeUseCase
     extends BaseFutureUseCase<SaveLanguageCodeInput, SaveLanguageCodeOutput> {
-  const SaveLanguageCodeUseCase(this._repository);
+  const SaveLanguageCodeUseCase(this._settingsRepository);
 
-  final Repository _repository;
+  final SettingsRepository _settingsRepository;
 
   @protected
   @override
   Future<SaveLanguageCodeOutput> buildUseCase(SaveLanguageCodeInput input) async {
-    await _repository.saveLanguageCode(input.languageCode);
+    await _settingsRepository.saveLanguageCode(input.languageCode);
 
     return const SaveLanguageCodeOutput();
   }

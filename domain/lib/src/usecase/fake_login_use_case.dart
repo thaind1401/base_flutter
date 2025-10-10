@@ -9,10 +9,10 @@ part 'fake_login_use_case.freezed.dart';
 
 @Injectable()
 class FakeLoginUseCase extends BaseFutureUseCase<FakeLoginInput, FakeLoginOutput> {
-  const FakeLoginUseCase(this._navigator, this._repository);
+  const FakeLoginUseCase(this._navigator, this._authRepository);
 
   final AppNavigator _navigator;
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
@@ -21,7 +21,7 @@ class FakeLoginUseCase extends BaseFutureUseCase<FakeLoginInput, FakeLoginOutput
       AppPopupInfo.confirmDialog(
           message: S.current.login,
           onPressed: Func0(() async {
-            await _repository.saveAccessToken('fakeToken');
+            await _authRepository.saveAccessToken('fakeToken');
             await _navigator.replace(const AppRouteInfo.main());
           })),
       useRootNavigator: true,

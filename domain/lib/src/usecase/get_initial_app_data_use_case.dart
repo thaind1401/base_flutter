@@ -8,17 +8,18 @@ part 'get_initial_app_data_use_case.freezed.dart';
 @Injectable()
 class GetInitialAppDataUseCase
     extends BaseSyncUseCase<GetInitialAppDataInput, GetInitialAppDataOutput> {
-  const GetInitialAppDataUseCase(this._repository);
+  const GetInitialAppDataUseCase(this._authRepository, this._settingsRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
+  final SettingsRepository _settingsRepository;
 
   @protected
   @override
   GetInitialAppDataOutput buildUseCase(GetInitialAppDataInput input) {
     return GetInitialAppDataOutput(
-      isDarkMode: _repository.isDarkMode,
-      isLoggedIn: _repository.isLoggedIn,
-      languageCode: _repository.languageCode,
+      isDarkMode: _settingsRepository.isDarkMode,
+      isLoggedIn: _authRepository.isLoggedIn,
+      languageCode: _settingsRepository.languageCode,
     );
   }
 }

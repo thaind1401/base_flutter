@@ -7,14 +7,14 @@ part 'save_is_dark_mode_use_case.freezed.dart';
 
 @Injectable()
 class SaveIsDarkModeUseCase extends BaseFutureUseCase<SaveIsDarkModeInput, SaveIsDarkModeOutput> {
-  SaveIsDarkModeUseCase(this._repository);
+  SaveIsDarkModeUseCase(this._settingsRepository);
 
-  final Repository _repository;
+  final SettingsRepository _settingsRepository;
 
   @protected
   @override
   Future<SaveIsDarkModeOutput> buildUseCase(SaveIsDarkModeInput input) async {
-    await _repository.saveIsDarkMode(input.isDarkMode);
+    await _settingsRepository.saveIsDarkMode(input.isDarkMode);
 
     return const SaveIsDarkModeOutput();
   }

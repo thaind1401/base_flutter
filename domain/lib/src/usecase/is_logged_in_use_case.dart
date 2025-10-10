@@ -7,14 +7,14 @@ part 'is_logged_in_use_case.freezed.dart';
 
 @Injectable()
 class IsLoggedInUseCase extends BaseSyncUseCase<IsLoggedInInput, IsLoggedInOutput> {
-  const IsLoggedInUseCase(this._repository);
+  const IsLoggedInUseCase(this._authRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
   IsLoggedInOutput buildUseCase(IsLoggedInInput input) {
-    return IsLoggedInOutput(isLoggedIn: _repository.isLoggedIn);
+    return IsLoggedInOutput(isLoggedIn: _authRepository.isLoggedIn);
   }
 }
 

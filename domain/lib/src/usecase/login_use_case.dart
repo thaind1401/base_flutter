@@ -8,9 +8,9 @@ part 'login_use_case.freezed.dart';
 
 @Injectable()
 class LoginUseCase extends BaseFutureUseCase<LoginInput, LoginOutput> {
-  const LoginUseCase(this._repository);
+  const LoginUseCase(this._authRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
@@ -23,7 +23,7 @@ class LoginUseCase extends BaseFutureUseCase<LoginInput, LoginOutput> {
       throw const ValidationException(ValidationExceptionKind.invalidPassword);
     }
 
-    await _repository.login(email: input.email, password: input.password);
+    await _authRepository.login(email: input.email, password: input.password);
 
     return const LoginOutput();
   }

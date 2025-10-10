@@ -8,14 +8,14 @@ part 'load_more_users_use_case.freezed.dart';
 
 @Injectable()
 class LoadMoreUsersUseCase extends BaseLoadMoreUseCase<LoadMoreUsersInput, User> {
-  LoadMoreUsersUseCase(this._repository) : super(initPage: 2);
+  LoadMoreUsersUseCase(this._userRepository) : super(initPage: 2);
 
-  final Repository _repository;
+  final UserRepository _userRepository;
 
   @protected
   @override
   Future<PagedList<User>> buildUseCase(LoadMoreUsersInput input) {
-    return _repository.getUsers(
+    return _userRepository.getUsers(
       page: page,
       limit: PagingConstants.itemsPerPage,
     );

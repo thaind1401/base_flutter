@@ -8,9 +8,9 @@ part 'reset_password_use_case.freezed.dart';
 
 @Injectable()
 class ResetPasswordUseCase extends BaseFutureUseCase<ResetPasswordInput, ResetPasswordOutput> {
-  const ResetPasswordUseCase(this._repository);
+  const ResetPasswordUseCase(this._authRepository);
 
-  final Repository _repository;
+  final AuthRepository _authRepository;
 
   @protected
   @override
@@ -28,7 +28,7 @@ class ResetPasswordUseCase extends BaseFutureUseCase<ResetPasswordInput, ResetPa
       throw const ValidationException(ValidationExceptionKind.invalidEmail);
     }
 
-    await _repository.resetPassword(
+    await _authRepository.resetPassword(
       token: input.token,
       email: input.email,
       password: input.password,
