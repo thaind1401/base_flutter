@@ -14,3 +14,7 @@ key.properties
 keybase64.txt
 distribution
 /app/build
+
+# NDK build artifacts
+.cxx/
+**/.cxx/

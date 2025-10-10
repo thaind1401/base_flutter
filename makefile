@@ -15,6 +15,9 @@ update_splash:
 remove_splash:
 	cd app && flutter pub run flutter_native_splash:remove --path=splash/splash.yaml
 
+gen_assets:
+	cd app && dart run build_runner build --delete-conflicting-outputs
+
 l10n:
 	@melos run l10n
 
@@ -45,7 +48,8 @@ bootstrap:
 sync:
 	@melos bootstrap
 	@melos run l10n
-	@echo "✅ Sync completed successfully. Build_runner available via 'make build_all'."
+	@make gen_assets
+	@echo "✅ Sync completed successfully. Assets generated. Build_runner available via 'make build_all'."
 
 sync_with_build:
 	@melos bootstrap

@@ -1,109 +1,251 @@
 
-### Requirements
+# Base Flutter Project
 
-- Dart: 3.8.1
-- Flutter SDK: 3.32.8
-- Melos: 6.3.0
-- CocoaPods: 1.12.0
+A clean architecture Flutter project using FVM for version management and Melos for monorepo management.
 
-### Install
+## 📋 Requirements
 
-- WARN: If you already installed `melos` and `lefthook`, you could omit this step.
+- **Dart**: 3.8.1
+- **Flutter SDK**: 3.32.8 (managed by FVM)
+- **FVM**: 3.2.1+ (Flutter Version Management)
+- **Melos**: 6.3.0+ (Monorepo management)
+- **CocoaPods**: 1.12.0+ (iOS dependencies)
 
-- Install melos:
-    - Run `dart pub global activate melos 6.3.3`
+## 🚀 Quick Setup
 
-- Install lefthook (optional):
-    - Run `gem install lefthook`
+### 1. Install Required Tools
 
-- Export paths:
-    - Add to `.zshrc` or `.bashrc` file
-```    
-export PATH="$PATH:<path to flutter>/flutter/bin"
-export PATH="$PATH:<path to flutter>/flutter/bin/cache/dart-sdk/bin"
-export PATH="$PATH:~/.pub-cache/bin"
-export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
+```bash
+# Install FVM (Flutter Version Management)
+dart pub global activate fvm
+
+# Install Melos (Monorepo management)
+dart pub global activate melos
+
+# Install Lefthook (Git hooks - optional)
+gem install lefthook
 ```
-    - Save file `.zshrc`
-    - Run `source ~/.zshrc`
 
-### Config and run app
+### 2. Setup Flutter Version
 
-- cd to root folder of project
-- Run `make gen_env`
-- Run `make sync`
-- Run `lefthook install` (optional)
-- Run & Enjoy!
+```bash
+# Install Flutter 3.32.8 via FVM
+fvm install 3.32.8
+
+# Use Flutter 3.32.8 for this project
+fvm use 3.32.8
+```
+
+### 3. Project Setup
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd base_flutter
+
+# Generate environment configurations
+make gen_env
+
+# Bootstrap dependencies and generate code
+make sync
+
+# Install git hooks (optional)
+lefthook install
+```
+
+### 4. Run the App
+
+```bash
+# Development environment
+make run_dev
+
+# QA environment  
+make run_qa
+
+# Staging environment
+make run_stg
+
+# Production environment
+make run_prod
+```
+
+## 🛠️ Development Commands
 
 ### Build Runner (Code Generation)
 
-**⚠️ CRITICAL: Multiple Package Compatibility Issues**
+✅ **Build runner is now working correctly!** Generate code for models, routes, and dependency injection:
 
-Build runner is currently **incompatible** with this setup due to multiple version conflicts.
+```bash
+# Generate code for all modules
+make build_all
 
-#### � **Issues Identified:**
-1. **dart_style API mismatch**: `DartFormatter(languageVersion: ...)` not found in 2.3.x
-2. **analyzer version conflicts**: Missing methods in 6.2.0 vs build_resolvers 2.4.4  
-3. **Dart SDK requirements**: Current 3.6.2 vs required >=3.7.0 for newer packages
-4. **FVM SocketException**: frontend_server communication failures
+# Generate code for specific modules
+make build_app      # App module only
+make build_data     # Data module only
+make build_domain   # Domain module only
+make build_shared   # Shared module only
 
-#### ✅ **Working Solutions:**
+# Watch mode (auto-regenerate on file changes)
+make watch_all      # Watch all modules
+make watch_app      # Watch app module only
+```
 
-1. **Upgrade Flutter/Dart (Recommended)**:
-   ```bash
-   fvm install stable          # Install Flutter 3.35.5+ (Dart 3.9.2+)
-   fvm use stable             # Switch to latest stable
-   melos bootstrap            # Rebuild dependencies
-   ```
+### Building and Running
 
-2. **Manual Build Script (Current Fallback)**:
-   ```bash
-   make build_manual          # Uses manual approach, bypasses FVM
-   ```
+```bash
+# Development builds
+make build_dev_apk        # Android APK
+make build_dev_bundle     # Android App Bundle
+make build_dev_ios        # iOS build
+make build_dev_ipa        # iOS IPA
 
-3. **Direct Commands (Individual modules)**:
-   ```bash
-   cd app && dart run build_runner build --delete-conflicting-outputs
-   cd ../data && dart run build_runner build --delete-conflicting-outputs
-   # Note: These will fail with current package versions
-   ```
+# Production builds
+make build_prod_apk       # Production Android APK
+make build_prod_bundle    # Production Android App Bundle
+make build_prod_ipa       # Production iOS IPA
+```
 
-#### 🚫 **Currently Failing Commands:**
-- `make build_all` → Shows diagnostic information
-- `melos run force_build_app` → Multiple compatibility errors
-- `make sync_with_build` → Will fail at build step
+### Testing
 
-#### 💡 **Permanent Fix Options:**
-1. **Upgrade Stack**: Flutter 3.35.5+ + Dart 3.9.2+ + compatible package versions
-2. **Downgrade Packages**: Revert build_runner/analyzer to older compatible versions  
-3. **Manual Generation**: Create required generated files manually (emergency fallback)
+```bash
+# Run all tests
+make test
 
-### Known Issues
+# Run tests for specific modules
+make test_app
+make test_domain
+make test_data
+make test_shared
+```
 
-- **Package Version Hell**: dart_style, analyzer, build_runner, build_resolvers all have incompatible version requirements
-- **FVM Limitations**: SocketException persists across multiple approaches
-- **Status**: **Requires Flutter/Dart upgrade** OR **manual package version management**
+## 🏗️ Project Structure
 
-## Upgrade Flutter
-- Update Flutter version in:
-    - [README.md](#requirements)
-    - [bitbucket-pipelines.yml](bitbucket-pipelines.yml)
-    - [ci.yaml](.github/workflows/ci.yaml)
-    - [cd_develop.yaml](.github/workflows/cd_develop.yaml)
-    - [cd_qa.yaml](.github/workflows/cd_qa.yaml)
-    - [cd_staging.yaml](.github/workflows/cd_staging.yaml)
-    - [cd_production.yaml](.github/workflows/cd_production.yaml)
+```
+base_flutter/
+├── .fvm/
+│   ├── fvm_config.json      # FVM configuration
+│   └── flutter_sdk/         # Symlink to Flutter SDK
+├── app/                     # Main Flutter application
+├── data/                    # Data layer (repositories, APIs)
+├── domain/                  # Domain layer (entities, use cases)
+├── shared/                  # Shared utilities and widgets
+├── resources/               # Localization resources
+├── initializer/             # App initialization logic
+├── tools/                   # Build and utility scripts
+├── env/                     # Environment configurations
+├── melos.yaml              # Melos configuration
+└── makefile                # Build commands
+```
 
-## Upgrade Melos
-- Update Melos version in:
-    - [README.md](#requirements)
-    - [Install](#install)
-    - [bitbucket-pipelines.yml](bitbucket-pipelines.yml)
-    - [ci.yaml](.github/workflows/ci.yaml)
-    - [cd_develop.yaml](.github/workflows/cd_develop.yaml)
-    - [cd_qa.yaml](.github/workflows/cd_qa.yaml)
-    - [cd_staging.yaml](.github/workflows/cd_staging.yaml)
-    - [cd_production.yaml](.github/workflows/cd_production.yaml)
+## 🔧 FVM Integration
+
+This project uses **FVM (Flutter Version Management)** to ensure consistent Flutter versions across the team:
+
+- **Configuration**: `.fvm/fvm_config.json` specifies Flutter 3.32.8
+- **VSCode Integration**: `.vscode/settings.json` points to `.fvm/flutter_sdk`
+- **Local Setup**: Each developer's `local.properties` uses absolute paths
+- **Team Consistency**: All developers use the same Flutter version automatically
+
+### FVM Commands
+
+```bash
+# Check current Flutter version
+fvm flutter --version
+
+# List available Flutter versions
+fvm releases
+
+# Switch Flutter version (if needed)
+fvm use <version>
+
+# Install new Flutter version
+fvm install <version>
+```
+
+## 🎨 Assets Generation
+
+The project automatically generates Flutter assets using `flutter_gen`:
+
+```bash
+# Assets are generated automatically during sync
+make sync
+
+# Manual assets generation (if needed)
+make gen_assets
+
+# Update app icon
+make update_app_icon
+
+# Update splash screen
+make update_splash
+```
+
+Generated assets are available at:
+- `app/lib/resource/generated/assets.gen.dart`
+
+Usage in code:
+```dart
+import 'package:app/resource/generated/assets.gen.dart';
+
+// Use generated assets
+Assets.images.yourImage.image()
+Assets.fonts.yourFont
+```
+
+## 🔧 Troubleshooting
+
+### FVM Issues
+
+```bash
+# If FVM not working, check installation
+dart pub global activate fvm
+
+# Check current Flutter version
+fvm flutter --version
+
+# Reinstall Flutter version
+fvm install 3.32.8
+fvm use 3.32.8
+```
+
+### Build Issues
+
+```bash
+# Clean and rebuild
+make clean
+make sync
+
+# If build_runner fails
+make build_manual
+
+# Force clean and rebuild all modules
+flutter clean
+make sync
+make build_all
+```
+
+### VSCode Issues
+
+If VSCode doesn't detect the correct Flutter SDK:
+1. Open Command Palette (`Cmd+Shift+P`)
+2. Run "Flutter: Change SDK"
+3. Select `.fvm/flutter_sdk` folder
+
+## 📦 Upgrading Dependencies
+
+### Upgrade Flutter Version
+
+When upgrading Flutter, update these files:
+- `README.md` (Requirements section)
+- `.fvm/fvm_config.json`
+- CI/CD pipeline files
+
+### Upgrade Melos Version
+
+When upgrading Melos, update:
+- `README.md` (Requirements section)
+- CI/CD pipeline files
+- Global installation: `dart pub global activate melos <version>`
 
 ## License
 
