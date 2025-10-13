@@ -20,12 +20,12 @@ class RouteGuard extends AutoRouteGuard {
   }
 
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) async {
+  Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     final isLoggedIn = await _isLoggedIn();
     if (isLoggedIn) {
       resolver.next(true);
     } else {
-      router.push(const LoginRoute());
+      await router.push(const LoginRoute());
       resolver.next(false);
     }
   }
