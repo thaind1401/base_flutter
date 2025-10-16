@@ -73,7 +73,7 @@ final class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(AppColors
                           .current.primaryColor
-                          .withOpacity(state.isLoginButtonEnabled ? 1 : 0.5)),
+                          .withValues(alpha: state.isLoginButtonEnabled ? 1 : 0.5)),
                     ),
                     child: Text(
                       S.current.login,

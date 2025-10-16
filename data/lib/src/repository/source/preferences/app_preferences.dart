@@ -5,7 +5,6 @@ import 'package:shared/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../data.dart';
-import '../preferences/app_secure_storage.dart';
 
 @LazySingleton()
 class AppPreferences with LogMixin {
