@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends BasePageState<MyApp, AppBloc> {
+final class _MyAppState extends BasePageState<MyApp, AppBloc> {
   final _appRouter = GetIt.instance.get<AppRouter>();
 
   @override

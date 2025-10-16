@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../../data.dart';
 
 @LazySingleton(as: AuthRepository)
-class AuthRepositoryImpl implements AuthRepository {
+final class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(
     this._appApiService,
     this._appPreferences,

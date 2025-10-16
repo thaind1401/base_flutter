@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 /// Wrapper service for flutter_secure_storage to provide secure storage functionality
 /// Used for storing sensitive data like authentication tokens, credentials, etc.
 @LazySingleton()
-class AppSecureStorage {
+final class AppSecureStorage {
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage(
     aOptions: AndroidOptions(
       encryptedSharedPreferences: true,

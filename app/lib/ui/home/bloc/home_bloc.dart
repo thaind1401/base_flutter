@@ -8,7 +8,7 @@ import '../../../app.dart';
 import 'home.dart';
 
 @Injectable()
-class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
+final class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   HomeBloc(this._getUsersUseCase) : super(HomeState()) {
     on<HomePageInitiated>(
       _onHomePageInitiated,

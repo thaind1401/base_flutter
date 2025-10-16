@@ -6,12 +6,12 @@ import 'package:shared/shared.dart';
 
 import '../../app.dart';
 
-abstract class BaseBloc<E extends BaseBlocEvent, S extends BaseBlocState>
+base class BaseBloc<E extends BaseBlocEvent, S extends BaseBlocState>
     extends BaseBlocDelegate<E, S> with EventTransformerMixin, LogMixin {
   BaseBloc(super.initialState);
 }
 
-abstract class BaseBlocDelegate<E extends BaseBlocEvent, S extends BaseBlocState>
+base class BaseBlocDelegate<E extends BaseBlocEvent, S extends BaseBlocState>
     extends Bloc<E, S> {
   BaseBlocDelegate(super.initialState);
 
@@ -20,13 +20,13 @@ abstract class BaseBlocDelegate<E extends BaseBlocEvent, S extends BaseBlocState
   late final ExceptionHandler exceptionHandler;
   late final ExceptionMessageMapper exceptionMessageMapper;
   late final DisposeBag disposeBag;
-  late final CommonBloc _commonBloc;
+  late final ICommonBloc _commonBloc;
 
-  set commonBloc(CommonBloc commonBloc) {
+  set commonBloc(ICommonBloc commonBloc) {
     _commonBloc = commonBloc;
   }
 
-  CommonBloc get commonBloc => this is CommonBloc ? this as CommonBloc : _commonBloc;
+  ICommonBloc get commonBloc => this is ICommonBloc ? this as ICommonBloc : _commonBloc;
 
   @override
   void add(E event) {

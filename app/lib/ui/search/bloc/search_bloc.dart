@@ -7,7 +7,7 @@ import '../../../app.dart';
 import 'search.dart';
 
 @Injectable()
-class SearchBloc extends BaseBloc<SearchEvent, SearchState> {
+final class SearchBloc extends BaseBloc<SearchEvent, SearchState> {
   SearchBloc() : super(const SearchState()) {
     on<SearchPageInitiated>(
       _onSearchPageInitiated,

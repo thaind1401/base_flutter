@@ -7,8 +7,16 @@ import 'package:shared/shared.dart';
 
 import '../../../app.dart';
 
+/// Interface for testing purposes
+abstract interface class ICommonBloc {
+  void add(CommonEvent event);
+  CommonState get state;
+  Stream<CommonState> get stream;
+  Future<void> close();
+}
+
 @Injectable()
-class CommonBloc extends BaseBloc<CommonEvent, CommonState> {
+final class CommonBloc extends BaseBloc<CommonEvent, CommonState> implements ICommonBloc {
   CommonBloc(this._clearCurrentUserDataUseCase) : super(const CommonState()) {
     on<LoadingVisibilityEmitted>(
       _onLoadingVisibilityEmitted,

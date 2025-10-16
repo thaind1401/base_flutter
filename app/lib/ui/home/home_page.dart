@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class _HomePageState extends BasePageState<HomePage, HomeBloc> {
+final class _HomePageState extends BasePageState<HomePage, HomeBloc> {
   late final _pagingController = CommonPagingController<User>()..disposeBy(disposeBag);
 
   @override

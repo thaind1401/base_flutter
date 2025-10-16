@@ -7,7 +7,7 @@ import '../../../app.dart';
 import 'item_detail.dart';
 
 @Injectable()
-class ItemDetailBloc extends BaseBloc<ItemDetailEvent, ItemDetailState> {
+final class ItemDetailBloc extends BaseBloc<ItemDetailEvent, ItemDetailState> {
   ItemDetailBloc() : super(const ItemDetailState()) {
     on<ItemDetailPageInitiated>(
       _onItemDetailPageInitiated,

@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import '../../app.dart';
 
 @LazySingleton()
-class AppBloc extends BaseBloc<AppEvent, AppState> {
+final class AppBloc extends BaseBloc<AppEvent, AppState> {
   AppBloc(
     this._getInitialAppDataUseCase,
     this._saveIsDarkModeUseCase,

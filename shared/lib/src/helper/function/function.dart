@@ -1,5 +1,5 @@
 // ignore_for_file:avoid-dynamic
-class Func0<R> {
+final class Func0<R> {
   Func0(this.function);
   final R Function() function;
 
@@ -17,7 +17,7 @@ class Func0<R> {
   }
 }
 
-class Func1<P0, R> {
+final class Func1<P0, R> {
   Func1(this.function);
   final R Function(P0) function;
 
@@ -35,7 +35,7 @@ class Func1<P0, R> {
   }
 }
 
-class Func2<P0, P1, R> {
+final class Func2<P0, P1, R> {
   Func2(this.function);
   final R Function(P0, P1) function;
 
@@ -53,7 +53,7 @@ class Func2<P0, P1, R> {
   }
 }
 
-class Func3<P0, P1, P2, R> {
+final class Func3<P0, P1, P2, R> {
   Func3(this.function);
   final R Function(P0, P1, P2) function;
 
@@ -71,7 +71,7 @@ class Func3<P0, P1, P2, R> {
   }
 }
 
-class Func4<P0, P1, P2, P3, R> {
+final class Func4<P0, P1, P2, P3, R> {
   Func4(this.function);
   final R Function(P0, P1, P2, P3) function;
 
@@ -89,7 +89,7 @@ class Func4<P0, P1, P2, P3, R> {
   }
 }
 
-class Func5<P0, P1, P2, P3, P4, R> {
+final class Func5<P0, P1, P2, P3, P4, R> {
   Func5(this.function);
   final R Function(P0, P1, P2, P3, P4) function;
 
@@ -107,7 +107,7 @@ class Func5<P0, P1, P2, P3, P4, R> {
   }
 }
 
-class Func6<P0, P1, P2, P3, P4, P5, R> {
+final class Func6<P0, P1, P2, P3, P4, P5, R> {
   Func6(this.function);
   final R Function(P0, P1, P2, P3, P4, P5) function;
 
@@ -125,7 +125,7 @@ class Func6<P0, P1, P2, P3, P4, P5, R> {
   }
 }
 
-class Func7<P0, P1, P2, P3, P4, P5, P6, R> {
+final class Func7<P0, P1, P2, P3, P4, P5, P6, R> {
   Func7(this.function);
   final R Function(P0, P1, P2, P3, P4, P5, P6) function;
 
@@ -143,7 +143,7 @@ class Func7<P0, P1, P2, P3, P4, P5, P6, R> {
   }
 }
 
-class Func8<P0, P1, P2, P3, P4, P5, P6, P7, R> {
+final class Func8<P0, P1, P2, P3, P4, P5, P6, P7, R> {
   Func8(this.function);
   final R Function(P0, P1, P2, P3, P4, P5, P6, P7) function;
 
@@ -161,7 +161,7 @@ class Func8<P0, P1, P2, P3, P4, P5, P6, P7, R> {
   }
 }
 
-class Func9<P0, P1, P2, P3, P4, P5, P6, P7, P8, R> {
+final class Func9<P0, P1, P2, P3, P4, P5, P6, P7, P8, R> {
   Func9(this.function);
   final R Function(P0, P1, P2, P3, P4, P5, P6, P7, P8) function;
 

@@ -4,7 +4,7 @@ import 'package:shared/shared.dart';
 
 import '../../../app.dart';
 
-mixin EventTransformerMixin<E extends BaseBlocEvent, S extends BaseBlocState>
+base mixin EventTransformerMixin<E extends BaseBlocEvent, S extends BaseBlocState>
     on BaseBlocDelegate<E, S> {
   String get name => runtimeType.toString();
 

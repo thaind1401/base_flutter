@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../../../data.dart';
 
 @LazySingleton(as: SettingsRepository)
-class SettingsRepositoryImpl implements SettingsRepository {
+final class SettingsRepositoryImpl implements SettingsRepository {
   SettingsRepositoryImpl(
     this._appPreferences,
     this._languageCodeDataMapper,

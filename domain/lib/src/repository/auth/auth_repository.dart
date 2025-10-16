@@ -1,7 +1,7 @@
 import '../../../domain.dart';
 import '../base/base_repository.dart';
 
-abstract class AuthRepository extends BaseRepository {
+abstract interface class AuthRepository extends BaseRepository {
   /// Returns true if user has valid authentication token
   Future<bool> get isLoggedIn;
   

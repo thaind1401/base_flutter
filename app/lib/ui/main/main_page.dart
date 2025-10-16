@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
   }
 }
 
-class _MainPageState extends BasePageState<MainPage, MainBloc> {
+final class _MainPageState extends BasePageState<MainPage, MainBloc> {
   final _bottomBarKey = GlobalKey();
 
   @override

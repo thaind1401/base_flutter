@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
   }
 }
 
-class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
+final class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
   @override
   Widget buildPage(BuildContext context) {
     return CommonScaffold(

@@ -8,7 +8,7 @@ import '../../../app.dart';
 import 'my_page.dart';
 
 @Injectable()
-class MyPageBloc extends BaseBloc<MyPageEvent, MyPageState> {
+final class MyPageBloc extends BaseBloc<MyPageEvent, MyPageState> {
   MyPageBloc(this._logoutUseCase) : super(const MyPageState()) {
     on<LogoutButtonPressed>(
       _onLogoutButtonPressed,

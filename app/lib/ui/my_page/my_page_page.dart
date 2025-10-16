@@ -17,7 +17,7 @@ class MyPagePage extends StatefulWidget {
   }
 }
 
-class _MyPagePageState extends BasePageState<MyPagePage, MyPageBloc> {
+final class _MyPagePageState extends BasePageState<MyPagePage, MyPageBloc> {
   @override
   Widget buildPage(BuildContext context) {
     return CommonScaffold(

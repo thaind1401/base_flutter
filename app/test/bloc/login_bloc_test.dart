@@ -14,7 +14,7 @@ class MockLoginUseCase extends Mock implements LoginUseCase {}
 
 class MockFakeLoginUseCase extends Mock implements FakeLoginUseCase {}
 
-class MockCommonBloc extends Mock implements CommonBloc {}
+class MockCommonBloc extends Mock implements ICommonBloc {}
 
 class MockExceptionMessageMapper extends Mock implements ExceptionMessageMapper {}
 

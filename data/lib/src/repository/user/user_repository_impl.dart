@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../../../data.dart';
 
 @LazySingleton(as: UserRepository)
-class UserRepositoryImpl implements UserRepository {
+final class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(
     this._appApiService,
     this._appDatabase,

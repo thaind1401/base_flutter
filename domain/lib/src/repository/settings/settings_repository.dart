@@ -1,7 +1,7 @@
 import '../../../domain.dart';
 import '../base/base_repository.dart';
 
-abstract class SettingsRepository extends BaseRepository {
+abstract interface class SettingsRepository extends BaseRepository {
   /// Returns true if dark mode is enabled
   bool get isDarkMode;
   

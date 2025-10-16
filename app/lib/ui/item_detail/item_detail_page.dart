@@ -20,7 +20,7 @@ class ItemDetailPage extends StatefulWidget {
   }
 }
 
-class _ItemDetailPageState extends BasePageState<ItemDetailPage, ItemDetailBloc> {
+final class _ItemDetailPageState extends BasePageState<ItemDetailPage, ItemDetailBloc> {
   @override
   Widget buildPage(BuildContext context) {
     return Scaffold(

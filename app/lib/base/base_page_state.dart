@@ -7,10 +7,10 @@ import 'package:shared/shared.dart';
 
 import '../app.dart';
 
-abstract class BasePageState<T extends StatefulWidget, B extends BaseBloc>
+abstract base class BasePageState<T extends StatefulWidget, B extends BaseBloc>
     extends BasePageStateDelegate<T, B> with LogMixin {}
 
-abstract class BasePageStateDelegate<T extends StatefulWidget, B extends BaseBloc> extends State<T>
+abstract base class BasePageStateDelegate<T extends StatefulWidget, B extends BaseBloc> extends State<T>
     implements ExceptionHandlerListener {
   late final AppNavigator navigator = GetIt.instance.get<AppNavigator>();
   late final AppBloc appBloc = GetIt.instance.get<AppBloc>();

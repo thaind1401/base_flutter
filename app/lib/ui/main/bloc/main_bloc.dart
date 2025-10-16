@@ -7,7 +7,7 @@ import '../../../app.dart';
 import 'main.dart';
 
 @Injectable()
-class MainBloc extends BaseBloc<MainEvent, MainState> {
+final class MainBloc extends BaseBloc<MainEvent, MainState> {
   MainBloc() : super(const MainState()) {
     on<MainPageInitiated>(
       _onMainPageInitiated,
