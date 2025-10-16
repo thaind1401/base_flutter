@@ -10,5 +10,6 @@ abstract class PreferenceUserData with _$PreferenceUserData {
     @JsonKey(name: 'email') required String email,
   }) = _PreferenceUserData;
 
-  factory PreferenceUserData.fromJson(Map<String, dynamic> json) => _$PreferenceUserDataFromJson(json);
+  factory PreferenceUserData.fromJson(Map<String, dynamic> json) =>
+      _$PreferenceUserDataFromJson(json);
 }

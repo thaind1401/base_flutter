@@ -79,8 +79,9 @@ class CommonDialog extends StatelessWidget {
               onPressed: e.onPressed?.function,
               child: Text(
                 e.text ?? S.current.ok,
-                style:
-                    e.isDefault ? AppTextStyles.s14w400Secondary() : AppTextStyles.s14w400Primary(),
+                style: e.isDefault
+                    ? AppTextStyles.s14w400Secondary()
+                    : AppTextStyles.s14w400Primary(),
               ),
             ),
           )

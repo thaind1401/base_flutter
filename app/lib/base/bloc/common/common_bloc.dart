@@ -16,7 +16,8 @@ abstract interface class ICommonBloc {
 }
 
 @Injectable()
-final class CommonBloc extends BaseBloc<CommonEvent, CommonState> implements ICommonBloc {
+final class CommonBloc extends BaseBloc<CommonEvent, CommonState>
+    implements ICommonBloc {
   CommonBloc(this._clearCurrentUserDataUseCase) : super(const CommonState()) {
     on<LoadingVisibilityEmitted>(
       _onLoadingVisibilityEmitted,
@@ -43,14 +44,18 @@ final class CommonBloc extends BaseBloc<CommonEvent, CommonState> implements ICo
     emit(state.copyWith(
       isLoading: state.loadingCount == 0 && event.isLoading
           ? true
-          : state.loadingCount == 1 && !event.isLoading || state.loadingCount <= 0
+          : state.loadingCount == 1 && !event.isLoading ||
+                  state.loadingCount <= 0
               ? false
               : state.isLoading,
-      loadingCount: event.isLoading ? state.loadingCount.plus(1) : state.loadingCount.minus(1),
+      loadingCount: event.isLoading
+          ? state.loadingCount.plus(1)
+          : state.loadingCount.minus(1),
     ));
   }
 
-  FutureOr<void> _onExceptionEmitted(ExceptionEmitted event, Emitter<CommonState> emit) {
+  FutureOr<void> _onExceptionEmitted(
+      ExceptionEmitted event, Emitter<CommonState> emit) {
     emit(state.copyWith(appExceptionWrapper: event.appExceptionWrapper));
   }
 
@@ -60,7 +65,8 @@ final class CommonBloc extends BaseBloc<CommonEvent, CommonState> implements ICo
   ) {
     return runBlocCatching(
       action: () async {
-        await _clearCurrentUserDataUseCase.execute(const ClearCurrentUserDataInput());
+        await _clearCurrentUserDataUseCase
+            .execute(const ClearCurrentUserDataInput());
         await navigator.replace(const AppRouteInfo.login());
       },
     );

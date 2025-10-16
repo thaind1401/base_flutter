@@ -27,7 +27,8 @@ class AppColors {
     secondaryColor: Color.fromARGB(255, 62, 62, 70),
     primaryTextColor: Color.fromARGB(255, 62, 62, 70),
     secondaryTextColor: Color.fromARGB(255, 166, 168, 254),
-    primaryGradient: LinearGradient(colors: [Color(0xFFFFFFFF), Color(0xFFFE6C30)]),
+    primaryGradient:
+        LinearGradient(colors: [Color(0xFFFFFFFF), Color(0xFFFE6C30)]),
   );
 
   static const darkThemeColor = AppColors(
@@ -35,7 +36,8 @@ class AppColors {
     secondaryColor: Color.fromARGB(255, 166, 168, 254),
     primaryTextColor: Color.fromARGB(255, 166, 168, 254),
     secondaryTextColor: Color.fromARGB(255, 62, 62, 70),
-    primaryGradient: LinearGradient(colors: [Color(0xFFFFFFFF), Color(0xFFFE6C30)]),
+    primaryGradient:
+        LinearGradient(colors: [Color(0xFFFFFFFF), Color(0xFFFE6C30)]),
   );
 
   static AppColors of(BuildContext context) {

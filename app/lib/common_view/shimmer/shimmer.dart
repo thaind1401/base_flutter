@@ -39,7 +39,8 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
         stops: _shimmerGradient.stops,
         begin: _shimmerGradient.begin,
         end: _shimmerGradient.end,
-        transform: _SlidingGradientTransform(slidePercent: _shimmerController.value),
+        transform:
+            _SlidingGradientTransform(slidePercent: _shimmerController.value),
       );
 
   bool get isSized => (context.findRenderObject() as RenderBox).hasSize;

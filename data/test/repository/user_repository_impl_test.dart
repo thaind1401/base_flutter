@@ -11,12 +11,16 @@ class MockApiUserDataMapper extends Mock implements ApiUserDataMapper {}
 
 class MockLocalUserDataMapper extends Mock implements LocalUserDataMapper {}
 
+class MockConnectivityService extends Mock
+    implements ConnectivityServiceInterface {}
+
 void main() {
   late UserRepository userRepository;
   final _mockAppApiService = MockAppApiService();
   final _mockAppDatabase = MockAppDatabase();
   final _mockApiUserDataMapper = MockApiUserDataMapper();
   final _mockLocalUserDataMapper = MockLocalUserDataMapper();
+  final _mockConnectivityService = MockConnectivityService();
 
   setUp(() {
     userRepository = UserRepositoryImpl(
@@ -24,6 +28,7 @@ void main() {
       _mockAppDatabase,
       _mockApiUserDataMapper,
       _mockLocalUserDataMapper,
+      _mockConnectivityService,
     );
   });
 

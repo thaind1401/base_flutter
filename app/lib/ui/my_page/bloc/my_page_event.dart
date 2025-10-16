@@ -9,7 +9,8 @@ abstract class MyPageEvent extends BaseBlocEvent {
 }
 
 @freezed
-abstract class MyPagePageInitiated extends MyPageEvent with _$MyPagePageInitiated {
+abstract class MyPagePageInitiated extends MyPageEvent
+    with _$MyPagePageInitiated {
   const MyPagePageInitiated._();
   const factory MyPagePageInitiated({
     required int id,
@@ -17,7 +18,8 @@ abstract class MyPagePageInitiated extends MyPageEvent with _$MyPagePageInitiate
 }
 
 @freezed
-abstract class LogoutButtonPressed extends MyPageEvent with _$LogoutButtonPressed {
+abstract class LogoutButtonPressed extends MyPageEvent
+    with _$LogoutButtonPressed {
   const LogoutButtonPressed._();
   const factory LogoutButtonPressed() = _LogoutButtonPressed;
 }

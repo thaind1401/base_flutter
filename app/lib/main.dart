@@ -16,7 +16,7 @@ Future<void> _runMyApp() async {
   // await Firebase.initializeApp();
   await AppInitializer(AppConfig.getInstance()).init();
   final initialResource = await _loadInitialResource();
-  
+
   runApp(MyApp(initialResource: initialResource));
 }
 
@@ -28,8 +28,9 @@ void _reportError(Object error, StackTrace stackTrace) {
 
 Future<LoadInitialResourceOutput> _loadInitialResource() async {
   final result = runCatching(
-    action: () =>
-        GetIt.instance.get<LoadInitialResourceUseCase>().execute(const LoadInitialResourceInput()),
+    action: () => GetIt.instance
+        .get<LoadInitialResourceUseCase>()
+        .execute(const LoadInitialResourceInput()),
   );
 
   return result.when(

@@ -7,8 +7,10 @@ abstract class BaseLoadMoreUseCase<Input extends BaseInput, Output>
   BaseLoadMoreUseCase({
     this.initPage = PagingConstants.initialPage,
     this.initOffset = 0,
-  })  : _output = LoadMoreOutput<Output>(data: <Output>[], page: initPage, offset: initOffset),
-        _oldOutput = LoadMoreOutput<Output>(data: <Output>[], page: initPage, offset: initOffset);
+  })  : _output = LoadMoreOutput<Output>(
+            data: <Output>[], page: initPage, offset: initOffset),
+        _oldOutput = LoadMoreOutput<Output>(
+            data: <Output>[], page: initPage, offset: initOffset);
 
   final int initPage;
   final int initOffset;
@@ -19,10 +21,12 @@ abstract class BaseLoadMoreUseCase<Input extends BaseInput, Output>
   int get page => _output.page;
   int get offset => _output.offset;
 
-  Future<LoadMoreOutput<Output>> execute(Input input, bool isInitialLoad) async {
+  Future<LoadMoreOutput<Output>> execute(
+      Input input, bool isInitialLoad) async {
     try {
       if (isInitialLoad) {
-        _output = LoadMoreOutput<Output>(data: <Output>[], page: initPage, offset: initOffset);
+        _output = LoadMoreOutput<Output>(
+            data: <Output>[], page: initPage, offset: initOffset);
       }
       if (LogConfig.enableLogUseCaseInput) {
         logD(

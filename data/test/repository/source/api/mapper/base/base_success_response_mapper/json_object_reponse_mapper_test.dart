@@ -4,7 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('test `map` function', () {
     group('should return correct T when using valid data', () {
-      test('should return correct MockData2 when response is MockData2', () async {
+      test('should return correct MockData2 when response is MockData2',
+          () async {
         // arrange
         final validResponse = {
           'mock_data': {

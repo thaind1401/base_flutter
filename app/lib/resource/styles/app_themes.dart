@@ -29,7 +29,8 @@ extension ThemeDataExtensions on ThemeData {
   }
 
   AppColors get appColor {
-    return _appColorMap[AppThemeSetting.currentAppThemeType] ?? AppColors.defaultAppColor;
+    return _appColorMap[AppThemeSetting.currentAppThemeType] ??
+        AppColors.defaultAppColor;
   }
 }
 

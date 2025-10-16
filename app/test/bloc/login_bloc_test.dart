@@ -16,7 +16,8 @@ class MockFakeLoginUseCase extends Mock implements FakeLoginUseCase {}
 
 class MockCommonBloc extends Mock implements ICommonBloc {}
 
-class MockExceptionMessageMapper extends Mock implements ExceptionMessageMapper {}
+class MockExceptionMessageMapper extends Mock
+    implements ExceptionMessageMapper {}
 
 void main() {
   group('LoginBloc', () {
@@ -44,8 +45,8 @@ void main() {
         when(() => _navigator.replace(const AppRouteInfo.main()))
             .thenAnswer((_) => Future.value(true));
 
-        when(() =>
-                _loginUseCase.execute(const LoginInput(email: inputEmail, password: inputPassword)))
+        when(() => _loginUseCase.execute(
+                const LoginInput(email: inputEmail, password: inputPassword)))
             .thenAnswer((_) => Future.value(const LoginOutput()));
       },
       build: () => bloc,
@@ -56,7 +57,10 @@ void main() {
       },
       expect: () => <LoginState>[
         const LoginState(email: inputEmail),
-        const LoginState(email: inputEmail, password: inputPassword, isLoginButtonEnabled: true),
+        const LoginState(
+            email: inputEmail,
+            password: inputPassword,
+            isLoginButtonEnabled: true),
       ],
       verify: (_) {
         verify(() => _navigator.replace(const AppRouteInfo.main())).called(1);
@@ -70,8 +74,8 @@ void main() {
     blocTest<LoginBloc, LoginState>(
       'login failed',
       setUp: () {
-        when(() =>
-                _loginUseCase.execute(const LoginInput(email: inputEmail, password: inputPassword)))
+        when(() => _loginUseCase.execute(
+                const LoginInput(email: inputEmail, password: inputPassword)))
             .thenThrow(validationError);
         when(() => _exceptionMessageMapper.map(validationError))
             .thenReturn(validationError.toString());
@@ -84,7 +88,10 @@ void main() {
       },
       expect: () => <LoginState>[
         const LoginState(email: inputEmail),
-        const LoginState(email: inputEmail, password: inputPassword, isLoginButtonEnabled: true),
+        const LoginState(
+            email: inputEmail,
+            password: inputPassword,
+            isLoginButtonEnabled: true),
         LoginState(
           email: inputEmail,
           password: inputPassword,

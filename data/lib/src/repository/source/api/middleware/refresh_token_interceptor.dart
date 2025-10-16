@@ -65,7 +65,8 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   Future<String> _refreshToken() async {
     _isRefreshing = true;
     final refreshToken = await appPreferences.refreshToken;
-    final refreshTokenResponse = await refreshTokenService.refreshToken(refreshToken);
+    final refreshTokenResponse =
+        await refreshTokenService.refreshToken(refreshToken);
     await Future.wait(
       [
         appPreferences.saveAccessToken(

@@ -5,17 +5,23 @@ import 'package:mocktail/mocktail.dart';
 
 class MockAppPreferences extends Mock implements AppPreferences {}
 
-class MockLanguageCodeDataMapper extends Mock implements LanguageCodeDataMapper {}
+class MockLanguageCodeDataMapper extends Mock
+    implements LanguageCodeDataMapper {}
+
+class MockConnectivityService extends Mock
+    implements ConnectivityServiceInterface {}
 
 void main() {
   late SettingsRepository settingsRepository;
   final _mockAppPreferences = MockAppPreferences();
   final _mockLanguageCodeDataMapper = MockLanguageCodeDataMapper();
+  final _mockConnectivityService = MockConnectivityService();
 
   setUp(() {
     settingsRepository = SettingsRepositoryImpl(
       _mockAppPreferences,
       _mockLanguageCodeDataMapper,
+      _mockConnectivityService,
     );
   });
 

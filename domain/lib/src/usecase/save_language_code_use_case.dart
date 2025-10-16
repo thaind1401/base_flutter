@@ -14,7 +14,8 @@ class SaveLanguageCodeUseCase
 
   @protected
   @override
-  Future<SaveLanguageCodeOutput> buildUseCase(SaveLanguageCodeInput input) async {
+  Future<SaveLanguageCodeOutput> buildUseCase(
+      SaveLanguageCodeInput input) async {
     await _settingsRepository.saveLanguageCode(input.languageCode);
 
     return const SaveLanguageCodeOutput();
@@ -22,7 +23,8 @@ class SaveLanguageCodeUseCase
 }
 
 @freezed
-abstract class SaveLanguageCodeInput extends BaseInput with _$SaveLanguageCodeInput {
+abstract class SaveLanguageCodeInput extends BaseInput
+    with _$SaveLanguageCodeInput {
   const SaveLanguageCodeInput._();
 
   const factory SaveLanguageCodeInput({
@@ -31,7 +33,8 @@ abstract class SaveLanguageCodeInput extends BaseInput with _$SaveLanguageCodeIn
 }
 
 @freezed
-abstract class SaveLanguageCodeOutput extends BaseOutput with _$SaveLanguageCodeOutput {
+abstract class SaveLanguageCodeOutput extends BaseOutput
+    with _$SaveLanguageCodeOutput {
   const SaveLanguageCodeOutput._();
 
   const factory SaveLanguageCodeOutput() = _SaveLanguageCodeOutput;

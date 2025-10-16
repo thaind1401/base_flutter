@@ -12,5 +12,6 @@ abstract class ApiTokenData with _$ApiTokenData {
     @JsonKey(name: 'refresh_token') String? refreshToken,
   }) = _ApiTokenData;
 
-  factory ApiTokenData.fromJson(Map<String, dynamic> json) => _$ApiTokenDataFromJson(json);
+  factory ApiTokenData.fromJson(Map<String, dynamic> json) =>
+      _$ApiTokenDataFromJson(json);
 }

@@ -3,7 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('test `fromJson` function', () {
-    test('should return correct ApiUserData when using correct response', () async {
+    test('should return correct ApiUserData when using correct response',
+        () async {
       // arrange
       final validResponse = {
         'uid': 100,

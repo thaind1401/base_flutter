@@ -6,7 +6,8 @@ import '../../domain.dart';
 part 'is_logged_in_use_case.freezed.dart';
 
 @Injectable()
-class IsLoggedInUseCase extends BaseFutureUseCase<IsLoggedInInput, IsLoggedInOutput> {
+class IsLoggedInUseCase
+    extends BaseFutureUseCase<IsLoggedInInput, IsLoggedInOutput> {
   const IsLoggedInUseCase(this._authRepository);
 
   final AuthRepository _authRepository;

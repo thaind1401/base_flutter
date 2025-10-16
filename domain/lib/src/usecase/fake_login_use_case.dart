@@ -8,7 +8,8 @@ import '../../../domain.dart';
 part 'fake_login_use_case.freezed.dart';
 
 @Injectable()
-class FakeLoginUseCase extends BaseFutureUseCase<FakeLoginInput, FakeLoginOutput> {
+class FakeLoginUseCase
+    extends BaseFutureUseCase<FakeLoginInput, FakeLoginOutput> {
   const FakeLoginUseCase(this._navigator, this._authRepository);
 
   final AppNavigator _navigator;

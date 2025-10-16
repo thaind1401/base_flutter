@@ -5,7 +5,8 @@ import 'package:shared/shared.dart';
 import '../../../../../data.dart';
 
 @Injectable()
-class LocalUserDataMapper extends BaseDataMapper<LocalUserData, User> with DataMapperMixin {
+class LocalUserDataMapper extends BaseDataMapper<LocalUserData, User>
+    with DataMapperMixin {
   LocalUserDataMapper(
     this._genderDataMapper,
     this._localImageUrlDataMapper,

@@ -19,7 +19,11 @@ class LocalUserData {
 
   @override
   int get hashCode {
-    return id.hashCode ^ email.hashCode ^ money.hashCode ^ gender.hashCode ^ birthday.hashCode;
+    return id.hashCode ^
+        email.hashCode ^
+        money.hashCode ^
+        gender.hashCode ^
+        birthday.hashCode;
   }
 
   @override

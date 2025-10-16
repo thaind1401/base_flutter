@@ -6,7 +6,8 @@ import '../../domain.dart';
 part 'save_is_dark_mode_use_case.freezed.dart';
 
 @Injectable()
-class SaveIsDarkModeUseCase extends BaseFutureUseCase<SaveIsDarkModeInput, SaveIsDarkModeOutput> {
+class SaveIsDarkModeUseCase
+    extends BaseFutureUseCase<SaveIsDarkModeInput, SaveIsDarkModeOutput> {
   SaveIsDarkModeUseCase(this._settingsRepository);
 
   final SettingsRepository _settingsRepository;
@@ -21,7 +22,8 @@ class SaveIsDarkModeUseCase extends BaseFutureUseCase<SaveIsDarkModeInput, SaveI
 }
 
 @freezed
-abstract class SaveIsDarkModeInput extends BaseInput with _$SaveIsDarkModeInput {
+abstract class SaveIsDarkModeInput extends BaseInput
+    with _$SaveIsDarkModeInput {
   const SaveIsDarkModeInput._();
 
   const factory SaveIsDarkModeInput({
@@ -30,7 +32,8 @@ abstract class SaveIsDarkModeInput extends BaseInput with _$SaveIsDarkModeInput 
 }
 
 @freezed
-abstract class SaveIsDarkModeOutput extends BaseOutput with _$SaveIsDarkModeOutput {
+abstract class SaveIsDarkModeOutput extends BaseOutput
+    with _$SaveIsDarkModeOutput {
   const SaveIsDarkModeOutput._();
 
   const factory SaveIsDarkModeOutput() = _SaveIsDarkModeOutput;

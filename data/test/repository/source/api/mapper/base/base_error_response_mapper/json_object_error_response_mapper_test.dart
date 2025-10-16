@@ -10,7 +10,8 @@ void main() {
   });
 
   group('test `map` function', () {
-    test('should return correct ServerError when using valid data response', () async {
+    test('should return correct ServerError when using valid data response',
+        () async {
       // arrange
       final errorResponse = {
         'error': {
@@ -30,7 +31,8 @@ void main() {
       expect(result, expected);
     });
 
-    test('should return correct ServerError when some JSON keys are incorrect', () async {
+    test('should return correct ServerError when some JSON keys are incorrect',
+        () async {
       // arrange
       final errorResponse = {
         'error': {
@@ -63,7 +65,8 @@ void main() {
       },
     );
 
-    test('should thow RemoteException.decodeError when using invalid data type', () async {
+    test('should thow RemoteException.decodeError when using invalid data type',
+        () async {
       // arrange
       final errorResponse = {
         'error': {

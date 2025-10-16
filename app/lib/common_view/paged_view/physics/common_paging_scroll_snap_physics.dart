@@ -39,7 +39,8 @@ class CommonPagingScrollSnapPhysics extends ScrollPhysics {
   }
 
   @override
-  Simulation? createBallisticSimulation(ScrollMetrics position, double velocity) {
+  Simulation? createBallisticSimulation(
+      ScrollMetrics position, double velocity) {
     if ((velocity <= 0.0 && position.pixels <= position.minScrollExtent) ||
         (velocity >= 0.0 && position.pixels >= position.maxScrollExtent)) {
       return super.createBallisticSimulation(position, velocity);
@@ -51,7 +52,8 @@ class CommonPagingScrollSnapPhysics extends ScrollPhysics {
       pixels: null,
       viewportDimension: null,
       axisDirection: AxisDirection.down,
-      devicePixelRatio: WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio,
+      devicePixelRatio: WidgetsBinding
+          .instance.platformDispatcher.views.first.devicePixelRatio,
     ));
     final double target = _getTargetPixels(position, tolerance, velocity);
 
@@ -114,7 +116,8 @@ class CommonPagingScrollSnapPhysics extends ScrollPhysics {
   }
 
   /// Caltulator target pixels
-  double _getTargetPixels(ScrollMetrics position, Tolerance tolerance, double velocity) {
+  double _getTargetPixels(
+      ScrollMetrics position, Tolerance tolerance, double velocity) {
     double page = _getPage(position);
     if (velocity < -tolerance.velocity) {
       page -= 0.5;

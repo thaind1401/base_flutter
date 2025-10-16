@@ -14,7 +14,11 @@ class LocalImageUrlData {
 
   @override
   int get hashCode {
-    return id.hashCode ^ origin.hashCode ^ sm.hashCode ^ md.hashCode ^ lg.hashCode;
+    return id.hashCode ^
+        origin.hashCode ^
+        sm.hashCode ^
+        md.hashCode ^
+        lg.hashCode;
   }
 
   @override

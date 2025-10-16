@@ -9,7 +9,8 @@ abstract class ItemDetailEvent extends BaseBlocEvent {
 }
 
 @freezed
-abstract class ItemDetailPageInitiated extends ItemDetailEvent with _$ItemDetailPageInitiated {
+abstract class ItemDetailPageInitiated extends ItemDetailEvent
+    with _$ItemDetailPageInitiated {
   const ItemDetailPageInitiated._();
   const factory ItemDetailPageInitiated({
     required int id,

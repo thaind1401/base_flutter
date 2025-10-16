@@ -45,7 +45,8 @@ abstract class BaseSuccessResponseMapper<I extends Object, O extends Object> {
     } on RemoteException catch (_) {
       rethrow;
     } catch (e) {
-      throw RemoteException(kind: RemoteExceptionKind.decodeError, rootException: e);
+      throw RemoteException(
+          kind: RemoteExceptionKind.decodeError, rootException: e);
     }
   }
 

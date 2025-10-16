@@ -21,7 +21,7 @@ final class AppSecureStorage {
   );
 
   /// Stores a key-value pair securely
-  /// 
+  ///
   /// [key] - The key to store the value under
   /// [value] - The value to store securely
   Future<void> write({
@@ -32,7 +32,7 @@ final class AppSecureStorage {
   }
 
   /// Reads a value from secure storage
-  /// 
+  ///
   /// [key] - The key to read the value for
   /// Returns the stored value or null if not found
   Future<String?> read({required String key}) async {
@@ -40,7 +40,7 @@ final class AppSecureStorage {
   }
 
   /// Deletes a specific key-value pair from secure storage
-  /// 
+  ///
   /// [key] - The key to delete
   Future<void> delete({required String key}) async {
     await _secureStorage.delete(key: key);
@@ -53,7 +53,7 @@ final class AppSecureStorage {
   }
 
   /// Checks if a key exists in secure storage
-  /// 
+  ///
   /// [key] - The key to check for existence
   /// Returns true if the key exists, false otherwise
   Future<bool> containsKey({required String key}) async {

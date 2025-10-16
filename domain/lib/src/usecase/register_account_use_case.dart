@@ -27,7 +27,8 @@ class RegisterAccountUseCase
 }
 
 @freezed
-abstract class RegisterAccountInput extends BaseInput with _$RegisterAccountInput {
+abstract class RegisterAccountInput extends BaseInput
+    with _$RegisterAccountInput {
   const RegisterAccountInput._();
 
   const factory RegisterAccountInput({
@@ -39,7 +40,8 @@ abstract class RegisterAccountInput extends BaseInput with _$RegisterAccountInpu
 }
 
 @freezed
-abstract class RegisterAccountOutput extends BaseOutput with _$RegisterAccountOutput {
+abstract class RegisterAccountOutput extends BaseOutput
+    with _$RegisterAccountOutput {
   const RegisterAccountOutput._();
 
   const factory RegisterAccountOutput() = _RegisterAccountOutput;

@@ -8,8 +8,10 @@ enum RestMethod { get, post, put, patch, delete }
 class RestApiClient {
   RestApiClient({
     required this.dio,
-    this.errorResponseMapperType = ApiClientDefaultSetting.defaultErrorResponseMapperType,
-    this.successResponseMapperType = ApiClientDefaultSetting.defaultSuccessResponseMapperType,
+    this.errorResponseMapperType =
+        ApiClientDefaultSetting.defaultErrorResponseMapperType,
+    this.successResponseMapperType =
+        ApiClientDefaultSetting.defaultSuccessResponseMapperType,
   });
 
   final SuccessResponseMapperType successResponseMapperType;

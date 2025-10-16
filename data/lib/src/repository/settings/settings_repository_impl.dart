@@ -8,20 +8,23 @@ final class SettingsRepositoryImpl implements SettingsRepository {
   SettingsRepositoryImpl(
     this._appPreferences,
     this._languageCodeDataMapper,
+    this._connectivityService,
   );
 
   final AppPreferences _appPreferences;
   final LanguageCodeDataMapper _languageCodeDataMapper;
+  final ConnectivityServiceInterface _connectivityService;
 
   // BaseRepository implementations
   @override
   String get repositoryName => 'SettingsRepository';
 
   @override
-  bool get isConnected => true; // Settings usually work offline
+  Future<bool> get isConnected => _connectivityService.isConnected;
 
   @override
-  Stream<bool> get onConnectivityChanged => Stream.value(true);
+  Stream<bool> get onConnectivityChanged =>
+      _connectivityService.onConnectivityChanged;
 
   @override
   Future<void> clearCache() async {
@@ -32,19 +35,19 @@ final class SettingsRepositoryImpl implements SettingsRepository {
   // SettingsRepository specific implementations
   @override
   bool get isDarkMode => _appPreferences.isDarkMode;
-  
+
   @override
   bool get isFirstLaunchApp => _appPreferences.isFirstLaunchApp;
-  
+
   @override
   LanguageCode get languageCode =>
       _languageCodeDataMapper.mapToEntity(_appPreferences.languageCode);
-  
+
   @override
   String get deviceToken => _appPreferences.deviceToken;
 
   @override
-  Future<bool> saveIsDarkMode(bool isDarkMode) => 
+  Future<bool> saveIsDarkMode(bool isDarkMode) =>
       _appPreferences.saveIsDarkMode(isDarkMode);
 
   @override
@@ -60,6 +63,6 @@ final class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<bool> saveDeviceToken(String token) => 
+  Future<bool> saveDeviceToken(String token) =>
       _appPreferences.saveDeviceToken(token);
 }

@@ -9,7 +9,8 @@ import 'login.dart';
 
 @Injectable()
 final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
-  LoginBloc(this._loginUseCase, this._fakeLoginUseCase) : super(const LoginState()) {
+  LoginBloc(this._loginUseCase, this._fakeLoginUseCase)
+      : super(const LoginState()) {
     on<EmailTextFieldChanged>(
       _onEmailTextFieldChanged,
       transformer: distinct(),
@@ -43,7 +44,8 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     return email.isNotEmpty && password.isNotEmpty;
   }
 
-  void _onEmailTextFieldChanged(EmailTextFieldChanged event, Emitter<LoginState> emit) {
+  void _onEmailTextFieldChanged(
+      EmailTextFieldChanged event, Emitter<LoginState> emit) {
     emit(state.copyWith(
       email: event.email,
       isLoginButtonEnabled: _isLoginButtonEnabled(event.email, state.password),
@@ -51,7 +53,8 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     ));
   }
 
-  void _onPasswordTextFieldChanged(PasswordTextFieldChanged event, Emitter<LoginState> emit) {
+  void _onPasswordTextFieldChanged(
+      PasswordTextFieldChanged event, Emitter<LoginState> emit) {
     emit(state.copyWith(
       password: event.password,
       isLoginButtonEnabled: _isLoginButtonEnabled(state.email, event.password),
@@ -59,10 +62,12 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     ));
   }
 
-  FutureOr<void> _onLoginButtonPressed(LoginButtonPressed event, Emitter<LoginState> emit) {
+  FutureOr<void> _onLoginButtonPressed(
+      LoginButtonPressed event, Emitter<LoginState> emit) {
     return runBlocCatching(
       action: () async {
-        await _loginUseCase.execute(LoginInput(email: state.email, password: state.password));
+        await _loginUseCase
+            .execute(LoginInput(email: state.email, password: state.password));
         await navigator.replace(const AppRouteInfo.main());
       },
       handleError: false,

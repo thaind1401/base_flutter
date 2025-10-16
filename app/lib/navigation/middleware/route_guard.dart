@@ -20,7 +20,8 @@ class RouteGuard extends AutoRouteGuard {
   }
 
   @override
-  Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
+  Future<void> onNavigation(
+      NavigationResolver resolver, StackRouter router) async {
     final isLoggedIn = await _isLoggedIn();
     if (isLoggedIn) {
       resolver.next(true);

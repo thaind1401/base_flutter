@@ -36,7 +36,9 @@ void main() {
         },
       );
 
-      test('should return correct DataResponse<MockData> when using valid MockData data', () {
+      test(
+          'should return correct DataResponse<MockData> when using valid MockData data',
+          () {
         // arrange
         final validResponse = {
           'data': {
@@ -58,7 +60,9 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return correct DataResponse<String> when using valid String data', () {
+      test(
+          'should return correct DataResponse<String> when using valid String data',
+          () {
         // arrange
         final validResponse = {
           'data': 'a',
@@ -77,7 +81,8 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return correct DataResponse<int> when using valid int data', () {
+      test('should return correct DataResponse<int> when using valid int data',
+          () {
         // arrange
         final validResponse = {
           'data': 1,
@@ -96,7 +101,8 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return default DataResponse<MockData> when `data` is null', () {
+      test('should return default DataResponse<MockData> when `data` is null',
+          () {
         // arrange
         final validResponse = {
           'data': null,
@@ -142,14 +148,17 @@ void main() {
 
             final result = DataJsonObjectResponseMapper<MockData>().map(
               response: invalidResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             );
 
             expect(result, expected);
           },
         );
 
-        test('should return default DataResponse<MockData> when all JSON keys are incorrect', () {
+        test(
+            'should return default DataResponse<MockData> when all JSON keys are incorrect',
+            () {
           final invalidResponse = {
             'data': {
               'uuid': 1, // incorrect key
@@ -186,7 +195,8 @@ void main() {
 
             final result = DataJsonObjectResponseMapper<MockData>().map(
               response: validResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             );
 
             expect(result, expected);
@@ -195,7 +205,9 @@ void main() {
       },
     );
 
-    group('should throw RemoteException.decodeError when using incorrect data type', () {
+    group(
+        'should throw RemoteException.decodeError when using incorrect data type',
+        () {
       test(
         'should throw RemoteException.decodeError when both type of `uid` and type of `email` are incorrect',
         () async {
@@ -209,7 +221,8 @@ void main() {
           expect(
             () => DataJsonObjectResponseMapper<MockData>().map(
               response: invalidResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             ),
             throwsA(
               isA<RemoteException>().having(
@@ -237,7 +250,8 @@ void main() {
           expect(
             () => DataJsonObjectResponseMapper<MockData>().map(
               response: invalidResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             ),
             throwsA(
               isA<RemoteException>().having(

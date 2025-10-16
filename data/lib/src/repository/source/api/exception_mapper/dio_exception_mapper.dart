@@ -32,7 +32,8 @@ class DioExceptionMapper extends ExceptionMapper<RemoteException> {
 
           /// server-defined error
           if (exception.response?.data != null) {
-            final serverError = _errorResponseMapper.map(exception.response!.data!);
+            final serverError =
+                _errorResponseMapper.map(exception.response!.data!);
 
             return RemoteException(
               kind: RemoteExceptionKind.serverDefined,
@@ -52,10 +53,12 @@ class DioExceptionMapper extends ExceptionMapper<RemoteException> {
             rootException: exception,
           );
         case DioExceptionType.connectionError:
-          return RemoteException(kind: RemoteExceptionKind.network, rootException: exception);
+          return RemoteException(
+              kind: RemoteExceptionKind.network, rootException: exception);
         case DioExceptionType.unknown:
           if (exception.error is SocketException) {
-            return RemoteException(kind: RemoteExceptionKind.network, rootException: exception);
+            return RemoteException(
+                kind: RemoteExceptionKind.network, rootException: exception);
           }
 
           if (exception.error is RemoteException) {
@@ -64,6 +67,7 @@ class DioExceptionMapper extends ExceptionMapper<RemoteException> {
       }
     }
 
-    return RemoteException(kind: RemoteExceptionKind.unknown, rootException: exception);
+    return RemoteException(
+        kind: RemoteExceptionKind.unknown, rootException: exception);
   }
 }

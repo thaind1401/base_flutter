@@ -4,7 +4,8 @@ import 'package:shared/shared.dart';
 
 void main() {
   group('test `map` function', () {
-    group('should return correct DataListResponse<T> when using valid data', () {
+    group('should return correct DataListResponse<T> when using valid data',
+        () {
       test(
         'should return correct DataListResponse<MockData2> when using valid MockData2 data',
         () async {
@@ -42,7 +43,9 @@ void main() {
         },
       );
 
-      test('should return correct DataListResponse<MockData> when using valid MockData data', () {
+      test(
+          'should return correct DataListResponse<MockData> when using valid MockData data',
+          () {
         // arrange
         final validResponse = {
           'data': [
@@ -73,7 +76,9 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return correct DataListResponse<String> when using valid String data', () {
+      test(
+          'should return correct DataListResponse<String> when using valid String data',
+          () {
         // arrange
         final validResponse = {
           'data': ['valid string data'],
@@ -94,7 +99,9 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return correct DataListResponse<int> when using valid int data', () {
+      test(
+          'should return correct DataListResponse<int> when using valid int data',
+          () {
         // arrange
         final validResponse = {
           'data': [1],
@@ -115,7 +122,9 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return default DataListResponse<MockData> when `data` is null', () {
+      test(
+          'should return default DataListResponse<MockData> when `data` is null',
+          () {
         // arrange
         final validResponse = {
           'data': null,
@@ -167,7 +176,8 @@ void main() {
             // act
             final result = DataJsonArrayResponseMapper<MockData>().map(
               response: invalidResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             );
 
             // assert
@@ -194,7 +204,8 @@ void main() {
             // act
             final result = DataJsonArrayResponseMapper<MockData>().map(
               response: invalidResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             );
 
             // assert
@@ -216,12 +227,14 @@ void main() {
             };
 
             // ignore:variable_type_mismatch
-            const expected = DataListResponse<MockData>(data: [MockData(email: 'e@gmail.com')]);
+            const expected = DataListResponse<MockData>(
+                data: [MockData(email: 'e@gmail.com')]);
 
             // act
             final result = DataJsonArrayResponseMapper<MockData>().map(
               response: validResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             );
 
             // assert
@@ -231,7 +244,9 @@ void main() {
       },
     );
 
-    group('should throw RemoteException.decodeError when using incorrect data type', () {
+    group(
+        'should throw RemoteException.decodeError when using incorrect data type',
+        () {
       test(
         'should throw RemoteException.decodeError when both type of `uid` and type of `email` are incorrect',
         () async {
@@ -248,7 +263,8 @@ void main() {
           expect(
             () => DataJsonArrayResponseMapper<MockData>().map(
               response: invalidResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             ),
             throwsA(
               isA<RemoteException>().having(
@@ -276,7 +292,8 @@ void main() {
           expect(
             () => DataJsonArrayResponseMapper<MockData>().map(
               response: invalidResponse,
-              decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+              decoder: (json) =>
+                  MockData.fromJson(json as Map<String, dynamic>),
             ),
             throwsA(
               isA<RemoteException>().having(

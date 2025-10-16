@@ -14,7 +14,8 @@ abstract class MockData with _$MockData {
     @JsonKey(name: 'email') String? email,
   }) = _MockData;
 
-  factory MockData.fromJson(Map<String, dynamic> json) => _$MockDataFromJson(json);
+  factory MockData.fromJson(Map<String, dynamic> json) =>
+      _$MockDataFromJson(json);
 }
 
 @freezed
@@ -25,5 +26,6 @@ abstract class MockData2 with _$MockData2 {
     @JsonKey(name: 'mock_data') MockData? mockData,
   }) = _MockData2;
 
-  factory MockData2.fromJson(Map<String, dynamic> json) => _$MockData2FromJson(json);
+  factory MockData2.fromJson(Map<String, dynamic> json) =>
+      _$MockData2FromJson(json);
 }

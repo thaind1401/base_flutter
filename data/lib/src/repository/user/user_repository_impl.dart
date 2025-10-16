@@ -10,22 +10,25 @@ final class UserRepositoryImpl implements UserRepository {
     this._appDatabase,
     this._userDataMapper,
     this._localUserDataMapper,
+    this._connectivityService,
   );
 
   final AppApiService _appApiService;
   final AppDatabase _appDatabase;
   final ApiUserDataMapper _userDataMapper;
   final LocalUserDataMapper _localUserDataMapper;
+  final ConnectivityServiceInterface _connectivityService;
 
   // BaseRepository implementations
   @override
   String get repositoryName => 'UserRepository';
 
   @override
-  bool get isConnected => true; // TODO: Implement real connectivity check
+  Future<bool> get isConnected => _connectivityService.isConnected;
 
   @override
-  Stream<bool> get onConnectivityChanged => Stream.value(true);
+  Stream<bool> get onConnectivityChanged =>
+      _connectivityService.onConnectivityChanged;
 
   @override
   Future<void> clearCache() async {

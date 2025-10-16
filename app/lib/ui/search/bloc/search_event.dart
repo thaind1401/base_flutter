@@ -9,7 +9,8 @@ abstract class SearchEvent extends BaseBlocEvent {
 }
 
 @freezed
-abstract class SearchPageInitiated extends SearchEvent with _$SearchPageInitiated {
+abstract class SearchPageInitiated extends SearchEvent
+    with _$SearchPageInitiated {
   const SearchPageInitiated._();
   const factory SearchPageInitiated({
     required String id,

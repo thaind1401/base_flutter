@@ -7,7 +7,8 @@ import '../../../domain.dart';
 part 'load_more_users_use_case.freezed.dart';
 
 @Injectable()
-class LoadMoreUsersUseCase extends BaseLoadMoreUseCase<LoadMoreUsersInput, User> {
+class LoadMoreUsersUseCase
+    extends BaseLoadMoreUseCase<LoadMoreUsersInput, User> {
   LoadMoreUsersUseCase(this._userRepository) : super(initPage: 2);
 
   final UserRepository _userRepository;

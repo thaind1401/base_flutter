@@ -15,6 +15,7 @@ dependency_overrides:
   pointycastle: ^3.9.1
 
 dependencies:
+  connectivity_plus: ^6.1.5
   dartx: 1.2.0
   dio: 5.9.0
   domain:

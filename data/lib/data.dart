@@ -57,6 +57,8 @@ export 'src/repository/source/api/refresh_token_api_service.dart';
 export 'src/repository/source/base/base_data_mapper.dart';
 export 'src/repository/source/database/app_database.dart';
 export 'src/repository/source/database/mapper/local_image_url_data_mapper.dart';
+export 'src/repository/source/connectivity/connectivity_service.dart';
+export 'src/repository/source/connectivity/connectivity_service_interface.dart';
 export 'src/repository/source/database/mapper/local_user_data_mapper.dart';
 export 'src/repository/source/database/model/local_image_url_data.dart';
 export 'src/repository/source/database/model/local_user_data.dart';

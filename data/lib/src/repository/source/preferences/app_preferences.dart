@@ -25,23 +25,28 @@ class AppPreferences with LogMixin {
     return _sharedPreference.getString(SharedPreferenceKeys.deviceToken) ?? '';
   }
 
-  String get languageCode => _sharedPreference.getString(SharedPreferenceKeys.languageCode) ?? '';
+  String get languageCode =>
+      _sharedPreference.getString(SharedPreferenceKeys.languageCode) ?? '';
 
-  bool get isFirstLogin => _sharedPreference.getBool(SharedPreferenceKeys.isFirstLogin) ?? true;
+  bool get isFirstLogin =>
+      _sharedPreference.getBool(SharedPreferenceKeys.isFirstLogin) ?? true;
 
   bool get isFirstLaunchApp =>
       _sharedPreference.getBool(SharedPreferenceKeys.isFirstLaunchApp) ?? true;
 
   Future<String> get accessToken async {
-    return await _secureStorage.read(key: SharedPreferenceKeys.accessToken) ?? '';
+    return await _secureStorage.read(key: SharedPreferenceKeys.accessToken) ??
+        '';
   }
 
   Future<String> get refreshToken async {
-    return await _secureStorage.read(key: SharedPreferenceKeys.refreshToken) ?? '';
+    return await _secureStorage.read(key: SharedPreferenceKeys.refreshToken) ??
+        '';
   }
 
   Future<bool> get isLoggedIn async {
-    final token = await _secureStorage.read(key: SharedPreferenceKeys.accessToken) ?? '';
+    final token =
+        await _secureStorage.read(key: SharedPreferenceKeys.accessToken) ?? '';
     return token.isNotEmpty;
   }
 
@@ -55,15 +60,18 @@ class AppPreferences with LogMixin {
   }
 
   Future<bool> saveLanguageCode(String languageCode) {
-    return _sharedPreference.setString(SharedPreferenceKeys.languageCode, languageCode);
+    return _sharedPreference.setString(
+        SharedPreferenceKeys.languageCode, languageCode);
   }
 
   Future<bool> saveIsFirstLogin(bool isFirstLogin) {
-    return _sharedPreference.setBool(SharedPreferenceKeys.isFirstLogin, isFirstLogin);
+    return _sharedPreference.setBool(
+        SharedPreferenceKeys.isFirstLogin, isFirstLogin);
   }
 
   Future<bool> saveIsFirsLaunchApp(bool isFirstLaunchApp) {
-    return _sharedPreference.setBool(SharedPreferenceKeys.isFirstLaunchApp, isFirstLaunchApp);
+    return _sharedPreference.setBool(
+        SharedPreferenceKeys.isFirstLaunchApp, isFirstLaunchApp);
   }
 
   Future<void> saveAccessToken(String token) async {
@@ -88,7 +96,8 @@ class AppPreferences with LogMixin {
   }
 
   Future<bool> saveIsDarkMode(bool isDarkMode) {
-    return _sharedPreference.setBool(SharedPreferenceKeys.isDarkMode, isDarkMode);
+    return _sharedPreference.setBool(
+        SharedPreferenceKeys.isDarkMode, isDarkMode);
   }
 
   Future<bool> saveDeviceToken(String token) {

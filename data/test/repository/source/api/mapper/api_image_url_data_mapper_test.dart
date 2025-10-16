@@ -10,7 +10,8 @@ void main() {
   });
 
   group('test `mapToEntity` function', () {
-    test('should return correct ImageUrl when using valid ApiImageUrlData', () async {
+    test('should return correct ImageUrl when using valid ApiImageUrlData',
+        () async {
       // arrange
       const data = ApiImageUrlData(
         origin: 'https://www.google.com',
@@ -44,7 +45,8 @@ void main() {
       expect(result, const ImageUrl());
     });
 
-    test('should return null when some properties of ApiImageUrlData are null', () async {
+    test('should return null when some properties of ApiImageUrlData are null',
+        () async {
       // arrange
       const data = ApiImageUrlData(
         origin: 'https://www.google.com',

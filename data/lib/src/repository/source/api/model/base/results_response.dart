@@ -6,7 +6,7 @@ part 'results_response.g.dart';
 @Freezed(genericArgumentFactories: true)
 abstract class ResultsListResponse<T> with _$ResultsListResponse<T> {
   const ResultsListResponse._();
-  
+
   const factory ResultsListResponse({
     @JsonKey(name: 'results') List<T>? results,
   }) = _ResultsListResponse;

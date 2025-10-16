@@ -3,9 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared/shared.dart';
 
-class MockNoneAuthAppServerApiClient extends Mock implements NoneAuthAppServerApiClient {}
+class MockNoneAuthAppServerApiClient extends Mock
+    implements NoneAuthAppServerApiClient {}
 
-class MockAuthAppServerApiClient extends Mock implements AuthAppServerApiClient {}
+class MockAuthAppServerApiClient extends Mock
+    implements AuthAppServerApiClient {}
 
 class MockRandomUserApiClient extends Mock implements RandomUserApiClient {}
 
@@ -36,7 +38,8 @@ void main() {
               'email': 'inputEmail',
               'password': 'inputPassword',
             },
-            decoder: any(named: 'decoder', that: isA<Decoder<ApiAuthResponseData>>()),
+            decoder: any(
+                named: 'decoder', that: isA<Decoder<ApiAuthResponseData>>()),
           ),
         ).thenAnswer(
           (_) async => const DataResponse(
@@ -50,7 +53,8 @@ void main() {
           ),
         );
 
-        final result = await appApiService.login(email: 'inputEmail', password: 'inputPassword');
+        final result = await appApiService.login(
+            email: 'inputEmail', password: 'inputPassword');
 
         // ignore: variable_type_mismatch
         const expected = DataResponse(
@@ -80,13 +84,15 @@ void main() {
               'email': 'inputEmail',
               'password': 'inputPassword',
             },
-            decoder: any(named: 'decoder', that: isA<Decoder<ApiAuthResponseData>>()),
+            decoder: any(
+                named: 'decoder', that: isA<Decoder<ApiAuthResponseData>>()),
           ),
         ).thenAnswer(
           (_) async => null,
         );
 
-        final result = await appApiService.login(email: 'inputEmail', password: 'inputPassword');
+        final result = await appApiService.login(
+            email: 'inputEmail', password: 'inputPassword');
 
         expect(result, null);
       },

@@ -26,7 +26,8 @@ base class BaseBlocDelegate<E extends BaseBlocEvent, S extends BaseBlocState>
     _commonBloc = commonBloc;
   }
 
-  ICommonBloc get commonBloc => this is ICommonBloc ? this as ICommonBloc : _commonBloc;
+  ICommonBloc get commonBloc =>
+      this is ICommonBloc ? this as ICommonBloc : _commonBloc;
 
   @override
   void add(E event) {

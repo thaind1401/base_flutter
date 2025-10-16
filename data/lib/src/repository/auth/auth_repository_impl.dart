@@ -11,24 +11,25 @@ final class AuthRepositoryImpl implements AuthRepository {
     this._appPreferences,
     this._preferenceUserDataMapper,
     this._genderDataMapper,
+    this._connectivityService,
   );
 
   final AppApiService _appApiService;
   final AppPreferences _appPreferences;
   final PreferenceUserDataMapper _preferenceUserDataMapper;
   final GenderDataMapper _genderDataMapper;
+  final ConnectivityServiceInterface _connectivityService;
 
   // BaseRepository implementations
   @override
   String get repositoryName => 'AuthRepository';
 
   @override
-  bool get isConnected => true; // TODO: Implement real connectivity check
+  Future<bool> get isConnected => _connectivityService.isConnected;
 
   @override
   Stream<bool> get onConnectivityChanged =>
-      // Connectivity().onConnectivityChanged.map((event) => event != ConnectivityResult.none);
-      Stream.value(true); // Temporary: always return connected
+      _connectivityService.onConnectivityChanged;
 
   @override
   Future<void> clearCache() async {
@@ -47,7 +48,8 @@ final class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    final response = await _appApiService.login(email: email, password: password);
+    final response =
+        await _appApiService.login(email: email, password: password);
     await Future.wait([
       saveAccessToken(response?.data?.accessToken ?? ''),
       saveUserPreference(
@@ -79,7 +81,7 @@ final class AuthRepositoryImpl implements AuthRepository {
       );
 
   @override
-  Future<void> forgotPassword(String email) => 
+  Future<void> forgotPassword(String email) =>
       _appApiService.forgotPassword(email);
 
   @override
@@ -107,12 +109,11 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  User getUserPreference() => 
+  User getUserPreference() =>
       _preferenceUserDataMapper.mapToEntity(_appPreferences.currentUser);
 
   @override
-  Future<void> clearCurrentUserData() => 
-      _appPreferences.clearCurrentUserData();
+  Future<void> clearCurrentUserData() => _appPreferences.clearCurrentUserData();
 
   @override
   Future<bool> saveIsFirstLogin(bool isFirstLogin) {
@@ -120,10 +121,10 @@ final class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> saveAccessToken(String accessToken) => 
+  Future<void> saveAccessToken(String accessToken) =>
       _appPreferences.saveAccessToken(accessToken);
 
   @override
-  Future<bool> saveUserPreference(User user) =>
-      _appPreferences.saveCurrentUser(_preferenceUserDataMapper.mapToData(user));
+  Future<bool> saveUserPreference(User user) => _appPreferences
+      .saveCurrentUser(_preferenceUserDataMapper.mapToData(user));
 }

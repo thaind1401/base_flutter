@@ -14,7 +14,8 @@ void main() {
   final _mockApiImageUrlDataMapper = MockApiImageUrlDataMapper();
 
   setUp(() {
-    apiUserDataMapper = ApiUserDataMapper(_mockGenderDataMapper, _mockApiImageUrlDataMapper);
+    apiUserDataMapper =
+        ApiUserDataMapper(_mockGenderDataMapper, _mockApiImageUrlDataMapper);
   });
 
   group('test `mapToEntity` function', () {
@@ -83,7 +84,8 @@ void main() {
         ],
       );
 
-      when(() => _mockGenderDataMapper.mapToEntity(1)).thenReturn(Gender.female);
+      when(() => _mockGenderDataMapper.mapToEntity(1))
+          .thenReturn(Gender.female);
 
       final expected = User(
         id: 100,
@@ -119,9 +121,12 @@ void main() {
       const ApiUserData? data = null;
 
       // stub
-      when(() => _mockApiImageUrlDataMapper.mapToEntity(null)).thenReturn(const ImageUrl());
-      when(() => _mockApiImageUrlDataMapper.mapToListEntity(null)).thenReturn([]);
-      when(() => _mockGenderDataMapper.mapToEntity(null)).thenReturn(Gender.unknown);
+      when(() => _mockApiImageUrlDataMapper.mapToEntity(null))
+          .thenReturn(const ImageUrl());
+      when(() => _mockApiImageUrlDataMapper.mapToListEntity(null))
+          .thenReturn([]);
+      when(() => _mockGenderDataMapper.mapToEntity(null))
+          .thenReturn(Gender.unknown);
 
       // act
       final result = apiUserDataMapper.mapToEntity(data);
@@ -130,7 +135,8 @@ void main() {
       expect(result, const User());
     });
 
-    test('should return null when some properties of ApiUserData are null', () async {
+    test('should return null when some properties of ApiUserData are null',
+        () async {
       // arrange
       const data = ApiUserData(
         id: 100,
@@ -140,9 +146,12 @@ void main() {
       );
 
       // stub
-      when(() => _mockApiImageUrlDataMapper.mapToEntity(null)).thenReturn(const ImageUrl());
-      when(() => _mockApiImageUrlDataMapper.mapToListEntity(null)).thenReturn([]);
-      when(() => _mockGenderDataMapper.mapToEntity(null)).thenReturn(Gender.unknown);
+      when(() => _mockApiImageUrlDataMapper.mapToEntity(null))
+          .thenReturn(const ImageUrl());
+      when(() => _mockApiImageUrlDataMapper.mapToListEntity(null))
+          .thenReturn([]);
+      when(() => _mockGenderDataMapper.mapToEntity(null))
+          .thenReturn(Gender.unknown);
 
       // act
       final result = apiUserDataMapper.mapToEntity(data);

@@ -19,5 +19,6 @@ abstract class ApiUserData with _$ApiUserData {
     @JsonKey(name: 'sex') int? gender,
   }) = _ApiUserData;
 
-  factory ApiUserData.fromJson(Map<String, dynamic> json) => _$ApiUserDataFromJson(json);
+  factory ApiUserData.fromJson(Map<String, dynamic> json) =>
+      _$ApiUserDataFromJson(json);
 }

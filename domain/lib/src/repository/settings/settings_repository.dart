@@ -1,16 +1,16 @@
 import '../../../domain.dart';
 import '../base/base_repository.dart';
 
-abstract interface class SettingsRepository extends BaseRepository {
+abstract interface class SettingsRepository implements BaseRepository {
   /// Returns true if dark mode is enabled
   bool get isDarkMode;
-  
+
   /// Returns true if this is first app launch
   bool get isFirstLaunchApp;
-  
+
   /// Returns current app language code
   LanguageCode get languageCode;
-  
+
   /// Returns device push notification token
   String get deviceToken;
 

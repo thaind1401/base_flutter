@@ -5,7 +5,8 @@ import '../../../../../../../data.dart';
 
 @Injectable()
 // ignore: avoid-dynamic
-class JsonArrayErrorResponseMapper extends BaseErrorResponseMapper<List<dynamic>> {
+class JsonArrayErrorResponseMapper
+    extends BaseErrorResponseMapper<List<dynamic>> {
   @override
   // ignore: avoid-dynamic
   ServerError mapToServerError(List<dynamic>? data) {

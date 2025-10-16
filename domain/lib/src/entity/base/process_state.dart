@@ -8,7 +8,8 @@ class ProcessState<T> {
   }) : assert(data != null || exception != null);
 
   const ProcessState.success(T data) : this._(data: data);
-  const ProcessState.failure(AppException exception) : this._(exception: exception);
+  const ProcessState.failure(AppException exception)
+      : this._(exception: exception);
 
   final T? data;
   final AppException? exception;
@@ -50,6 +51,8 @@ class ProcessState<T> {
       return true;
     }
 
-    return other is ProcessState<T> && other.data == data && other.exception == exception;
+    return other is ProcessState<T> &&
+        other.data == data &&
+        other.exception == exception;
   }
 }

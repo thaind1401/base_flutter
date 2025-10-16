@@ -121,7 +121,8 @@ final class Func6<P0, P1, P2, P3, P4, P5, R> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is Func6<P0, P1, P2, P3, P4, P5, R> && other.function == function);
+        (other is Func6<P0, P1, P2, P3, P4, P5, R> &&
+            other.function == function);
   }
 }
 
@@ -139,7 +140,8 @@ final class Func7<P0, P1, P2, P3, P4, P5, P6, R> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is Func7<P0, P1, P2, P3, P4, P5, P6, R> && other.function == function);
+        (other is Func7<P0, P1, P2, P3, P4, P5, P6, R> &&
+            other.function == function);
   }
 }
 
@@ -157,7 +159,8 @@ final class Func8<P0, P1, P2, P3, P4, P5, P6, P7, R> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is Func8<P0, P1, P2, P3, P4, P5, P6, P7, R> && other.function == function);
+        (other is Func8<P0, P1, P2, P3, P4, P5, P6, P7, R> &&
+            other.function == function);
   }
 }
 
@@ -175,6 +178,7 @@ final class Func9<P0, P1, P2, P3, P4, P5, P6, P7, P8, R> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is Func9<P0, P1, P2, P3, P4, P5, P6, P7, P8, R> && other.function == function);
+        (other is Func9<P0, P1, P2, P3, P4, P5, P6, P7, P8, R> &&
+            other.function == function);
   }
 }

@@ -14,5 +14,6 @@ abstract class ApiImageUrlData with _$ApiImageUrlData {
 
   const ApiImageUrlData._();
 
-  factory ApiImageUrlData.fromJson(Map<String, dynamic> json) => _$ApiImageUrlDataFromJson(json);
+  factory ApiImageUrlData.fromJson(Map<String, dynamic> json) =>
+      _$ApiImageUrlDataFromJson(json);
 }

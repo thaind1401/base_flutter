@@ -7,9 +7,13 @@ class MockAppApiService extends Mock implements AppApiService {}
 
 class MockAppPreferences extends Mock implements AppPreferences {}
 
-class MockPreferenceUserDataMapper extends Mock implements PreferenceUserDataMapper {}
+class MockPreferenceUserDataMapper extends Mock
+    implements PreferenceUserDataMapper {}
 
 class MockGenderDataMapper extends Mock implements GenderDataMapper {}
+
+class MockConnectivityService extends Mock
+    implements ConnectivityServiceInterface {}
 
 void main() {
   late AuthRepository authRepository;
@@ -17,6 +21,7 @@ void main() {
   final _mockAppPreferences = MockAppPreferences();
   final _mockPreferenceUserDataMapper = MockPreferenceUserDataMapper();
   final _mockGenderDataMapper = MockGenderDataMapper();
+  final _mockConnectivityService = MockConnectivityService();
 
   setUp(() {
     authRepository = AuthRepositoryImpl(
@@ -24,30 +29,35 @@ void main() {
       _mockAppPreferences,
       _mockPreferenceUserDataMapper,
       _mockGenderDataMapper,
+      _mockConnectivityService,
     );
   });
 
   group('AuthRepository Tests', () {
     group('test `isLoggedIn` function', () {
-      test('should return true when `_appPreferences.isLoggedIn` is true', () async {
+      test('should return true when `_appPreferences.isLoggedIn` is true',
+          () async {
         // arrange
-        when(() => _mockAppPreferences.isLoggedIn).thenAnswer((_) async => true);
+        when(() => _mockAppPreferences.isLoggedIn)
+            .thenAnswer((_) async => true);
         // act
         final result = await authRepository.isLoggedIn;
         // assert
         expect(result, true);
       });
-      
-      test('should return false when `_appPreferences.isLoggedIn` is false', () async {
+
+      test('should return false when `_appPreferences.isLoggedIn` is false',
+          () async {
         // arrange
-        when(() => _mockAppPreferences.isLoggedIn).thenAnswer((_) async => false);
+        when(() => _mockAppPreferences.isLoggedIn)
+            .thenAnswer((_) async => false);
         // act
         final result = await authRepository.isLoggedIn;
         // assert
         expect(result, false);
       });
     });
-    
+
     group('test `repositoryName` function', () {
       test('should return AuthRepository', () {
         // act

@@ -4,7 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('test `map` function', () {
     group('should return correct List<T> when using valid data', () {
-      test('should return correct List<MockData2> when response is List<MockData2>', () async {
+      test(
+          'should return correct List<MockData2> when response is List<MockData2>',
+          () async {
         // arrange
         final validResponse = [
           {
@@ -43,7 +45,9 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return correct List<MockData> when response is List<MockData>', () {
+      test(
+          'should return correct List<MockData> when response is List<MockData>',
+          () {
         // arrange
         final validResponse = [
           {
@@ -84,7 +88,8 @@ void main() {
         );
       });
 
-      test('should return empty List<MockData> when response is empty List', () {
+      test('should return empty List<MockData> when response is empty List',
+          () {
         // arrange
         const validResponse = [];
         const expected = <MockData>[];

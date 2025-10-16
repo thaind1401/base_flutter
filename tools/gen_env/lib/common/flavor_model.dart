@@ -8,9 +8,9 @@ class Flavor {
 
   const Flavor(
       {required this.flavorEnum,
-        required this.name,
-        required this.prefix,
-        required this.envPath});
+      required this.name,
+      required this.prefix,
+      required this.envPath});
 
   bool isEqualToString(String value) {
     final String formattedValue = value.toLowerCase().trim();

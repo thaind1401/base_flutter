@@ -15,5 +15,6 @@ final class SearchBloc extends BaseBloc<SearchEvent, SearchState> {
     );
   }
 
-  FutureOr<void> _onSearchPageInitiated(SearchPageInitiated event, Emitter<SearchState> emit) {}
+  FutureOr<void> _onSearchPageInitiated(
+      SearchPageInitiated event, Emitter<SearchState> emit) {}
 }

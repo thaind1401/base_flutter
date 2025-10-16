@@ -18,7 +18,8 @@ abstract class ExceptionEmitted extends CommonEvent with _$ExceptionEmitted {
 }
 
 @freezed
-abstract class LoadingVisibilityEmitted extends CommonEvent with _$LoadingVisibilityEmitted {
+abstract class LoadingVisibilityEmitted extends CommonEvent
+    with _$LoadingVisibilityEmitted {
   const LoadingVisibilityEmitted._();
   const factory LoadingVisibilityEmitted({
     required bool isLoading,
@@ -26,7 +27,8 @@ abstract class LoadingVisibilityEmitted extends CommonEvent with _$LoadingVisibi
 }
 
 @freezed
-abstract class ForceLogoutButtonPressed extends CommonEvent with _$ForceLogoutButtonPressed {
+abstract class ForceLogoutButtonPressed extends CommonEvent
+    with _$ForceLogoutButtonPressed {
   const ForceLogoutButtonPressed._();
   const factory ForceLogoutButtonPressed() = _ForceLogoutButtonPressed;
 }

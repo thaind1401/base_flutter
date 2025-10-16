@@ -10,7 +10,8 @@ void main() {
   });
 
   group('test `map` function', () {
-    test('should return correct ServerError when using valid data response', () async {
+    test('should return correct ServerError when using valid data response',
+        () async {
       // arrange
       final errorResponse = [
         {
@@ -32,7 +33,8 @@ void main() {
       expect(result, expected);
     });
 
-    test('should return correct ServerError when some JSON keys are incorrect', () async {
+    test('should return correct ServerError when some JSON keys are incorrect',
+        () async {
       // arrange
       final errorResponse = [
         {
@@ -40,7 +42,8 @@ void main() {
           'error_message': 'The request is invalid', // incorrect key
         },
       ];
-      const expected = ServerError(errors: [ServerErrorDetail(serverStatusCode: 400)]);
+      const expected =
+          ServerError(errors: [ServerErrorDetail(serverStatusCode: 400)]);
       // act
       final result = jsonArrayErrorResponseMapper.map(errorResponse);
       // assert
@@ -64,7 +67,8 @@ void main() {
       },
     );
 
-    test('should thow RemoteException.decodeError when using invalid data type', () async {
+    test('should thow RemoteException.decodeError when using invalid data type',
+        () async {
       // arrange
       final errorResponse = [
         {
@@ -75,7 +79,8 @@ void main() {
       // assert
       expect(
         () => jsonArrayErrorResponseMapper.map(errorResponse),
-        throwsA((e) => e is RemoteException && e.kind == RemoteExceptionKind.decodeError),
+        throwsA((e) =>
+            e is RemoteException && e.kind == RemoteExceptionKind.decodeError),
       );
     });
   });

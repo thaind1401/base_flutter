@@ -1,7 +1,7 @@
 import '../../../domain.dart';
 import '../base/base_repository.dart';
 
-abstract interface class UserRepository extends BaseRepository {
+abstract interface class UserRepository implements BaseRepository {
   /// Gets current user profile from server
   Future<User> getMe();
 

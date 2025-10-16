@@ -24,7 +24,8 @@ class AppApiService {
         'email': email,
         'password': password,
       },
-      decoder: (json) => ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
+      decoder: (json) =>
+          ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -51,7 +52,8 @@ class AppApiService {
         'password': password,
         'password_confirmation': password,
       },
-      decoder: (json) => ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
+      decoder: (json) =>
+          ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
     );
   }
 

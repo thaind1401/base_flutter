@@ -15,5 +15,6 @@ final class MainBloc extends BaseBloc<MainEvent, MainState> {
     );
   }
 
-  FutureOr<void> _onMainPageInitiated(MainPageInitiated event, Emitter<MainState> emit) {}
+  FutureOr<void> _onMainPageInitiated(
+      MainPageInitiated event, Emitter<MainState> emit) {}
 }
