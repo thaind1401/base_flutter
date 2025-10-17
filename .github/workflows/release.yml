@@ -57,6 +57,15 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: 🔧 Set environment variables
+        run: |
+          echo "Setting up environment variables for CI..."
+          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
+          echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+          echo "Current JAVA_HOME: $JAVA_HOME"
+          echo "Current ANDROID_HOME: $ANDROID_HOME"
+          java -version
+
       - name: 🎯 Setup Dart & Melos
         run: |
           dart pub global activate melos ${{ env.MELOS_VERSION }}
@@ -71,22 +80,56 @@ jobs:
       - name: � Generate code with build_runner
         run: make build_all
 
-      - name: �🔐 Setup Android signing
+      - name:  Setup Android signing
         run: |
-          echo "Creating key.properties file..."
-          echo "keystore.storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" > app/android/key.properties
-          echo "keystore.keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/key.properties
-          echo "keystore.keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/key.properties
-          echo "keystore.storeFile=release.jks" >> app/android/key.properties
+          echo "Creating local.properties file for Android signing..."
+          echo "sdk.dir=$ANDROID_HOME" > app/android/local.properties
+          echo "flutter.sdk=$FLUTTER_ROOT" >> app/android/local.properties
+          echo "keystore.storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> app/android/local.properties
+          echo "keystore.keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/local.properties
+          echo "keystore.keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/local.properties
+          echo "keystore.storeFile=release.jks" >> app/android/local.properties
           
           echo "Creating keystore file (.jks format)..."
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > app/android/app/release.jks
+          
+          echo "Verifying setup..."
+          echo "local.properties content:"
+          cat app/android/local.properties
+          echo "Keystore file:"
+          ls -la app/android/app/release.jks
+          echo "Environment variables:"
+          echo "  ANDROID_HOME: $ANDROID_HOME"
+          echo "  FLUTTER_ROOT: $FLUTTER_ROOT"
+          echo "  JAVA_HOME: $JAVA_HOME"
 
       - name: 🧪 Run tests
         run: make test
 
       - name: 🔨 Build Android Release (Production)
-        run: make build_prod_bundle
+        run: |
+          echo "🧹 Cleaning gradle cache and build artifacts..."
+          cd app && flutter clean
+          
+          echo "🔍 Checking gradle wrapper..."
+          if [ -f "android/gradlew" ]; then
+            echo "✅ Found gradlew, cleaning gradle cache..."
+            
+            # Clean gradle properties that might conflict with CI environment
+            echo "🧹 Cleaning gradle user properties..."
+            rm -f ~/.gradle/gradle.properties
+            
+            # Java home is automatically set by actions/setup-java@v4
+            echo "☕ Using Java home: $JAVA_HOME"
+            
+            cd android && chmod +x gradlew && ./gradlew clean && cd ..
+          else
+            echo "⚠️  gradlew not found, skipping gradle clean"
+          fi
+          
+          cd ..
+          echo "🔨 Building production App Bundle..."
+          make build_prod_bundle
 
       - name: 📤 Upload App Bundle
         uses: actions/upload-artifact@v4
@@ -107,16 +150,16 @@ jobs:
           ### 🚀 What's New
           - Built with Flutter ${{ env.FLUTTER_VERSION }}
           - Environment: ${{ steps.version.outputs.environment }}
-          - Build number: ${{ github.run_number }}" \
+          - Build number: ${{ github.run_number }}
+
+          ### 📦 Artifacts
+          - Android App Bundle (AAB)
+          - Built for ${{ steps.version.outputs.environment }} environment
+
+          ### 🔧 Technical Details
+          - Commit: ${{ github.sha }}
+          - Build time: ${{ github.event.head_commit.timestamp }}" \
             ./app/build/app/outputs/bundle/*Release/*.aab
-            
-            ### 📦 Artifacts
-            - Android App Bundle (AAB)
-            - Built for ${{ steps.version.outputs.environment }} environment
-            
-            ### 🔧 Technical Details
-            - Commit: ${{ github.sha }}
-            - Build time: ${{ github.event.head_commit.timestamp }}
 
       - name: 🚀 Deploy Notification
         run: |
