@@ -123,6 +123,15 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: 🔧 Set environment variables
+        run: |
+          echo "Setting up environment variables for CI..."
+          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
+          echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+          echo "Current JAVA_HOME: $JAVA_HOME"
+          echo "Current ANDROID_HOME: $ANDROID_HOME"
+          java -version
+
       - name: 🎯 Setup Dart & Melos
         run: |
           dart pub global activate melos ${{ env.MELOS_VERSION }}
@@ -154,13 +163,29 @@ jobs:
           echo "  FLUTTER_ROOT: $FLUTTER_ROOT"
           echo "  JAVA_HOME: $JAVA_HOME"
 
-      - name:  Build APK - ${{ matrix.flavor }}
+      - name: 🔨 Build APK - ${{ matrix.flavor }}
         run: |
           echo "🧹 Cleaning gradle cache and build artifacts..."
           cd app && flutter clean
-          cd android && ./gradlew clean
-          cd ../..
           
+          echo "🔍 Checking gradle wrapper..."
+          if [ -f "android/gradlew" ]; then
+            echo "✅ Found gradlew, cleaning gradle cache..."
+            
+            # Clean gradle properties that might conflict with CI environment
+            echo "🧹 Cleaning gradle user properties..."
+            rm -f ~/.gradle/gradle.properties
+            
+            # Set correct JAVA_HOME for CI environment
+            export JAVA_HOME=$JAVA_HOME_11_X64
+            echo "☕ Using Java home: $JAVA_HOME"
+            
+            cd android && chmod +x gradlew && ./gradlew clean && cd ..
+          else
+            echo "⚠️  gradlew not found, skipping gradle clean"
+          fi
+          
+          cd ..
           echo "🔨 Building ${{ matrix.flavor }} APK..."
           make build_${{ matrix.flavor }}_apk
 
