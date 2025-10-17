@@ -55,7 +55,8 @@ jobs:
           echo "🔍 Checking source code format before generation..."
           echo "Flutter version: $(flutter --version)"
           echo "Dart version: $(dart --version)"
-          make format_check
+          echo "🔍 Running debug format check to see which files are processed..."
+          make format_check_debug
 
       - name: 🔨 Generate code with build_runner
         run: make build_all

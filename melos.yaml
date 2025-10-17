@@ -163,8 +163,12 @@ scripts:
     description: Format code across all packages.
 
   format_check:
-    run: melos exec --fail-fast -- dart format --set-exit-if-changed .
+    run: melos exec -- dart format --set-exit-if-changed .
     description: Check if code is properly formatted.
+
+  format_check_debug:
+    run: melos exec -- dart format --set-exit-if-changed --show=all .
+    description: Debug format check showing all processed files.
 
   # Static analysis
   analyze_app:
