@@ -183,4 +183,8 @@ scripts:
     run: melos exec --fail-fast --scope="*shared*" -- flutter analyze --fatal-infos
     description: Analyze shared module.
 
+  analyze:
+    run: melos exec --fail-fast -- flutter analyze --fatal-infos
+    description: Analyze all packages.
+
 

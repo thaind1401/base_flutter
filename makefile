@@ -16,10 +16,6 @@ remove_splash:
 	cd app && flutter pub run flutter_native_splash:remove --path=splash/splash.yaml
 
 gen_assets:
-	@echo "🔨 Generating assets for all modules..."
-	@melos run build_all
-
-gen_assets_app:
 	cd app && dart run build_runner build --delete-conflicting-outputs
 
 l10n:
@@ -248,6 +244,10 @@ format_check:
 	@melos run format_check
 
 # Static analysis commands
+analyze:
+	@echo "🔍 Analyzing all packages..."
+	@melos run analyze
+
 analyze_app:
 	@echo "🔍 Analyzing app module..."
 	@melos run analyze_app
