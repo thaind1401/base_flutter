@@ -4,37 +4,40 @@ This directory contains GitHub Actions workflows for automated CI/CD pipeline.
 
 ## 📋 Workflows Overview
 
-### 1. **`ci.yml`** - Main CI/CD Pipeline
+### 1. **`ci.yml`** - Main CI/CD Pipeline  
 **Triggers:** Push to `main`/`develop`, Pull Requests
-- ✅ **Quality Check**: Format, analyze, test, coverage
-- 🤖 **Android Build**: APK + App Bundle for all environments
-- 🍎 **iOS Build**: iOS build + IPA (macOS runner)
-- 🚀 **Deploy**: Automated deployment to stores
+- 🔍 **Quality Check**: Format, analyze, test, coverage
+- 🤖 **Android Build**: APK + App Bundle (Production only)
+- 🍎 **iOS Build**: iOS build + IPA (Production only, macOS runner)
+- 🚀 **Deploy**: Template for store deployment
 
 ### 2. **`pr-check.yml`** - Pull Request Validation
 **Triggers:** Pull Request to `main`/`develop`
-- 🔍 **Fast validation**: Format, analyze, test
-- ⚡ **Quick feedback** for PR reviews
+- ⚡ **Fast validation**: Format, analyze, test (20 min timeout)
+- 🔍 **Quality gates** for PR reviews
+- 🧹 **No builds** - focus on code quality
 
 ### 3. **`release.yml`** - Release & Deploy
-**Triggers:** Git tags (`v*.*.*`), Manual dispatch
+**Triggers:** Git tags (`v*.*.*`) from `main` branch, Manual dispatch
 - 🏷️ **Version management** from git tags
-- 📦 **Release builds** for production/staging
+- 📦 **Production release builds** only
 - 📝 **GitHub releases** with artifacts
+- 🔒 **Main branch only** - production-ready releases
 
-## 🛠️ Environment Variables
+## 🛠️ Environment Configuration
 
 ```yaml
 FLUTTER_VERSION: '3.32.8'  # Matches your FVM version
 MELOS_VERSION: '6.3.0'     # Matches your project
+JAVA_VERSION: '17'          # Required for Android Gradle Plugin 8.x
 ```
 
-## 🎯 Supported Environments
+## 🎯 Build Strategy (Production Only)
 
-- **develop** - Development builds
-- **qa** - QA testing builds  
-- **staging** - Pre-production builds
-- **production** - Release builds
+**Current Focus:** Production builds only for simplified CI/CD
+- **Production environment** - Release-ready builds
+- **Simplified workflow** - Faster, more reliable
+- **Quality first** - Comprehensive testing before builds
 
 ## 📱 Build Artifacts
 
@@ -44,64 +47,112 @@ MELOS_VERSION: '6.3.0'     # Matches your project
 
 ### iOS  
 - **iOS Build**: `app/build/ios/`
-- **IPA**: `app/build/ios/ipa/*.ipa`
+- **IPA**: `app/build/ios/ipa/*.ipa` (Main branch push only)
+
+### Artifact Retention
+- **CI builds**: 30 days
+- **Release builds**: 90 days
 
 ## 🚀 Usage Examples
 
-### Trigger CI on Pull Request
+### Development Workflow
 ```bash
-git checkout -b feature/your-feature
-git push origin feature/your-feature
-# Open PR → Triggers pr-check.yml
+# 1. Create feature branch
+git checkout -b feature/awesome-feature
+git push origin feature/awesome-feature
+
+# 2. Open PR → Triggers pr-check.yml (quality only)
+# 3. Merge to main → Triggers ci.yml (full build)
 ```
 
-### Trigger Release Build
+### Release Workflow
 ```bash
+# 1. Ensure you're on main branch
+git checkout main
+git pull origin main
+
+# 2. Create and push release tag
 git tag v1.0.0
 git push origin v1.0.0
-# Triggers release.yml → Production build
+
+# 3. Triggers release.yml → Production build + GitHub Release
 ```
 
-### Manual Deployment
+### Manual Release
 Go to GitHub Actions → "Release & Deploy" → "Run workflow"
-- Choose environment: staging/production
+- Environment: production (only option)
 - Click "Run workflow"
 
 ## 🔧 Integration with Make Commands
 
 All workflows use your existing `makefile` commands:
-- `make sync` - Bootstrap dependencies
+- `make sync` - Bootstrap dependencies with Melos
+- `make gen_env` - **Generate environment files** (Required for builds)
+- `make build_all` - Generate code with build_runner
 - `make test` - Run all tests
-- `make format` - Code formatting
-- `make analyze_*` - Static analysis
-- `make build_*_apk` - Build APK
-- `make build_*_bundle` - Build App Bundle
+- `make analyze_*` - Static analysis per module
+- `make build_prod_apk` - Build production APK
+- `make build_prod_bundle` - Build production App Bundle
+- `make build_prod_ios` - Build production iOS
+- `make build_prod_ipa` - Build production IPA
 
 ## 📊 Quality Gates
 
-### ✅ Required Checks (Block PR merge)
-- Code formatting (dart format)
-- Static analysis (flutter analyze)
-- Unit tests (flutter test)
+### ✅ pr-check.yml (Required for PR merge)
+- 🧹 Clean build artifacts
+- 🎨 Code formatting check (currently disabled - CI/local differences)
+- 🔨 Code generation (build_runner)
+- 🔍 Static analysis (all modules)
+- 🧪 Unit tests
 
-### ⚠️ Optional Checks (Warning only)
-- Code coverage
-- Code metrics
+### ✅ ci.yml (Full CI pipeline)
+- All pr-check.yml checks +
+- 🤖 Android APK + App Bundle builds
+- 🍎 iOS builds (main/develop only)
+- 📊 Code coverage
+- 📈 Code metrics
 
-## 🔒 Secrets Configuration
+### ✅ release.yml (Production release)
+- 🧪 Tests
+- 🔨 Production App Bundle build
+- 📝 GitHub Release creation
+- 📦 Artifact upload (90 days)
 
-For deployment, add these secrets in GitHub Settings:
-- `ANDROID_KEYSTORE` - Android signing keystore
-- `ANDROID_KEY_ALIAS` - Keystore alias
-- `ANDROID_KEY_PASSWORD` - Key password
-- `PLAY_STORE_SERVICE_ACCOUNT` - Google Play service account
-- `APP_STORE_CONNECT_API_KEY` - Apple App Store Connect API
+## 🔒 Required GitHub Secrets
+
+For Android signing and future deployment:
+- `ANDROID_KEYSTORE` - Base64 encoded Android keystore (.jks)
+- `ANDROID_STORE_PASSWORD` - Keystore password
+- `ANDROID_KEY_PASSWORD` - Key password  
+- `ANDROID_KEY_ALIAS` - Key alias
+
+## ⚙️ Technical Details
+
+### Android Setup
+- **Java 17** - Required for modern Android Gradle Plugin
+- **Gradle wrapper** - Included in repository for CI consistency
+- **local.properties** - Generated dynamically in CI
+- **Keystore management** - Secure base64 encoding/decoding
+
+### Environment Files
+- **Generated automatically** - `make gen_env` creates required env files
+- **CI requirement** - Build scripts expect env files to exist
+- **Production focus** - Only production environment configured
 
 ## 🎉 Benefits
 
-1. **Automated Quality**: Every commit is tested
-2. **Multi-Environment**: Build for all environments automatically  
-3. **Parallel Builds**: Android + iOS builds run simultaneously
-4. **Artifact Storage**: Built APKs/IPAs stored for 30-90 days
-5. **Release Management**: Automated releases with git tags
-6. **Integration**: Works with existing makefile + melos setup
+1. **Simplified & Reliable**: Production-only builds reduce complexity
+2. **Quality First**: Comprehensive testing before any builds
+3. **Fast Feedback**: PR checks in ~20 minutes
+4. **Secure**: Proper Android keystore management
+5. **Consistent**: Same build process locally and in CI
+6. **Version Control**: Git tag-based releases with automatic versioning
+7. **Future Ready**: Template ready for store deployment automation
+
+1. **Simplified & Reliable**: Production-only builds reduce complexity
+2. **Quality First**: Comprehensive testing before any builds
+3. **Fast Feedback**: PR checks in ~20 minutes
+4. **Secure**: Proper Android keystore management
+5. **Consistent**: Same build process locally and in CI
+6. **Version Control**: Git tag-based releases with automatic versioning
+7. **Future Ready**: Template ready for store deployment automation
