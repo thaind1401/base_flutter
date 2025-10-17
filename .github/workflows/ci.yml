@@ -114,7 +114,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '17'
 
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
@@ -176,8 +176,7 @@ jobs:
             echo "🧹 Cleaning gradle user properties..."
             rm -f ~/.gradle/gradle.properties
             
-            # Set correct JAVA_HOME for CI environment
-            export JAVA_HOME=$JAVA_HOME_11_X64
+            # Java home is automatically set by actions/setup-java@v4
             echo "☕ Using Java home: $JAVA_HOME"
             
             cd android && chmod +x gradlew && ./gradlew clean && cd ..
