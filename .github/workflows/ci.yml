@@ -134,7 +134,8 @@ jobs:
       - name: 🔐 Setup Android signing
         run: |
           echo "Creating local.properties file for Android signing..."
-          echo "flutter.sdk=$FLUTTER_ROOT" > app/android/local.properties
+          echo "sdk.dir=$ANDROID_HOME" > app/android/local.properties
+          echo "flutter.sdk=$FLUTTER_ROOT" >> app/android/local.properties
           echo "keystore.storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> app/android/local.properties
           echo "keystore.keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/local.properties
           echo "keystore.keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/local.properties
@@ -148,12 +149,25 @@ jobs:
           cat app/android/local.properties
           echo "Keystore file:"
           ls -la app/android/app/release.jks
+          echo "Environment variables:"
+          echo "  ANDROID_HOME: $ANDROID_HOME"
+          echo "  FLUTTER_ROOT: $FLUTTER_ROOT"
+          echo "  JAVA_HOME: $JAVA_HOME"
 
-      - name: �🔨 Build APK - ${{ matrix.flavor }}
-        run: make build_${{ matrix.flavor }}_apk
+      - name:  Build APK - ${{ matrix.flavor }}
+        run: |
+          echo "🧹 Cleaning gradle cache and build artifacts..."
+          cd app && flutter clean
+          cd android && ./gradlew clean
+          cd ../..
+          
+          echo "🔨 Building ${{ matrix.flavor }} APK..."
+          make build_${{ matrix.flavor }}_apk
 
       - name: 📦 Build App Bundle - ${{ matrix.flavor }}
-        run: make build_${{ matrix.flavor }}_bundle
+        run: |
+          echo "📦 Building ${{ matrix.flavor }} App Bundle..."
+          make build_${{ matrix.flavor }}_bundle
 
       - name: 📤 Upload APK artifact
         uses: actions/upload-artifact@v4

@@ -3,6 +3,19 @@ parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P ) # base_flutter_pro
 root_project_path=$(dirname $parent_path)
 env_path="$root_project_path/env/$1.env"
 
+echo "🔍 Debug paths:"
+echo "  Script location: $parent_path"
+echo "  Root project: $root_project_path"
+echo "  Env file path: $env_path"
+echo "  Checking if env file exists..."
+
+if [ ! -f "$env_path" ]; then
+    echo "❌ Environment file not found: $env_path"
+    echo "📁 Available files in env directory:"
+    ls -la "$root_project_path/env/" 2>/dev/null || echo "  env directory does not exist"
+    exit 1
+fi
+
 dart_define=""
 while read line || [ -n "$line" ]; do
     if [[ $line =~ ^[A-Za-z_]+=.*$ ]]; then
