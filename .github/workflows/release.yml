@@ -1,0 +1,115 @@
+name: Release & Deploy
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  FLUTTER_VERSION: '3.32.8'
+  MELOS_VERSION: '6.3.0'
+
+jobs:
+  release:
+    name: 🚀 Release Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    steps:
+      - name: 📚 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏷️ Get version from tag
+        id: version
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+            ENVIRONMENT="production"
+          else
+            VERSION=$(date '+%Y.%m.%d')-${{ github.run_number }}
+            ENVIRONMENT="${{ github.event.inputs.environment }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
+          echo "📱 Building version: $VERSION for $ENVIRONMENT"
+
+      - name: ☕ Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+
+      - name: 🎯 Setup Dart & Melos
+        run: |
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: 📦 Bootstrap dependencies
+        run: make sync
+
+      - name: 🧪 Run tests
+        run: make test
+
+      - name: 🔨 Build Android Release
+        run: |
+          if [[ "${{ steps.version.outputs.environment }}" == "production" ]]; then
+            make build_prod_bundle
+          else
+            make build_stg_bundle
+          fi
+
+      - name: 📤 Upload App Bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-bundle-${{ steps.version.outputs.environment }}-${{ steps.version.outputs.version }}
+          path: app/build/app/outputs/bundle/*Release/*.aab
+          retention-days: 90
+
+      - name: 📝 Create GitHub Release
+        if: github.event_name == 'push'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: false
+          body: |
+            ## 📱 Release ${{ steps.version.outputs.version }}
+            
+            ### 🚀 What's New
+            - Built with Flutter ${{ env.FLUTTER_VERSION }}
+            - Environment: ${{ steps.version.outputs.environment }}
+            - Build number: ${{ github.run_number }}
+            
+            ### 📦 Artifacts
+            - Android App Bundle (AAB)
+            - Built for ${{ steps.version.outputs.environment }} environment
+            
+            ### 🔧 Technical Details
+            - Commit: ${{ github.sha }}
+            - Build time: ${{ github.event.head_commit.timestamp }}
+
+      - name: 🚀 Deploy Notification
+        run: |
+          echo "🎉 Release ${{ steps.version.outputs.version }} built successfully!"
+          echo "📦 Environment: ${{ steps.version.outputs.environment }}"
+          echo "🔗 Artifacts are ready for distribution"

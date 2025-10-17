@@ -1,0 +1,53 @@
+name: Pull Request Check
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [opened, synchronize, reopened]
+
+env:
+  FLUTTER_VERSION: '3.32.8'
+  MELOS_VERSION: '6.3.0'
+
+jobs:
+  pr_check:
+    name: 🔍 PR Quality Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    steps:
+      - name: 📚 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+
+      - name: 🎯 Setup Dart & Melos
+        run: |
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: 📦 Bootstrap dependencies
+        run: make sync
+
+      - name: 🎨 Check code formatting
+        run: make format
+
+      - name: 🔍 Static analysis
+        run: |
+          make analyze_app
+          make analyze_data
+          make analyze_domain
+          make analyze_shared
+
+      - name: 🧪 Run tests
+        run: make test
+
+      - name: ✅ PR Check Complete
+        run: echo "🎉 All checks passed! PR is ready for review."

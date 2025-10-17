@@ -157,4 +157,30 @@ scripts:
     run: melos exec --fail-fast --scope="*shared*" -- flutter pub get
     description: pub get shared module.
 
+  # Code formatting
+  format:
+    run: melos exec --fail-fast -- dart format .
+    description: Format code across all packages.
+
+  format_check:
+    run: melos exec --fail-fast -- dart format --set-exit-if-changed .
+    description: Check if code is properly formatted.
+
+  # Static analysis
+  analyze_app:
+    run: melos exec --fail-fast --scope="*app*" -- flutter analyze --fatal-infos
+    description: Analyze app module.
+
+  analyze_data:
+    run: melos exec --fail-fast --scope="*data*" -- flutter analyze --fatal-infos
+    description: Analyze data module.
+
+  analyze_domain:
+    run: melos exec --fail-fast --scope="*domain*" -- flutter analyze --fatal-infos
+    description: Analyze domain module.
+
+  analyze_shared:
+    run: melos exec --fail-fast --scope="*shared*" -- flutter analyze --fatal-infos
+    description: Analyze shared module.
+
 

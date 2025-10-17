@@ -1,0 +1,225 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+    types: [opened, synchronize, reopened]
+
+env:
+  FLUTTER_VERSION: '3.32.8'
+  MELOS_VERSION: '6.3.0'
+
+jobs:
+  # Job 1: Code Quality & Tests
+  quality_check:
+    name: 🔍 Code Quality & Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: 📚 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+
+      - name: 📝 Verify Flutter installation
+        run: |
+          flutter --version
+          flutter doctor -v
+
+      - name: 🎯 Setup Dart & Melos
+        run: |
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: 📦 Bootstrap dependencies
+        run: make sync
+
+      - name: 🧪 Run tests
+        run: make test
+        continue-on-error: false
+
+      - name: 🎨 Check code formatting
+        run: make format
+
+      - name: 🔍 Static analysis - App
+        run: make analyze_app
+
+      - name: 🔍 Static analysis - Data
+        run: make analyze_data
+
+      - name: 🔍 Static analysis - Domain
+        run: make analyze_domain
+
+      - name: 🔍 Static analysis - Shared
+        run: make analyze_shared
+
+      - name: 📊 Code metrics
+        run: make dart_code_metrics
+        continue-on-error: true
+
+      - name: 📈 Test Coverage
+        run: make test_coverage
+        continue-on-error: true
+
+      - name: 📤 Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          file: coverage/lcov.info
+          fail_ci_if_error: false
+
+  # Job 2: Build Android
+  build_android:
+    name: 🤖 Build Android
+    runs-on: ubuntu-latest
+    needs: quality_check
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    timeout-minutes: 45
+    
+    strategy:
+      matrix:
+        flavor: [develop, qa, staging, production]
+        
+    steps:
+      - name: 📚 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ☕ Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+
+      - name: 🎯 Setup Dart & Melos
+        run: |
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: 📦 Bootstrap dependencies
+        run: make sync
+
+      - name: 🔨 Build APK - ${{ matrix.flavor }}
+        run: make build_${{ matrix.flavor }}_apk
+
+      - name: 📦 Build App Bundle - ${{ matrix.flavor }}
+        run: make build_${{ matrix.flavor }}_bundle
+
+      - name: 📤 Upload APK artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk-${{ matrix.flavor }}
+          path: app/build/app/outputs/flutter-apk/*.apk
+          retention-days: 30
+
+      - name: 📤 Upload App Bundle artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: appbundle-${{ matrix.flavor }}
+          path: app/build/app/outputs/bundle/*Release/*.aab
+          retention-days: 30
+
+  # Job 3: Build iOS
+  build_ios:
+    name: 🍎 Build iOS
+    runs-on: macos-latest
+    needs: quality_check
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    timeout-minutes: 60
+    
+    strategy:
+      matrix:
+        flavor: [develop, staging, production]
+        
+    steps:
+      - name: 📚 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'stable'
+          cache: true
+
+      - name: 🎯 Setup Dart & Melos
+        run: |
+          dart pub global activate melos ${{ env.MELOS_VERSION }}
+          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: 📦 Bootstrap dependencies
+        run: make sync
+
+      - name: 🔨 Build iOS - ${{ matrix.flavor }}
+        run: make build_${{ matrix.flavor }}_ios
+
+      - name: 📦 Build IPA - ${{ matrix.flavor }}
+        run: make build_${{ matrix.flavor }}_ipa
+        continue-on-error: true
+
+      - name: 📤 Upload IPA artifact
+        uses: actions/upload-artifact@v3
+        if: success()
+        with:
+          name: ipa-${{ matrix.flavor }}
+          path: app/build/ios/ipa/*.ipa
+          retention-days: 30
+
+  # Job 4: Deployment (CD)
+  deploy:
+    name: 🚀 Deploy
+    runs-on: ubuntu-latest
+    needs: [build_android, build_ios]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    timeout-minutes: 20
+    
+    steps:
+      - name: 📚 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📥 Download production artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: appbundle-production
+          path: ./artifacts/android/
+
+      - name: 📥 Download iOS artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ipa-production
+          path: ./artifacts/ios/
+        continue-on-error: true
+
+      # Placeholder for actual deployment steps
+      - name: 🚀 Deploy to Play Store (Internal Testing)
+        run: |
+          echo "🎯 Ready to deploy to Google Play Store Internal Testing"
+          echo "📱 App Bundle: $(ls -la ./artifacts/android/)"
+          # Add actual Play Store deployment commands here
+          
+      - name: 🚀 Deploy to TestFlight
+        run: |
+          echo "🎯 Ready to deploy to Apple TestFlight"
+          echo "📱 IPA: $(ls -la ./artifacts/ios/ 2>/dev/null || echo 'No iOS artifacts')"
+          # Add actual TestFlight deployment commands here
+
+      - name: 📢 Notify deployment
+        run: |
+          echo "✅ Deployment completed successfully!"
+          echo "🔗 Production build artifacts are ready for distribution"

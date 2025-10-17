@@ -230,3 +230,39 @@ pub_sync:
 
 dart_fix:
 	dart fix --apply
+
+# Code formatting
+format:
+	@echo "🎨 Formatting code..."
+	@melos run format
+
+format_check:
+	@echo "🎨 Checking code formatting..."
+	@melos run format_check
+
+# Static analysis commands
+analyze_app:
+	@echo "🔍 Analyzing app module..."
+	@melos run analyze_app
+
+analyze_data:
+	@echo "🔍 Analyzing data module..."
+	@melos run analyze_data
+
+analyze_domain:
+	@echo "🔍 Analyzing domain module..."
+	@melos run analyze_domain
+
+analyze_shared:
+	@echo "🔍 Analyzing shared module..."
+	@melos run analyze_shared
+
+# Code metrics
+dart_code_metrics:
+	@echo "📊 Running code metrics..."
+	@bash ./tools/dart_code_metrics.sh
+
+# Test coverage
+test_coverage:
+	@echo "📈 Running test coverage..."
+	@melos run test_coverage
