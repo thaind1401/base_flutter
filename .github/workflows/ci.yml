@@ -115,16 +115,16 @@ jobs:
       - name: 📦 Bootstrap dependencies
         run: make sync
 
-      - name: � Setup Android signing
+      - name: 🔐 Setup Android signing
         run: |
           echo "Creating key.properties file..."
           echo "keystore.storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" > app/android/key.properties
           echo "keystore.keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/key.properties
           echo "keystore.keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/key.properties
-          echo "keystore.storeFile=release.keystore" >> app/android/key.properties
+          echo "keystore.storeFile=release.jks" >> app/android/key.properties
           
-          echo "Creating keystore file..."
-          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > app/android/app/release.keystore
+          echo "Creating keystore file (.jks format)..."
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > app/android/app/release.jks
 
       - name: �🔨 Build APK - ${{ matrix.flavor }}
         run: make build_${{ matrix.flavor }}_apk
