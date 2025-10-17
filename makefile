@@ -71,7 +71,10 @@ build_all:
 	@echo "4️⃣ Building app module..."
 	@melos run build_app
 	@echo ""
-	@echo "✅ All modules built successfully!"
+	@echo "🎨 Formatting generated code..."
+	@melos run format
+	@echo ""
+	@echo "✅ All modules built and formatted successfully!"
 	@echo ""
 	@echo "💡 Available build commands:"
 	@echo "   - make build_all: Build all modules in order"
