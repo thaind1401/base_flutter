@@ -16,7 +16,7 @@ jobs:
   quality_check:
     name: 🔍 Code Quality & Tests
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     
     steps:
       - name: 📚 Checkout repository
@@ -41,6 +41,16 @@ jobs:
           dart pub global activate melos ${{ env.MELOS_VERSION }}
           echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
+      - name: 📦 Cache pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            **/pubspec.lock
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
       - name: 📦 Bootstrap dependencies
         run: make sync
 
@@ -60,8 +70,24 @@ jobs:
           echo "Will re-enable once we have consistent formatting environment"
           # make format_check_debug
 
-      - name: 🔨 Generate code with build_runner
-        run: make build_all
+      - name: � Check system resources before build_runner
+        run: |
+          echo "=== System Resources ==="
+          free -h
+          df -h
+          ps aux --sort=-%mem | head -10
+
+      - name: �🔨 Generate code with build_runner
+        run: |
+          echo "🚀 Starting build_runner..."
+          timeout 900 make build_all || {
+            echo "❌ build_runner timeout or failed"
+            echo "=== System Resources After Timeout ==="
+            free -h
+            df -h
+            exit 1
+          }
+          echo "✅ build_runner completed successfully"
 
       - name: 🧪 Run tests
         run: make test
@@ -80,11 +106,17 @@ jobs:
         run: make analyze_shared
 
       - name: 📊 Code metrics
-        run: make dart_code_metrics
+        run: |
+          echo "⚠️  Code metrics temporarily disabled to reduce CI load"
+          echo "Will re-enable once CI stability is confirmed"
+          # make dart_code_metrics
         continue-on-error: true
 
       - name: 📈 Test Coverage
-        run: make test_coverage
+        run: |
+          echo "⚠️  Test coverage temporarily disabled to reduce CI load"
+          echo "Will re-enable once CI stability is confirmed" 
+          # make test_coverage
         continue-on-error: true
 
       - name: 📤 Upload coverage to Codecov
@@ -100,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality_check
     if: github.event_name == 'push' || github.event_name == 'pull_request'
-    timeout-minutes: 45
+    timeout-minutes: 60
     
     strategy:
       matrix:
