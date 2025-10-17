@@ -155,9 +155,6 @@ force_watch_data:
 force_watch_shared:
 	@melos run force_watch_shared
 
-run_local:
-	cd tools && $(BUILD_CMD) local run
-
 run_dev:
 	cd tools && $(BUILD_CMD) develop run
 
