@@ -37,7 +37,7 @@ jobs:
         run: make sync
 
       - name: 🎨 Check code formatting
-        run: make format
+        run: make format_check
 
       - name: 🔍 Static analysis
         run: |
