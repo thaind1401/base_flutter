@@ -257,6 +257,10 @@ format_check_debug:
 	@echo "🔍 Debug format check with detailed output..."
 	@melos run format_check_debug
 
+format_check_individual:
+	@echo "🔍 Checking format on each package individually..."
+	@melos run format_check_individual
+
 # Static analysis commands
 analyze:
 	@echo "🔍 Analyzing all packages..."
