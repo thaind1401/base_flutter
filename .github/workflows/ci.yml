@@ -140,6 +140,9 @@ jobs:
       - name: 📦 Bootstrap dependencies
         run: make sync
 
+      - name: 🌍 Generate environment files
+        run: make gen_env
+
       - name: 🔐 Setup Android signing
         run: |
           echo "Creating local.properties file for Android signing..."

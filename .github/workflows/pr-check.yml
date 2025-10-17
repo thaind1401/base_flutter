@@ -36,6 +36,9 @@ jobs:
       - name: 📦 Bootstrap dependencies
         run: make sync
 
+      - name: 🌍 Generate environment files
+        run: make gen_env
+
       - name: 🧹 Clean build artifacts
         run: |
           make clean
