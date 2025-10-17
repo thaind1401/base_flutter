@@ -1,5 +1,5 @@
-#!/bin/zsh
-parent_path=$( cd "$(dirname "${(%):-%N}")" ; pwd -P ) # base_flutter_project/tools
+#!/bin/bash
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P ) # base_flutter_project/tools
 root_project_path=$(dirname $parent_path)
 env_path="$root_project_path/env/$1.env"
 
@@ -10,7 +10,7 @@ while read line || [ -n "$line" ]; do
     fi
 done < $env_path
 
-cd ../app
+cd "$root_project_path/app"
 # $1: develop
 # $2: build/run
 # $3 (optional): apk/appbundle/ios/ipa
