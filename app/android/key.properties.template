@@ -1,0 +1,25 @@
+# Android Signing Configuration Template
+# 
+# This file shows the structure needed for Android signing.
+# In CI/CD, GitHub Actions will create the actual key.properties file
+# from encrypted secrets, ensuring security.
+#
+# For local development:
+# 1. Copy this file to 'key.properties' 
+# 2. Fill in your actual values
+# 3. Make sure key.properties is in .gitignore (already configured)
+
+# Example structure (DO NOT PUT REAL VALUES HERE):
+# keystore.storeFile=../your_app.jks
+# keystore.storePassword=YOUR_STORE_PASSWORD  
+# keystore.keyAlias=YOUR_KEY_ALIAS
+# keystore.keyPassword=YOUR_KEY_PASSWORD
+
+# CI/CD Process:
+# 1. Secrets stored encrypted on GitHub
+# 2. Workflow creates key.properties from secrets
+# 3. Workflow creates .jks file from base64 secret
+# 4. Build runs with proper signing
+# 5. Files destroyed when workflow ends
+#
+# Security: Code is public, signing keys stay private!

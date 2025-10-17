@@ -221,6 +221,9 @@ gen_env:
 	dart pub get --directory=tools/gen_env
 	dart run tools/gen_env/lib/main.dart
 
+setup_android:
+	@bash ./tools/setup_android_local.sh
+
 pub_upgrade:
 	melos pub_upgrade
 	
