@@ -104,7 +104,7 @@ jobs:
     
     strategy:
       matrix:
-        flavor: [develop, qa, staging, production]
+        flavor: [dev, qa, stg, prod]
         
     steps:
       - name: 📚 Checkout repository
@@ -172,7 +172,7 @@ jobs:
     
     strategy:
       matrix:
-        flavor: [develop, staging, production]
+        flavor: [dev, stg, prod]
         
     steps:
       - name: 📚 Checkout repository
@@ -223,13 +223,13 @@ jobs:
       - name: 📥 Download production artifacts
         uses: actions/download-artifact@v4
         with:
-          name: appbundle-production
+          name: appbundle-prod
           path: ./artifacts/android/
 
       - name: 📥 Download iOS artifacts
         uses: actions/download-artifact@v4
         with:
-          name: ipa-production
+          name: ipa-prod
           path: ./artifacts/ios/
         continue-on-error: true
 
