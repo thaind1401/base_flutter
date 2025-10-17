@@ -44,6 +44,9 @@ jobs:
       - name: 📦 Bootstrap dependencies
         run: make sync
 
+      - name: 🔨 Generate code with build_runner
+        run: make build_all
+
       - name: 🧪 Run tests
         run: make test
         continue-on-error: false

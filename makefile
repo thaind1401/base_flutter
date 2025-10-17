@@ -16,6 +16,10 @@ remove_splash:
 	cd app && flutter pub run flutter_native_splash:remove --path=splash/splash.yaml
 
 gen_assets:
+	@echo "🔨 Generating assets for all modules..."
+	@melos run build_all
+
+gen_assets_app:
 	cd app && dart run build_runner build --delete-conflicting-outputs
 
 l10n:
@@ -220,6 +224,9 @@ check_commit_message:
 gen_env:
 	dart pub get --directory=tools/gen_env
 	dart run tools/gen_env/lib/main.dart
+
+setup_android:
+	@bash ./tools/setup_android_local.sh
 
 pub_upgrade:
 	melos pub_upgrade
