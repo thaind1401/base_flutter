@@ -44,8 +44,18 @@ jobs:
       - name: 📦 Bootstrap dependencies
         run: make sync
 
-      - name: 🎨 Check source code formatting
-        run: make format_check
+      - name: 🧹 Clean build artifacts
+        run: |
+          make clean
+          make clean_generated
+          flutter clean
+
+      - name: 🎨 Check source code formatting (source only)
+        run: |
+          echo "🔍 Checking source code format before generation..."
+          echo "Flutter version: $(flutter --version)"
+          echo "Dart version: $(dart --version)"
+          make format_check
 
       - name: 🔨 Generate code with build_runner
         run: make build_all

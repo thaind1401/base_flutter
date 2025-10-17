@@ -39,6 +39,13 @@ test_shared:
 clean:
 	@melos clean
 
+clean_generated:
+	@echo "🧹 Cleaning generated files..."
+	@find . -name "*.g.dart" -delete 2>/dev/null || true
+	@find . -name "*.config.dart" -delete 2>/dev/null || true  
+	@find . -name "*.freezed.dart" -delete 2>/dev/null || true
+	@echo "✅ Generated files cleaned"
+
 pub_get:
 	@melos bootstrap
 
