@@ -65,10 +65,23 @@ android {
 
    signingConfigs {
        release {
-           keyAlias localProperties.getProperty('keystore.keyAlias')
-           keyPassword localProperties.getProperty('keystore.keyPassword')
-           storeFile localProperties.getProperty('keystore.storeFile') ? file(localProperties.getProperty('keystore.storeFile')) : null
-           storePassword localProperties.getProperty('keystore.storePassword')
+           def keystorePropsFile = rootProject.file('local.properties')
+           def keystoreProps = new Properties()
+           if (keystorePropsFile.exists()) {
+               keystoreProps.load(new FileInputStream(keystorePropsFile))
+           }
+           
+           def hasKeystoreConfig = keystoreProps.getProperty('keystore.storeFile') != null &&
+                                 keystoreProps.getProperty('keystore.keyAlias') != null &&
+                                 keystoreProps.getProperty('keystore.storePassword') != null &&
+                                 keystoreProps.getProperty('keystore.keyPassword') != null
+           
+           if (hasKeystoreConfig) {
+               keyAlias keystoreProps.getProperty('keystore.keyAlias')
+               keyPassword keystoreProps.getProperty('keystore.keyPassword')
+               storeFile file(keystoreProps.getProperty('keystore.storeFile'))
+               storePassword keystoreProps.getProperty('keystore.storePassword')
+           }
        }
    }
 
@@ -78,8 +91,9 @@ android {
             shrinkResources false
         }
         release {
-            signingConfig signingConfigs.release
-            // signingConfig signingConfigs.debug
+            // Use release signing if keystore is available, otherwise use debug signing for local development
+            def hasReleaseKeystore = signingConfigs.release.storeFile != null
+            signingConfig hasReleaseKeystore ? signingConfigs.release : signingConfigs.debug
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

@@ -133,14 +133,21 @@ jobs:
 
       - name: 🔐 Setup Android signing
         run: |
-          echo "Creating key.properties file..."
-          echo "keystore.storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" > app/android/key.properties
-          echo "keystore.keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/key.properties
-          echo "keystore.keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/key.properties
-          echo "keystore.storeFile=release.jks" >> app/android/key.properties
+          echo "Creating local.properties file for Android signing..."
+          echo "flutter.sdk=$FLUTTER_ROOT" > app/android/local.properties
+          echo "keystore.storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> app/android/local.properties
+          echo "keystore.keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/local.properties
+          echo "keystore.keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/local.properties
+          echo "keystore.storeFile=release.jks" >> app/android/local.properties
           
           echo "Creating keystore file (.jks format)..."
           echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > app/android/app/release.jks
+          
+          echo "Verifying setup..."
+          echo "local.properties content:"
+          cat app/android/local.properties
+          echo "Keystore file:"
+          ls -la app/android/app/release.jks
 
       - name: �🔨 Build APK - ${{ matrix.flavor }}
         run: make build_${{ matrix.flavor }}_apk
