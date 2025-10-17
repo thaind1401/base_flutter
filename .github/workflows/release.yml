@@ -77,7 +77,7 @@ jobs:
       - name: 🌍 Generate environment files
         run: make gen_env
 
-      - name: � Generate code with build_runner
+      - name: 🔨 Generate code with build_runner
         run: make build_all
 
       - name:  Setup Android signing
