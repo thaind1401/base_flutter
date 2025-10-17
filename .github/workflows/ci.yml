@@ -94,9 +94,9 @@ jobs:
           file: coverage/lcov.info
           fail_ci_if_error: false
 
-  # Job 2: Build Android
+  # Job 2: Build Android (Production Only)
   build_android:
-    name: 🤖 Build Android
+    name: 🤖 Build Android (Production)
     runs-on: ubuntu-latest
     needs: quality_check
     if: github.event_name == 'push' || github.event_name == 'pull_request'
@@ -104,7 +104,7 @@ jobs:
     
     strategy:
       matrix:
-        flavor: [dev, qa, stg, prod]
+        flavor: [prod]
         
     steps:
       - name: 📚 Checkout repository
@@ -162,9 +162,9 @@ jobs:
           path: app/build/app/outputs/bundle/*Release/*.aab
           retention-days: 30
 
-  # Job 3: Build iOS
+  # Job 3: Build iOS (Production Only)
   build_ios:
-    name: 🍎 Build iOS
+    name: 🍎 Build iOS (Production)
     runs-on: macos-latest
     needs: quality_check
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
@@ -172,7 +172,7 @@ jobs:
     
     strategy:
       matrix:
-        flavor: [dev, stg, prod]
+        flavor: [prod]
         
     steps:
       - name: 📚 Checkout repository
