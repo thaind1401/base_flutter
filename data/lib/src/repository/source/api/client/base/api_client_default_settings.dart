@@ -15,7 +15,8 @@ class ApiClientDefaultSetting {
   // required interceptors
   static List<Interceptor> requiredInterceptors(Dio dio) => [
         if (kDebugMode) CustomLogInterceptor(),
-        ConnectivityInterceptor(GetIt.instance.get<ConnectivityServiceInterface>()),
+        ConnectivityInterceptor(
+            GetIt.instance.get<ConnectivityServiceInterface>()),
         RetryOnErrorInterceptor(dio),
       ];
 }

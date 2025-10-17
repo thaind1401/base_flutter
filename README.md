@@ -21,9 +21,6 @@ dart pub global activate fvm
 
 # Install Melos (Monorepo management)
 dart pub global activate melos
-
-# Install Lefthook (Git hooks - optional)
-gem install lefthook
 ```
 
 ### 2. Setup Flutter Version
@@ -48,9 +45,6 @@ make gen_env
 
 # Bootstrap dependencies and generate code
 make sync
-
-# Install git hooks (optional)
-lefthook install
 ```
 
 ### 4. Run the App

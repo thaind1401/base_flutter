@@ -8,7 +8,9 @@ class IntentUtils {
     final Uri uri = Uri.parse(url);
     return await canLaunchUrl(uri)
         ? await launchUrl(uri,
-            mode: inApp ? LaunchMode.inAppWebView : LaunchMode.externalApplication)
+            mode: inApp
+                ? LaunchMode.inAppWebView
+                : LaunchMode.externalApplication)
         : false;
   }
 }
