@@ -23,6 +23,8 @@ jobs:
     name: 🚀 Release Build & Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    # Only run for tags pushed from main branch
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref_type == 'tag' && github.event.base_ref == 'refs/heads/main')
     
     steps:
       - name: 📚 Checkout repository
