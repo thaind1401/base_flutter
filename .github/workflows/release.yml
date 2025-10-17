@@ -43,11 +43,11 @@ jobs:
           echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
           echo "📱 Building version: $VERSION for $ENVIRONMENT"
 
-      - name: ☕ Setup Java JDK
-        uses: actions/setup-java@v3
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '11'
 
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
@@ -90,7 +90,7 @@ jobs:
           fi
 
       - name: 📤 Upload App Bundle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-bundle-${{ steps.version.outputs.environment }}-${{ steps.version.outputs.version }}
           path: app/build/app/outputs/bundle/*Release/*.aab
@@ -98,21 +98,18 @@ jobs:
 
       - name: 📝 Create GitHub Release
         if: github.event_name == 'push'
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.version.outputs.version }}
-          draft: false
-          prerelease: false
-          body: |
-            ## 📱 Release ${{ steps.version.outputs.version }}
-            
-            ### 🚀 What's New
-            - Built with Flutter ${{ env.FLUTTER_VERSION }}
-            - Environment: ${{ steps.version.outputs.environment }}
-            - Build number: ${{ github.run_number }}
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title "Release ${{ steps.version.outputs.version }}" \
+            --notes "## 📱 Release ${{ steps.version.outputs.version }}
+
+          ### 🚀 What's New
+          - Built with Flutter ${{ env.FLUTTER_VERSION }}
+          - Environment: ${{ steps.version.outputs.environment }}
+          - Build number: ${{ github.run_number }}" \
+            ./app/build/app/outputs/bundle/*Release/*.aab
             
             ### 📦 Artifacts
             - Android App Bundle (AAB)
