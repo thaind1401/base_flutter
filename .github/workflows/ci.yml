@@ -291,10 +291,7 @@ jobs:
       - name: Build & distribute iOS app with Fastlane
         run: |
           cd ios
-          bundle exec fastlane ios release \
-            --cert_path=../ios/certs/cert.p12 \
-            --profile_path=../ios/profiles/profile.mobileprovision \
-            --api_key_path=../ios/AuthKey.p8
+          bundle exec fastlane ios release
         env:
           APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
