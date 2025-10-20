@@ -50,11 +50,6 @@ jobs:
           make clean_generated
           flutter clean
 
-      - name: 🚮 Remove generated files (prevent build_runner conflicts)
-        run: |
-          rm -f app/lib/resource/generated/assets.gen.dart
-          rm -f app/lib/navigation/routes/app_router.gr.dart
-
       - name: 🎨 Check source code formatting (source only)
         run: |
           echo "🔍 Checking source code format before generation..."
@@ -248,6 +243,50 @@ jobs:
 
       - name: 📦 Bootstrap dependencies
         run: make sync
+
+      # Setup Fastlane for iOS build/deploy
+      - name: Install dependencies for Fastlane
+        run: |
+          sudo gem install bundler
+          cd ios && bundle install || true
+
+      - name: Setup iOS certificate
+        run: |
+          mkdir -p ios/certs
+          echo "$IOS_CERTIFICATE" | base64 --decode > ios/certs/cert.p12
+        env:
+          IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
+
+      - name: Setup iOS provisioning profile
+        run: |
+          mkdir -p ios/profiles
+          echo "$IOS_PROVISIONING_PROFILE" | base64 --decode > ios/profiles/profile.mobileprovision
+        env:
+          IOS_PROVISIONING_PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE }}
+
+      - name: Setup App Store Connect API Key
+        run: |
+          mkdir -p ios
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY }}" > ios/AuthKey.p8
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+
+      - name: Ensure production.env exists (from secret)
+        run: |
+          mkdir -p env
+          echo "$PRODUCTION_ENV" > env/production.env
+        env:
+          PRODUCTION_ENV: ${{ secrets.PRODUCTION_ENV }}
+
+      - name: Build & distribute iOS app with Fastlane
+        run: |
+          cd ios
+          bundle exec fastlane ios release \
+            --cert_path=../ios/certs/cert.p12 \
+            --profile_path=../ios/profiles/profile.mobileprovision \
+            --api_key_path=../ios/AuthKey.p8
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
       - name: 🔨 Build iOS - ${{ matrix.flavor }}
         run: make build_${{ matrix.flavor }}_ios

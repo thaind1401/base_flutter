@@ -30,6 +30,11 @@ jobs:
       - name: 📚 Checkout repository
         uses: actions/checkout@v4
 
+      - name: 🧹 Remove Flutter/Dart lock files
+        run: |
+          rm -f $HOME/.flutter_tool_state
+          rm -f $HOME/.dart_tool/flutter_lock
+          echo "Lock files removed."
       - name: 🏷️ Get version from tag
         id: version
         run: |
@@ -77,12 +82,7 @@ jobs:
       - name: 🌍 Generate environment files
         run: make gen_env
 
-      - name: � Remove generated files (prevent build_runner conflicts)
-        run: |
-          rm -f app/lib/resource/generated/assets.gen.dart
-          rm -f app/lib/navigation/routes/app_router.gr.dart
-
-      - name: �🔨 Generate code with build_runner
+      - name: � Generate code with build_runner
         run: make build_all
 
       - name:  Setup Android signing
@@ -110,6 +110,75 @@ jobs:
 
       - name: 🧪 Run tests
         run: make test
+
+      # Setup Fastlane for iOS build/deploy
+      - name: Install dependencies for Fastlane
+        run: |
+          sudo gem install bundler
+          cd ios && bundle install || true
+
+      # Setup iOS certificate and provisioning profile from secrets
+      - name: Setup iOS certificate
+        run: |
+          mkdir -p ios/certs
+          echo "$IOS_CERTIFICATE" | base64 --decode > ios/certs/cert.p12
+        env:
+          IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
+
+      - name: Setup iOS provisioning profile
+        run: |
+          mkdir -p ios/profiles
+          echo "$IOS_PROVISIONING_PROFILE" | base64 --decode > ios/profiles/profile.mobileprovision
+        env:
+          IOS_PROVISIONING_PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE }}
+
+      # Setup Fastlane App Store Connect API Key
+      - name: Setup App Store Connect API Key
+        run: |
+          mkdir -p ios
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY }}" > ios/AuthKey.p8
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+
+      # Ensure production.env exists (from secret)
+      - name: Ensure production.env exists (from secret)
+        run: |
+          mkdir -p env
+          echo "$PRODUCTION_ENV" > env/production.env
+        env:
+          PRODUCTION_ENV: ${{ secrets.PRODUCTION_ENV }}
+
+      # Build and distribute iOS app with Fastlane
+      - name: Build & distribute iOS app with Fastlane
+        run: |
+          cd ios
+          bundle exec fastlane ios release \
+            --cert_path=../ios/certs/cert.p12 \
+            --profile_path=../ios/profiles/profile.mobileprovision \
+            --api_key_path=../ios/AuthKey.p8
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+
+      - name: Setup App Store Connect API Key
+        run: |
+          mkdir -p ios
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY }}" > ios/AuthKey.p8
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+
+      - name: Ensure production.env exists (from secret)
+        run: |
+          mkdir -p env
+          echo "$PRODUCTION_ENV" > env/production.env
+        env:
+          PRODUCTION_ENV: ${{ secrets.PRODUCTION_ENV }}
+
+      - name: Build iOS app with Fastlane
+        run: |
+          cd ios
+          bundle exec fastlane build
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
       - name: 🔨 Build Android Release (Production)
         run: |
