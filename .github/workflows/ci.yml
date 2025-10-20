@@ -50,6 +50,11 @@ jobs:
           make clean_generated
           flutter clean
 
+      - name: 🚮 Remove generated files (prevent build_runner conflicts)
+        run: |
+          rm -f app/lib/resource/generated/assets.gen.dart
+          rm -f app/lib/navigation/routes/app_router.gr.dart
+
       - name: 🎨 Check source code formatting (source only)
         run: |
           echo "🔍 Checking source code format before generation..."

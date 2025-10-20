@@ -77,7 +77,12 @@ jobs:
       - name: 🌍 Generate environment files
         run: make gen_env
 
-      - name: 🔨 Generate code with build_runner
+      - name: � Remove generated files (prevent build_runner conflicts)
+        run: |
+          rm -f app/lib/resource/generated/assets.gen.dart
+          rm -f app/lib/navigation/routes/app_router.gr.dart
+
+      - name: �🔨 Generate code with build_runner
         run: make build_all
 
       - name:  Setup Android signing
