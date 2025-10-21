@@ -254,6 +254,12 @@ jobs:
       - name: 📦 Bootstrap dependencies
         run: make sync
 
+      # Install CocoaPods dependencies
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install
+
       # Setup Fastlane for iOS build/deploy
       - name: Install dependencies for Fastlane
         run: |
