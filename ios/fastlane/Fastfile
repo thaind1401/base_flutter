@@ -4,7 +4,8 @@ platform :ios do
   desc "Build and release iOS app"
   lane :release do
     build_app(
-      scheme: "BaseFlutter"
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner"
       # Thêm các option khác nếu cần
     )
     # Thêm các bước upload, sign, testflight nếu cần
