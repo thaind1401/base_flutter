@@ -7,10 +7,10 @@ platform :ios do
       workspace: "Runner.xcworkspace",
       scheme: "Runner",
       export_method: "app-store",
-      export_team_id: ENV["DEVELOPMENT_TEAM"],
-      team_id: ENV["DEVELOPMENT_TEAM"]
+      export_team_id: ENV["DEVELOPMENT_TEAM"]
       # Thêm các option khác nếu cần
     )
+
     # Thêm các bước upload, sign, testflight nếu cần
   end
 end
