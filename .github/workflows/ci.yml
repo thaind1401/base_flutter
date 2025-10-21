@@ -268,6 +268,18 @@ jobs:
           sudo gem install bundler
           cd app/ios && bundle install || true
 
+      # Decode iOS certificate
+      - name: Decode iOS certificate
+        run: |
+          mkdir -p app/ios/certs
+          echo "${{ secrets.IOS_CERTIFICATE }}" | base64 --decode > app/ios/certs/cert.p12
+
+      # Decode iOS provisioning profile
+      - name: Decode iOS provisioning profile
+        run: |
+          mkdir -p app/ios/profiles
+          echo "${{ secrets.IOS_PROVISIONING_PROFILE }}" | base64 --decode > app/ios/profiles/profile.mobileprovision
+
       - name: Setup iOS certificate
         run: |
           mkdir -p app/ios/certs
