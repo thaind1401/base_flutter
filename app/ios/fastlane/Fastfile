@@ -5,7 +5,10 @@ platform :ios do
   lane :release do
     build_app(
       workspace: "Runner.xcworkspace",
-      scheme: "Runner"
+      scheme: "Runner",
+      export_method: "app-store",
+      export_team_id: ENV["DEVELOPMENT_TEAM"],
+      team_id: ENV["DEVELOPMENT_TEAM"]
       # Thêm các option khác nếu cần
     )
     # Thêm các bước upload, sign, testflight nếu cần

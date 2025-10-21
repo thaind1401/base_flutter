@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     
+    env:
+      DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
     steps:
       - name: 📚 Checkout repository
         uses: actions/checkout@v4
