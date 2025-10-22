@@ -291,13 +291,6 @@ jobs:
         run: |
           mkdir -p env
           echo "$PRODUCTION_ENV" > env/production.env
-   
-      - name: Install provisioning profile to system
-        run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp app/ios/profiles/profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-        env:
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
       - name: Build iOS app with Fastlane
         run: |
