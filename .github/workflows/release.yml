@@ -120,7 +120,7 @@ jobs:
       - name: Install dependencies for Fastlane
         run: |
           sudo gem install bundler
-          cd app/ios && bundle install || true
+          cd fastlane && bundle install || true
 
       # Setup iOS certificate and provisioning profile from secrets
       - name: Setup iOS certificate
@@ -156,41 +156,18 @@ jobs:
       # Build and distribute iOS app with Fastlane
       - name: Build & distribute iOS app with Fastlane
         run: |
-          cd app/ios
+          cd fastlane
           bundle exec fastlane ios release \
-            --cert_path=certs/cert.p12 \
-            --profile_path=profiles/profile.mobileprovision \
-            --api_key_path=AuthKey.p8
+            --cert_path=../app/ios/certs/cert.p12 \
+            --profile_path=../app/ios/profiles/profile.mobileprovision \
+            --api_key_path=../app/ios/AuthKey.p8
         env:
           APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
           IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
 
-      - name: 🔨 Build Android Release (Production)
-        run: |
-          echo "🧹 Cleaning gradle cache and build artifacts..."
-          cd app && flutter clean
-          
-          echo "🔍 Checking gradle wrapper..."
-          if [ -f "android/gradlew" ]; then
-            echo "✅ Found gradlew, cleaning gradle cache..."
-            
-            # Clean gradle properties that might conflict with CI environment
-            echo "🧹 Cleaning gradle user properties..."
-            rm -f ~/.gradle/gradle.properties
-            
-            # Java home is automatically set by actions/setup-java@v4
-            echo "☕ Using Java home: $JAVA_HOME"
-            
-            cd android && chmod +x gradlew && ./gradlew clean && cd ..
-          else
-            echo "⚠️  gradlew not found, skipping gradle clean"
-          fi
-          
-          cd ..
-          echo "🔨 Building production App Bundle..."
-          make build_prod_bundle
+      # Đã dùng Fastlane cho build APK/AAB, không cần step build bundle bằng make hoặc gradle thủ công nữa
 
       - name: 📤 Upload App Bundle
         uses: actions/upload-artifact@v4

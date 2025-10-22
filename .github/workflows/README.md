@@ -91,8 +91,6 @@ All workflows use your existing `makefile` commands:
 - `make build_all` - Generate code with build_runner
 - `make test` - Run all tests
 - `make analyze_*` - Static analysis per module
-- `make build_prod_apk` - Build production APK
-- `make build_prod_bundle` - Build production App Bundle
 - `make build_prod_ios` - Build production iOS
 - `make build_prod_ipa` - Build production IPA
 

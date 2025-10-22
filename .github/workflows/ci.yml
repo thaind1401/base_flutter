@@ -179,35 +179,12 @@ jobs:
           echo "  FLUTTER_ROOT: $FLUTTER_ROOT"
           echo "  JAVA_HOME: $JAVA_HOME"
 
-      - name: 🔨 Build APK - ${{ matrix.flavor }}
+      - name: 🔨 Build Android APK with Fastlane
         run: |
-          echo "🧹 Cleaning gradle cache and build artifacts..."
-          cd app && flutter clean
-          
-          echo "🔍 Checking gradle wrapper..."
-          if [ -f "android/gradlew" ]; then
-            echo "✅ Found gradlew, cleaning gradle cache..."
-            
-            # Clean gradle properties that might conflict with CI environment
-            echo "🧹 Cleaning gradle user properties..."
-            rm -f ~/.gradle/gradle.properties
-            
-            # Java home is automatically set by actions/setup-java@v4
-            echo "☕ Using Java home: $JAVA_HOME"
-            
-            cd android && chmod +x gradlew && ./gradlew clean && cd ..
-          else
-            echo "⚠️  gradlew not found, skipping gradle clean"
-          fi
-          
-          cd ..
-          echo "🔨 Building ${{ matrix.flavor }} APK..."
-          make build_${{ matrix.flavor }}_apk
+          cd fastlane
+          bundle exec fastlane build_android flavor:${{ matrix.flavor }}
 
-      - name: 📦 Build App Bundle - ${{ matrix.flavor }}
-        run: |
-          echo "📦 Building ${{ matrix.flavor }} App Bundle..."
-          make build_${{ matrix.flavor }}_bundle
+      # Đã dùng Fastlane cho build APK/AAB, không cần step build bundle bằng make nữa
 
       - name: 📤 Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -266,7 +243,7 @@ jobs:
       - name: Install dependencies for Fastlane
         run: |
           sudo gem install bundler
-          cd app/ios && bundle install || true
+          cd fastlane && bundle install || true
 
 
       # Decode iOS certificate
@@ -294,7 +271,7 @@ jobs:
 
       - name: Build iOS app with Fastlane
         run: |
-          cd app/ios
+          cd fastlane
           bundle exec fastlane build_flavor flavor:${{ matrix.flavor }}
         env:
           IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
