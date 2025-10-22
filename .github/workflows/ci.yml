@@ -179,6 +179,15 @@ jobs:
           echo "  FLUTTER_ROOT: $FLUTTER_ROOT"
           echo "  JAVA_HOME: $JAVA_HOME"
 
+      - name: Install Ruby & Bundler
+        run: |
+          brew install ruby
+          gem install bundler
+
+      - name: Install dependencies for Fastlane
+        run: |
+          cd fastlane && bundle install || true
+
       - name: 🔨 Build Android APK with Fastlane
         run: |
           cd fastlane
@@ -242,8 +251,7 @@ jobs:
       # Setup Fastlane for iOS build/deploy
       - name: Install Ruby & Bundler
         run: |
-          sudo apt-get update
-          sudo apt-get install ruby-full
+          brew install ruby
           gem install bundler
 
       - name: Install dependencies for Fastlane

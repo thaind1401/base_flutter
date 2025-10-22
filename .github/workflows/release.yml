@@ -119,8 +119,7 @@ jobs:
       # Setup Fastlane for iOS build/deploy
       - name: Install Ruby & Bundler
         run: |
-          sudo apt-get update
-          sudo apt-get install ruby-full
+          brew install ruby
           gem install bundler
 
       - name: Install dependencies for Fastlane
