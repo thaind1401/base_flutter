@@ -181,7 +181,8 @@ jobs:
 
       - name: Install Ruby & Bundler
         run: |
-          brew install ruby
+          sudo apt-get update
+          sudo apt-get install ruby-full
           gem install bundler
 
       - name: Install dependencies for Fastlane

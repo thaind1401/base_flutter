@@ -117,7 +117,15 @@ jobs:
         run: make test
 
       # Setup Fastlane for iOS build/deploy
-      - name: Install Ruby & Bundler
+      - name: Install Ruby & Bundler (Android)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install ruby-full
+          gem install bundler
+
+      - name: Install Ruby & Bundler (iOS)
+        if: runner.os == 'macOS'
         run: |
           brew install ruby
           gem install bundler
