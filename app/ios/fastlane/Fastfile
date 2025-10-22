@@ -8,7 +8,8 @@ platform :ios do
     output_name = "BaseFlutter_#{flavor}.ipa"
     import_certificate(
       certificate_path: "./certs/cert.p12",
-      certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"]
+      certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"],
+      keychain_name: "login.keychain-db"
     )
     build_app(
       scheme: scheme,
