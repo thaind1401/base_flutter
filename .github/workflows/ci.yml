@@ -302,15 +302,11 @@ jobs:
       - name: Build iOS app with Fastlane
         run: |
           cd app/ios
-          bundle exec fastlane dev_build
+          bundle exec fastlane build_flavor flavor:${{ matrix.flavor }}
         env:
           IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
 
-      - name: 📦 Build IPA - ${{ matrix.flavor }}
-        run: make build_${{ matrix.flavor }}_ipa
-        continue-on-error: true
-
-      - name: 📤 Upload IPA artifact
+      - name:  Upload IPA artifact
         uses: actions/upload-artifact@v4
         if: success()
         with:

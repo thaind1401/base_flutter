@@ -11,4 +11,20 @@ platform :ios do
       certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"]
     )
   end
+
+  desc "Build iOS Development build for any flavor"
+  lane :build_flavor do |options|
+    flavor = options[:flavor] || "prod"
+    scheme = flavor.capitalize # ví dụ: prod -> Prod
+    output_name = "BaseFlutter_#{flavor}.ipa"
+    build_app(
+      scheme: scheme,
+      export_method: "development",
+      output_directory: "./build/ios",
+      output_name: output_name,
+      certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"]
+    )
+  end
 end
+
+# Sử dụng: fastlane build_flavor flavor:prod hoặc flavor:qa, flavor:stg, flavor:dev
