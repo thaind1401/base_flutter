@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: 📚 Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: 🧹 Remove Flutter/Dart lock files
         run: |
           rm -f $HOME/.flutter_tool_state
@@ -163,6 +163,7 @@ jobs:
             --api_key_path=AuthKey.p8
         env:
           APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
 
       - name: Setup App Store Connect API Key
         run: |

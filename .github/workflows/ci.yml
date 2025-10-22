@@ -301,6 +301,8 @@ jobs:
 
       - name: 🔨 Build iOS - ${{ matrix.flavor }}
         run: make build_${{ matrix.flavor }}_ios
+        env:
+          IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
 
       - name: 📦 Build IPA - ${{ matrix.flavor }}
         run: make build_${{ matrix.flavor }}_ipa

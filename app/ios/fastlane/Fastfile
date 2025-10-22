@@ -1,16 +1,14 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Build and release iOS app"
-  lane :release do
+  desc "Build iOS Development build"
+  lane :dev_build do
     build_app(
-      workspace: "Runner.xcworkspace",
       scheme: "Runner",
-      export_method: "app-store",
-      export_team_id: ENV["DEVELOPMENT_TEAM"]
-      # Thêm các option khác nếu cần
+      export_method: "development",
+      output_directory: "./build/ios",
+      output_name: "BaseFlutter.ipa",
+      certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"]
     )
-
-    # Thêm các bước upload, sign, testflight nếu cần
   end
 end
