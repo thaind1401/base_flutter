@@ -240,9 +240,14 @@ jobs:
           pod install
 
       # Setup Fastlane for iOS build/deploy
+      - name: Install Ruby & Bundler
+        run: |
+          sudo apt-get update
+          sudo apt-get install ruby-full
+          gem install bundler
+
       - name: Install dependencies for Fastlane
         run: |
-          sudo gem install bundler
           cd fastlane && bundle install || true
 
 

@@ -117,9 +117,14 @@ jobs:
         run: make test
 
       # Setup Fastlane for iOS build/deploy
+      - name: Install Ruby & Bundler
+        run: |
+          sudo apt-get update
+          sudo apt-get install ruby-full
+          gem install bundler
+
       - name: Install dependencies for Fastlane
         run: |
-          sudo gem install bundler
           cd fastlane && bundle install || true
 
       # Setup iOS certificate and provisioning profile from secrets
@@ -165,9 +170,6 @@ jobs:
           APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
           IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-
-
-      # Đã dùng Fastlane cho build APK/AAB, không cần step build bundle bằng make hoặc gradle thủ công nữa
 
       - name: 📤 Upload App Bundle
         uses: actions/upload-artifact@v4
