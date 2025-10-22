@@ -235,7 +235,7 @@ jobs:
     
     strategy:
       matrix:
-        flavor: [prod]
+        flavor: [Production]
         
     steps:
       - name: 📚 Checkout repository

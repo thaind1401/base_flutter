@@ -1,30 +1,22 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Build iOS Development build"
-  lane :dev_build do
-    build_app(
-      scheme: "Runner",
-      export_method: "development",
-      output_directory: "./build/ios",
-      output_name: "BaseFlutter.ipa",
-      certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"]
-    )
-  end
-
   desc "Build iOS Development build for any flavor"
   lane :build_flavor do |options|
-    flavor = options[:flavor] || "prod"
-    scheme = flavor.capitalize # ví dụ: prod -> Prod
+    flavor = options[:flavor] || "Production"
+    scheme = flavor # Schema của bạn: Production, Qa, Staging, Develop
     output_name = "BaseFlutter_#{flavor}.ipa"
+    import_certificate(
+      certificate_path: "./certs/cert.p12",
+      certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"]
+    )
     build_app(
       scheme: scheme,
       export_method: "development",
       output_directory: "./build/ios",
-      output_name: output_name,
-      certificate_password: ENV["IOS_CERTIFICATE_PASSWORD"]
+      output_name: output_name
     )
   end
 end
 
-# Sử dụng: fastlane build_flavor flavor:prod hoặc flavor:qa, flavor:stg, flavor:dev
+# Sử dụng: fastlane build_flavor flavor:Production hoặc flavor:Qa, flavor:Staging, flavor:Develop
