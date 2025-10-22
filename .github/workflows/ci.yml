@@ -299,8 +299,10 @@ jobs:
         env:
           APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
-      - name: 🔨 Build iOS - ${{ matrix.flavor }}
-        run: make build_${{ matrix.flavor }}_ios
+      - name: Build iOS app with Fastlane
+        run: |
+          cd app/ios
+          bundle exec fastlane dev_build
         env:
           IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
 
