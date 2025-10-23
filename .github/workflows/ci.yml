@@ -183,7 +183,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install ruby-full
-          gem install bundler
+          gem install --user-install bundler
+          echo 'export PATH="$HOME/.local/share/gem/ruby/3.2.0/bin:$PATH"' >> $GITHUB_ENV
 
       - name: Install dependencies for Fastlane
         run: |
@@ -263,8 +264,8 @@ jobs:
       # Decode iOS certificate
       - name: Decode iOS certificate
         run: |
-          mkdir -p app/ios/certs
-          echo "${{ secrets.IOS_CERTIFICATE }}" | base64 --decode > app/ios/certs/cert.p12
+          mkdir -p fastlane/certs
+          echo "${{ secrets.IOS_CERTIFICATE }}" | base64 --decode > fastlane/certs/cert.p12
 
       # Decode iOS provisioning profile
       - name: Decode iOS provisioning profile
