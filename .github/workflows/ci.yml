@@ -270,8 +270,12 @@ jobs:
           echo "${{ secrets.IOS_CERTIFICATE }}" | base64 --decode > fastlane/certs/cert.p12
       - name: Kiểm tra cert.p12
         run: |
+          echo "--- Thông tin file cert.p12 ---"
           ls -la fastlane/certs/
           file fastlane/certs/cert.p12
+          stat fastlane/certs/cert.p12 || true
+          echo "--- Thử đọc file cert.p12 ---"
+          cat fastlane/certs/cert.p12 > /dev/null && echo "Đọc file thành công" || echo "Không đọc được file"
           if [ ! -s fastlane/certs/cert.p12 ]; then
             echo "❌ File cert.p12 không tồn tại hoặc rỗng! Kiểm tra lại secrets.IOS_CERTIFICATE."
             exit 1
