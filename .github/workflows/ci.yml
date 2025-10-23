@@ -195,7 +195,7 @@ jobs:
         run: |
           cd fastlane
           export PATH="$HOME/.local/share/gem/ruby/3.2.0/bin:$PATH"
-          bundle exec fastlane build_android flavor:${{ matrix.flavor }}
+          bundle exec fastlane android build_android flavor:${{ matrix.flavor }}
 
       # Đã dùng Fastlane cho build APK/AAB, không cần step build bundle bằng make nữa
 
