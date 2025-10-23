@@ -194,6 +194,7 @@ jobs:
       - name: 🔨 Build Android APK with Fastlane
         run: |
           cd fastlane
+          export PATH="$HOME/.local/share/gem/ruby/3.2.0/bin:$PATH"
           bundle exec fastlane build_android flavor:${{ matrix.flavor }}
 
       # Đã dùng Fastlane cho build APK/AAB, không cần step build bundle bằng make nữa
@@ -271,6 +272,10 @@ jobs:
         run: |
           ls -la fastlane/certs/
           file fastlane/certs/cert.p12
+          if [ ! -s fastlane/certs/cert.p12 ]; then
+            echo "❌ File cert.p12 không tồn tại hoặc rỗng! Kiểm tra lại secrets.IOS_CERTIFICATE."
+            exit 1
+          fi
 
       # Decode iOS provisioning profile
       - name: Decode iOS provisioning profile
