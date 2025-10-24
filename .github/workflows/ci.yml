@@ -264,6 +264,12 @@ jobs:
 
 
       # Decode iOS certificate
+      - name: Kiểm tra biến secrets.IOS_CERTIFICATE
+        run: |
+          if [ -z "${{ secrets.IOS_CERTIFICATE }}" ]; then
+            echo "❌ Biến secrets.IOS_CERTIFICATE chưa được thiết lập hoặc rỗng!"
+            exit 1
+          fi
       - name: Decode iOS certificate
         run: |
           mkdir -p fastlane/certs
