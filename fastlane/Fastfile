@@ -35,6 +35,7 @@ platform :ios do
       keychain_password: ENV["KEYCHAIN_PASSWORD"]
     )
     build_app(
+      workspace: "app/ios/Runner.xcworkspace",
       scheme: scheme,
       export_method: "development",
       output_directory: "./build/ios",
