@@ -145,6 +145,12 @@ jobs:
       - name: 📦 Bootstrap dependencies
         run: make sync
 
+      - name: 🧹 Clean build & plugin registry
+        run: |
+          rm -rf app/build app/.dart_tool app/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java || true
+          flutter clean
+          flutter pub get
+
       - name: 🌍 Generate environment files
         run: make gen_env
 
