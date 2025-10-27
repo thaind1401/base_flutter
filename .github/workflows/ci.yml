@@ -60,17 +60,13 @@ jobs:
           echo "Will re-enable once we have consistent formatting environment"
           # make format_check_debug
 
-      - name: 🚮 Remove generated files (prevent build_runner conflicts)
+      - name: 🔨 Generate code with build_runner (all modules)
         run: |
-          rm -f app/lib/resource/generated/assets.gen.dart
-          rm -f app/lib/navigation/routes/app_router.gr.dart
-          # Xóa toàn bộ file sinh ra bởi build_runner trong workspace để tránh xung đột
-          find . -name "*.freezed.dart" -delete
-          find . -name "*.config.dart" -delete
-
-      - name: 🔨 Generate code with build_runner
-        run: make build_all
-
+          melos run build_shared -- --delete-conflicting-outputs
+          melos run build_domain -- --delete-conflicting-outputs
+          melos run build_data -- --delete-conflicting-outputs
+          melos run build_app -- --delete-conflicting-outputs
+          
       - name: 🧪 Run tests
         run: make test
         continue-on-error: false
