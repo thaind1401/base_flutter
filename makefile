@@ -70,13 +70,13 @@ build_all:
 	@echo "🔄 Building modules in order: shared → domain → data → app"
 	@echo ""
 	@echo "1️⃣ Building shared module..."
-	@melos run build_shared
+	@melos run force_build_shared
 	@echo "2️⃣ Building domain module..."
-	@melos run build_domain
+	@melos run force_build_domain
 	@echo "3️⃣ Building data module..."
-	@melos run build_data
+	@melos run force_build_data
 	@echo "4️⃣ Building app module..."
-	@melos run build_app
+	@melos run force_build_app
 	@echo ""
 	@echo "🎨 Formatting generated code..."
 	@melos run format
