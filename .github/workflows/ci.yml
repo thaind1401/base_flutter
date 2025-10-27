@@ -64,9 +64,9 @@ jobs:
         run: |
           rm -f app/lib/resource/generated/assets.gen.dart
           rm -f app/lib/navigation/routes/app_router.gr.dart
-          # Xóa toàn bộ file sinh ra bởi build_runner để tránh xung đột
-          find app/lib -name "*.freezed.dart" -delete
-          find app/lib -name "*.config.dart" -delete
+          # Xóa toàn bộ file sinh ra bởi build_runner trong workspace để tránh xung đột
+          find . -name "*.freezed.dart" -delete
+          find . -name "*.config.dart" -delete
 
       - name: 🔨 Generate code with build_runner
         run: make build_all
